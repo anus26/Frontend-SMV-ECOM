@@ -1,39 +1,38 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { decreaseQty, increaseQty, removeFromCart } from "../../redux/slices/cartSlice";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/slices/cartSlice";
 
+const products = [
+  { id: 1, title: "Lenovo Laptop", price: 300, image: "/image/01.jpg", description: "Lenovo laptop 16GB RAM, 512 SSD" },
+  { id: 2, title: "Dell Laptop", price: 350, image: "/image/02.jpg", description: "Dell Laptop 16GB RAM, 1TB SSD" },
+];
 
-const Cart = () => {
-  const { items } = useSelector(state => state.cart);
+const cart = () => {
+  const { id } = useParams(); // URL se product id
   const dispatch = useDispatch();
 
-  const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const product = products.find((p) => p.id === parseInt(id));
+
+  if (!product) return <p>Product not found</p>;
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+    <div className="p-8 flex gap-8">
+      <img src={product.image} alt={product.title} className="w-96 h-96 object-cover" />
+      <div>
+        <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
+        <p className="mb-4">{product.description}</p>
+        <p className="text-green-600 font-bold mb-4">{product.price} Rs</p>
 
-      {items.length === 0 && <p>Cart is empty</p>}
-
-      {items.map(item => (
-        <div key={item.id} className="flex items-center gap-4 mb-4">
-          <img src={item.image} className="w-24 h-24 object-cover" />
-          <div>
-            <h2 className="font-semibold">{item.title}</h2>
-            <p>Price: {item.price} Rs</p>
-            <p>Qty: {item.quantity}</p>
-          </div>
-          <div className="flex flex-col gap-1">
-            <button onClick={() => dispatch(increaseQty(item.id))} className="px-2 py-1 bg-gray-200 rounded">+</button>
-            <button onClick={() => dispatch(decreaseQty(item.id))} className="px-2 py-1 bg-gray-200 rounded">-</button>
-            <button onClick={() => dispatch(removeFromCart(item.id))} className="px-2 py-1 bg-red-500 text-white rounded">Remove</button>
-          </div>
-        </div>
-      ))}
-
-      {items.length > 0 && <h2 className="text-xl font-bold mt-4">Total: {totalPrice} Rs</h2>}
+        <button
+          onClick={() => dispatch(addToCart(product))}
+          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+        >
+          Add to Cart
+        </button>
+      </div>
     </div>
   );
 };
 
-export default Cart;
+export default cart;

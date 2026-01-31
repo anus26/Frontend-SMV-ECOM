@@ -18,7 +18,7 @@ const Smvecom = () => {
   <Route path='Admin' element={<Admin/>}/>
   <Route path='Seller' element={<Seller/>}/>
       <Route path="Product" element={<Product />} />
-        <Route path="cart" element={<Cart />} />
+        <Route path="product/:id" element={<Cart />} />
   
 </Routes>
 </BrowserRouter>
