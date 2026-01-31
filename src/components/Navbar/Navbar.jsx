@@ -2,6 +2,7 @@ import React from 'react'
 import { CiSearch } from "react-icons/ci";
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { CiShoppingCart } from "react-icons/ci";
 const Navbar = () => {
     const cartItems = useSelector((state) => state.cart.items);
   return (
@@ -22,11 +23,11 @@ const Navbar = () => {
     <CiSearch />
   </span>
     </div>
-
-      </div>
-      <Link to="/cart">
-        🛒 Cart ({cartItems.length})
+     
+      <Link to="/cart" className='flex'>
+     <CiShoppingCart className='font-medium text-2xl' />({cartItems.length})
       </Link>
+      </div>
     </div>
   </section>
   </>

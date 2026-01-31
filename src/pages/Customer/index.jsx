@@ -6,7 +6,6 @@ const Customer = () => {
   return (
 <>
 <section>
-    <Navbar/>
     <Content/>
      <section className="p-8">
         <Product />
