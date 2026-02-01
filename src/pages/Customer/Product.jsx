@@ -5,7 +5,7 @@ import ProductCard from "../../components/Customer/ProductCard";
 const Product = () => {
   const products = [
     { id: 1, title: "Lenovo Laptop", price: 300, image: ["/image/01.jpg", "/image/02.jpg"]},
-    { id: 2, title: "Dell Laptop", price: 350, image: "/image/02.jpg" },
+    { id: 2, title: "Dell Laptop", price: 350, image: ["/image/02.jpg","/image/01.jpg"] },
   ];
 
   return (

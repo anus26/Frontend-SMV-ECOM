@@ -25,16 +25,16 @@ const Content = () => {
       className="w-full h-full object-cover duration-700  transition-all ease-in-out"
     />
 
-    <div className="absolute inset-0 bg-black/30"></div>
+    <div className="absolute inset-0 bg-color2/30"></div>
 
-    <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
+    <div className="absolute inset-0 flex flex-col items-center justify-center text-light text-center px-4">
       <h1 className="text-4xl md:text-5xl font-bold mb-3">
         Welcome to SMV-ECOM
       </h1>
       <p className="text-lg mb-6 max-w-xl">
         Discover the best products at unbeatable prices
       </p>
-      <button className="px-6 py-3 rounded-full bg-green-500 hover:bg-green-600 transition">
+      <button className="px-6 py-3 rounded-full bg-greenDark hover:bg-green1 transition">
         Shop Now
       </button>
     </div>

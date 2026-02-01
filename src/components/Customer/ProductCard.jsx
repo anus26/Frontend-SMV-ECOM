@@ -16,10 +16,12 @@ const ProductCard = ({ product }) => {
         />
           </div>
         <h2 className="font-semibold">{product.title}</h2>
-        <p className="text-green-600 font-bold">{product.price} Rs</p>
+        <p className="text-greenDark font-bold">{product.price} Rs</p>
       </Link>
     </div>
   );
 };
 
+
 export default ProductCard;
+                            
