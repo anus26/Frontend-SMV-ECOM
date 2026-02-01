@@ -6,10 +6,14 @@ const Customer = () => {
   return (
 <>
 <section>
+  <div className=''>
+
     <Content/>
+  </div>
      <section className="p-8">
         <Product />
       </section>
+        <br /><br />
 </section>
 </>
   )
