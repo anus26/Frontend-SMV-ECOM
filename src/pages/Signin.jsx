@@ -1,9 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Signin = () => {
+  
   return (
     <div className="min-h-screen flex items-center justify-center ">
-      <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-lg">
+      <div className="bg-color1 w-full max-w-md p-8 rounded-2xl shadow-lg">
         
         <h1 className="text-3xl font-bold text-center mb-2">Welcome Back 👋</h1>
         <p className="text-gray4 text-center mb-6">
@@ -43,14 +45,14 @@ const Signin = () => {
             type="submit"
             className="w-full py-2 bg-greenDark text-white rounded-lg font-semibold hover:bg-greenDark transition"
           >
-            Sign In
+           <Link to='/Signup'>Sign In</Link> 
           </button>
         </form>
 
         <p className="text-center text-sm text-gray mt-6">
           Don’t have an account?
           <span className="text-greenDark cursor-pointer ml-1 hover:underline">
-            Sign up
+           <Link to='/signup'>Sign up</Link> 
           </span>
         </p>
       </div>
