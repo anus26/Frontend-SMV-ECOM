@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signinUser } from "../redux/slices/authSlice";
+import useAuth from "../redux/hooks/useauth";
 
 const Signin = () => {
   const dispatch=useDispatch()
- const {loading,error,user}=useSelector(state=>state.auth)
+  const {user,loading,error}=useAuth()
   const [formData,setFormData]=useState({
     email:"",
         password:""
@@ -78,9 +79,12 @@ const Signin = () => {
             type="submit"
             className="w-full py-2 bg-greenDark text-white rounded-lg font-semibold hover:bg-greenDark transition"
           >
-           <Link to='/Signup'>Sign In</Link> 
+           Sign In
+        
           </button>
+            {loading && <p className="text-center text-sm text-gray">Loading...</p>}
         </form>
+        {error && <p className="text-center text-sm text-red-500 mt-4">{error}</p>}
 
         <p className="text-center text-sm text-gray mt-6">
           Don’t have an account?

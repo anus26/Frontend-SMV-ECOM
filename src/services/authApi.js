@@ -11,6 +11,10 @@ export const SignupApi=async(data)=>{
     
 }
 export const SigninApi=async(data)=>{
-    const res=await axios.post("/signin",data)
+    const res=await API.post("/signin",data)
+    return res.data
+}
+export const getMe=async(data)=>{
+    const res=await API.get("/me",data)
     return res.data
 }

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { SignupApi, SigninApi } from "../../services/authApi";
+import { SignupApi, SigninApi, getMe } from "../../services/authApi";
 
 const initialState = {
   user: null,
@@ -30,6 +30,17 @@ export const signinUser = createAsyncThunk(
     }
   }
 );
+export const getUser=createAsyncThunk(
+    "auth/me",
+    async(data,{rejectWithValue})=>{
+        try {
+            return await getMe(data)
+
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message||"Get user failed")
+        }
+    }
+)
 
 const authSlice = createSlice({
   name: "auth",
@@ -59,24 +70,38 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-
-      // 🔹 SIGNIN
+// signin
       .addCase(signinUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(signinUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.data;
-            localStorage.setItem("user",JSON.stringify(action.payload.user))
+        state.user = action.payload.safeUser;
+            localStorage.setItem("user",JSON.stringify(action.payload.safeUser))
         console.log("signup action",action.payload);
       })
       .addCase(signinUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
-  },
-});
+      })
+
+    //   getme
+     .addCase(getUser.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(getUser.fulfilled,(state,action)=>{
+    state.loading=false;
+    state.user=action.payload.safeUser
+    
+    
+    })
+      .addCase(getUser.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+},
+})
 
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;
