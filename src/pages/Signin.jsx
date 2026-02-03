@@ -1,8 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { signinUser } from "../redux/slices/authSlice";
 
 const Signin = () => {
-  
+  const dispatch=useDispatch()
+ const {loading,error,user}=useSelector(state=>state.auth)
+  const [formData,setFormData]=useState({
+    email:"",
+        password:""
+  })
+  const navigate=useNavigate()
+  const handleChange=(e)=>{
+    setFormData({
+      ...formData,
+      [e.target.name]:e.target.value
+    })
+  }
+  const handleSubmit=(e)=>{
+    e.preventDefault()
+    dispatch(signinUser(formData))
+  }
+   useEffect(() => {
+    if (user) {
+      if (user.role === "seller") {
+        navigate("/seller");
+      } else if (user.role === "customer") {
+        navigate("/");
+      }
+    }
+  }, [user, navigate]);
   return (
     <div className="min-h-screen flex items-center justify-center ">
       <div className="bg-color1 w-full max-w-md p-8 rounded-2xl shadow-lg">
@@ -12,11 +39,14 @@ const Signin = () => {
           Sign in to continue to SMV-ECOM
         </p>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm font-medium mb-1">Email</label>
             <input
               type="email"
+              onChange={handleChange}
+              name="email"
+              value={formData.email}
               placeholder="example@email.com"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-greenDark"
             />
@@ -27,6 +57,9 @@ const Signin = () => {
             <input
               type="password"
               placeholder="********"
+              value={formData.password}
+              name="password"
+              onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-greenDark"
             />
           </div>

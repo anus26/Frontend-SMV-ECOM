@@ -23,11 +23,13 @@ const Signup = () => {
     const handleSubmit=(e)=>{
         e.preventDefault()
       dispatch(signupUser(formData))
-      // console.log(signupUser);
-
-      
-      // navigate("/signin")
+  
     }
+//     useEffect(() => {
+//   if (user) {
+//     navigate("/signin"); 
+//   }
+// }, [user, navigate]);
  useEffect(() => {
   if (user) {
     if (user.role === "seller") {

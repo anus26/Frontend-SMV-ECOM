@@ -44,16 +44,15 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      // 🔹 SIGNUP
       .addCase(signupUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
-        localStorage.setItem("user",JSON.stringify(action.payload.user))
-        console.log("signup action",action.payload.user);
+        state.user = action.payload.safeUser;
+        localStorage.setItem("user",JSON.stringify(action.payload.safeUser))
+        console.log("signup action",action.payload.safeUser);
         
       })
       .addCase(signupUser.rejected, (state, action) => {
