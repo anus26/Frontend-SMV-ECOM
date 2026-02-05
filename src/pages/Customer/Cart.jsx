@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart, decreaseQty, increaseQty } from "../../redux/slices/cartSlice";
+import usecart from "../../redux/hooks/usecart";
 
 
 
@@ -10,10 +11,7 @@ const cart = () => {
   const { id } = useParams(); // URL se product id
   const dispatch = useDispatch();
   const {product}=usecart()
-  useEffect(()=>{
-    dispatch(productApI())
-  },[dispatch])
-  
+ 
 
   const addproduct = product.find((p) => p._id === id);
 // const [mainImage,setMainImage]=useState(product.image[0)

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { SignupApi, SigninApi, getMe } from "../../services/authApi";
 
 const initialState = {
-  user: localStorage.getItem("user"),
+  user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
   loading: false,
   error: null,
 };

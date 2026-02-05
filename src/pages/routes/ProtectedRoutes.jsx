@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router";
 import useAuth from "../../redux/hooks/useauth";
 
-const ProtectedRoutes = ({allowedRole}) => {
+const ProtectedRoutes = ({allowedRoles}) => {
     const { user, loading } = useAuth();
 
     if (loading) {
@@ -10,9 +10,14 @@ const ProtectedRoutes = ({allowedRole}) => {
     if (!user) {
         return <Navigate to="/signin" replace />;
     }
-    if (allowedRole&&!allowedRole.includes(user.role)) {
+    if (allowedRoles&&!allowedRoles.includes(user.role)) {
         return <Navigate to="/" replace />;
     }
-    return <Outlet />;
+    console.log(user.role);
+    console.log("USER:", user);
+console.log("ROLE CHECK:", user.role, allowedRoles);
+
+    
+    return <Outlet/>;
 }
 export default ProtectedRoutes;

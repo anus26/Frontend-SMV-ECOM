@@ -5,14 +5,14 @@ import { useDispatch } from 'react-redux';
 import { getUser } from '../../redux/slices/authSlice';
 
 const Layouts = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
+
   return (
 <>
 <div className='bg-white h-full'>
-<Navbar/>
+  
+    
+ <Navbar/>
+  
 <div className=''>
 
 <Outlet />
