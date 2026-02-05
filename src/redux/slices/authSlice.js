@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { SignupApi, SigninApi, getMe } from "../../services/authApi";
 
 const initialState = {
-  user: null,
+  user: localStorage.getItem("user"),
   loading: false,
   error: null,
 };
@@ -18,8 +18,7 @@ export const signupUser = createAsyncThunk(
     }
   }
 );
-
-// ✅ Signin thunk
+// signin
 export const signinUser = createAsyncThunk(
   "auth/signin",
   async (data, { rejectWithValue }) => {
@@ -30,6 +29,7 @@ export const signinUser = createAsyncThunk(
     }
   }
 );
+// get me
 export const getUser=createAsyncThunk(
     "auth/me",
     async(data,{rejectWithValue})=>{
@@ -37,6 +37,9 @@ export const getUser=createAsyncThunk(
             return await getMe(data)
 
         } catch (error) {
+            if (error.response?.status === 401) {
+        localStorage.removeItem("user");
+      }
             return rejectWithValue(error.response?.data?.message||"Get user failed")
         }
     }
@@ -92,7 +95,9 @@ const authSlice = createSlice({
     })
     .addCase(getUser.fulfilled,(state,action)=>{
     state.loading=false;
-    state.user=action.payload.safeUser
+    state.user=action.payload.user
+    console.log("get user",action.payload);
+    
     
     
     })

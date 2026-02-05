@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductCard from "../../components/Customer/ProductCard";
+import { useDispatch } from "react-redux";
+import usecart from "../../redux/hooks/usecart";
+import { productApI } from "../../redux/slices/cartslice";
 
 
 const Product = () => {
-  const products = [
-    { id: 1, title: "Lenovo Laptop", price: 300, image: ["/image/01.jpg", "/image/02.jpg"]},
-    { id: 2, title: "Dell Laptop", price: 350, image: ["/image/02.jpg","/image/01.jpg"] },
-  ];
+ 
+  const dispatch=useDispatch()
+  const {product,loading,error}=usecart()
 
+useEffect(()=>{
+  dispatch(productApI())
+},[dispatch])
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
   return (
     <div className="flex w-[50%]   gap-5 p-8 bord">
-      {products.map(product => (
-        <ProductCard key={product.id} product={product} />
+       {product?.map((item) => (
+        <ProductCard key={item._id } item={item} />
       ))}
     </div>
   );

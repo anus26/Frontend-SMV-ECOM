@@ -31,15 +31,15 @@ const Signup = () => {
 //     navigate("/signin"); 
 //   }
 // }, [user, navigate]);
- useEffect(() => {
-  if (user) {
-    if (user.role === "seller") {
-      navigate("/seller");
-    } else if (user.role === "customer") {
-      navigate("/");
-    }
-  }
-}, [user, navigate]);
+//  useEffect(() => {
+//   if (user) {
+//     if (user.role === "seller") {
+//       navigate("/seller");
+//     } else if (user.role === "customer") {
+//       navigate("/");
+//     }
+//   }
+// }, [user, navigate]);
 
     
   return (
@@ -109,8 +109,9 @@ const Signup = () => {
   onChange={handleChange}
   className="w-full px-4 py-2 border rounded-lg"
 >
-  <option value="customer">Customer</option>
-  <option value="seller">Seller</option>
+  <option value="customer">customer</option>
+  <option value="seller">seller</option>
+  <option value="Admin">Admin</option>
 </select>
 
 

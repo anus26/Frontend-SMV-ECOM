@@ -29,6 +29,9 @@ const Signin = () => {
       } else if (user.role === "customer") {
         navigate("/");
       }
+        else if (user.role === "Admin") {
+        navigate("/Admin");
+      }
     }
   }, [user, navigate]);
   return (

@@ -1,10 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getProducts } from "../../services/productApi";
 
-const cartSlice = createSlice({
-  name: "cart",
-  initialState: {
-    items: [],
-  },
+const initialState={
+    items: []   ,
+    loading:false,
+    error:null,
+    product:[]
+}
+
+
+export const productApI=createAsyncThunk(
+  "auth/get",
+  async(data,{rejectWithValue})=>{
+    try {
+      return await getProducts(data)
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+  const cartSlice = createSlice({
+    name: "cart",
+    initialState,
   reducers: {
     addToCart: (state, action) => {
       const product = action.payload;
@@ -14,19 +31,36 @@ const cartSlice = createSlice({
     },
 
     removeFromCart: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload);
+      state.items = state.items.filter(item => item._id !== action.payload);
     },
 
     increaseQty: (state, action) => {
-      const item = state.items.find(item => item.id === action.payload);
+       const product = action.payload;
+      const item = state.items.find(item => item._id ===product.id);
       if (item) item.quantity += 1;
     },
 
     decreaseQty: (state, action) => {
-      const item = state.items.find(item => item.id === action.payload);
+      const item = state.items.find(item => item._id === action.payload);
       if (item && item.quantity > 1) item.quantity -= 1;
     },
   },
+  extraReducers:(builder)=>{
+    builder
+  .addCase(productApI.pending,(state)=>{
+    state.loading=true;
+    state.error=null;
+  })
+  .addCase(productApI.fulfilled,(state,action)=>{
+    state.loading=false
+    state.product=action.payload.getproduct
+    console.log("product",action.payload);
+  })
+  .addCase(productApI.rejected,(state,action)=>{
+    state.loading=false
+    state.error=action.payload
+  })
+},
 });
 
 export const { addToCart, removeFromCart, increaseQty, decreaseQty } = cartSlice.actions;

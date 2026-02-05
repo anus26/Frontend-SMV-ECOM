@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Admin from './pages/Admin'
 import Customer from './pages/Customer'
@@ -10,7 +10,9 @@ import Layouts from './components/Layouts'
 import ProtectedRoutes from './pages/routes/ProtectedRoutes'
 import Seller from './pages/Seller'
 
+
 const Smvecom = () => {
+  
   return (
 <BrowserRouter>
 <Routes >
@@ -27,7 +29,7 @@ const Smvecom = () => {
   </Route>
 
  <Route element={<ProtectedRoutes allowedRoles={["Admin"]} />}>
-        <Route path="admin" element={<Admin />} />
+        <Route path="Admin" element={<Admin />} />
       </Route>
  <Route element={<ProtectedRoutes allowedRoles={["seller"]} />}>
         <Route path="seller" element={<Seller/>} />

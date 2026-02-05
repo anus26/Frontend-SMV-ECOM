@@ -25,7 +25,7 @@ const Navbar = () => {
     </div>
      
       <Link to="/cart" className='flex'>
-     <CiShoppingCart className='font-medium text-2xl' />({cartItems.length})
+     <CiShoppingCart className='font-medium text-2xl' />({cartItems})
       </Link>
       </div>
     </div>
