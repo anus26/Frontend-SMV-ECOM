@@ -22,9 +22,9 @@ const Smvecom = () => {
     <Layouts/>
   }>
 
-  <Route  element={<ProtectedRoutes allowedRole={["customer"]}/>}>
+  <Route  element={<ProtectedRoutes allowedRoles={["customer"]}/>}>
     <Route  index element={<Customer/>}/>
-      <Route path="Product" element={<Product />} />
+      <Route path="product" element={<Product />} />
         <Route path="product/:id" element={<Cart />} />
   </Route>
 
