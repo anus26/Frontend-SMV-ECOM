@@ -11,6 +11,8 @@ import Cart from "./pages/Customer/Cart";
 
 import Admin from "./pages/Admin";
 import Seller from "./pages/Seller";
+import ProductAdd from "./pages/Seller/ProductAdd";
+import AddCategory from "./pages/Seller/AddCategory";
 
 const Smvecom = () => {
 
@@ -40,6 +42,8 @@ const Smvecom = () => {
        
           <Route element={<ProtectedRoutes allowedRoles={["seller"]} />}>
             <Route path="seller" element={<Seller />} />
+            <Route path="productadd" element={<ProductAdd/>}/>
+            <Route path="addcategory" element={<AddCategory/>}/>
           </Route>
 
         </Route>
