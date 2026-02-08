@@ -13,7 +13,11 @@ export const getProducts=async()=>{
     const res=await API.get("/get")
     return res.data
 }
-export const updataProducts=async()=>{
-    const res=await API.get(`/update/${id}`,data)
+export const updataProducts=async({id,data})=>{
+    const res=await API.put(`/update/${id}`,data)
+    return res.data
+}
+export const deleteProducts=async({id})=>{
+    const res=await API.put(`/deleteproduct/${id}`)
     return res.data
 }
