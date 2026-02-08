@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import usecart from "../../redux/hooks/usecart";
+
 import useCategory from "../../redux/hooks/useCategory";
-import { addProductAPI } from "../../redux/slices/cartslice";
+
 import { getthunkcategory } from "../../redux/slices/categorySlice";
+import useProduct from "../../redux/hooks/useProduct";
+import { addProductAPI } from "../../redux/slices/productSlice";
 
 const ProductAdd = () => {
   const dispatch = useDispatch();
   const { categories } = useCategory();
-  const { product } = usecart();
+  const { products } = useProduct();
 
   const [form, setForm] = useState({
     title: "",
@@ -52,7 +54,6 @@ const ProductAdd = () => {
     }
   };
 
-  // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitting product:", form);

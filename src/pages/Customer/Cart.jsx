@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart, decreaseQty, increaseQty } from "../../redux/slices/cartSlice";
-import usecart from "../../redux/hooks/usecart";
+import useProduct from "../../redux/hooks/useProduct";
 
 
 
@@ -10,7 +10,7 @@ const cart = () => {
 
   const { id } = useParams(); // URL se product id
   const dispatch = useDispatch();
-  const {product}=usecart()
+  const {product}=useProduct()
  
 
   const addproduct = product.find((p) => p._id === id);
