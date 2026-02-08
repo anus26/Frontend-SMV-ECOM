@@ -10,6 +10,6 @@ export const addCategory=async(data)=>{
     return res.data
 }
 export const getCategory=async(data)=>{
-    const res=await API.post("/get/:id",data)
+    const res=await API.get("/getall",data)
     return res.data
 }

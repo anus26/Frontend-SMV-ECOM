@@ -35,31 +35,42 @@ const categorySlice=createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder
-        .addCase(thunkcategory.pending,(state)=>{
-            state.loading=true;
-            state.error=null
+        // postcategory
 
-
+    .addCase(thunkcategory.pending,(state)=>{
+        state.loading=true;
+        state.error=null
+        
+        
     })
-
     .addCase(thunkcategory.fulfilled,(state,action)=>{
         state.loading=false
         state.categories.push(action.payload.category)
         console.log("category",action.payload);
         
     })
+    
     .addCase(thunkcategory.rejected,(state,action)=>{
         state.loading=false
         state.error=action.payload
     })
+    // getCategory
 
-           .addCase(getthunkcategory.pending,(state)=>{
-            state.loading=true;
-            state.error=null
-
-
+    .addCase(getthunkcategory.pending,(state)=>{
+        state.loading=true;
+        state.error=null
     })
-
+    .addCase(getthunkcategory.fulfilled,(state,action)=>{
+        state.loading=false
+        state.categories=action.payload.category
+        console.log("category",action.payload);
+        
+    })
+    
+    .addCase(getthunkcategory.rejected,(state,action)=>{
+     state.loading=false
+     state.error=action.payload
+ })
     },
 })
 export default categorySlice.reducer

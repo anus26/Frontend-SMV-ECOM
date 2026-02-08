@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getProducts } from "../../services/productApi";
+import { getProducts, productAdd } from "../../services/productApi";
 
 const initialState={
     items: []   ,
@@ -14,6 +14,16 @@ export const productApI=createAsyncThunk(
   async(data,{rejectWithValue})=>{
     try {
       return await getProducts(data)
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+export const addProductAPI=createAsyncThunk(
+  "auth/add",
+  async(data,{rejectWithValue})=>{
+    try {
+      return await productAdd(data)
     } catch (error) {
       return rejectWithValue(error.message)
     }
@@ -57,6 +67,21 @@ export const productApI=createAsyncThunk(
     console.log("product",action.payload);
   })
   .addCase(productApI.rejected,(state,action)=>{
+    state.loading=false
+    state.error=action.payload
+  })
+  // get
+  .addCase(addProductAPI.pending,(state)=>{
+        state.loading=true;
+    state.error=null;
+
+  })
+  .addCase(addProductAPI.fulfilled,(state,action)=>{
+    state.loading=false
+    state.product=action.payload.product
+    console.log("product",action.payload);
+  })
+   .addCase(addProductAPI.rejected,(state,action)=>{
     state.loading=false
     state.error=action.payload
   })

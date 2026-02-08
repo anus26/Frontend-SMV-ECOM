@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import useCategory from '../../redux/hooks/useCategory';
-import { thunkcategory } from '../../redux/slices/categorySlice';
+import { getthunkcategory, thunkcategory } from '../../redux/slices/categorySlice';
 
 const AddCategory = () => {
   const dispatch=useDispatch()
@@ -10,6 +10,10 @@ const AddCategory = () => {
     name:"",
     parentCategory:""
   })
+
+  useEffect(()=>{
+    dispatch(getthunkcategory())
+  },[dispatch])
   const handleChange=(e)=>{
     e.preventDefault()
     setForm({...form,[e.target.name]:e.target.value})
