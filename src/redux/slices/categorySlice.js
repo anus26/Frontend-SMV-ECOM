@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { addCategory, getCategory } from "../../services/categoryApi"
+import { addCategory, getCategory, getslugCategory } from "../../services/categoryApi"
 
 const initialState={
     categories:[],
@@ -23,6 +23,17 @@ export const getthunkcategory=createAsyncThunk(
     async(data,{rejectWithValue})=>{
             try {
             return await getCategory(data)
+
+        }catch(error){
+               return rejectWithValue(error.response?.data?.message || "category failed");
+        }
+    }
+)
+export const childCategory=createAsyncThunk(
+    "category/getslug",
+        async(data,{rejectWithValue})=>{
+            try {
+            return await getslugCategory(data)
 
         }catch(error){
                return rejectWithValue(error.response?.data?.message || "category failed");
@@ -68,6 +79,22 @@ const categorySlice=createSlice({
     })
     
     .addCase(getthunkcategory.rejected,(state,action)=>{
+     state.loading=false
+     state.error=action.payload
+ })
+//  child
+.addCase(childCategory.pending,(state)=>{
+        state.loading=true;
+        state.error=null
+    })
+    .addCase(childCategory.fulfilled,(state,action)=>{
+        state.loading=false
+        state.categories=action.payload.products
+        console.log("category",action.payload);
+        
+    })
+    
+    .addCase(childCategory.rejected,(state,action)=>{
      state.loading=false
      state.error=action.payload
  })

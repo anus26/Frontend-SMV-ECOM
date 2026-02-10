@@ -10,10 +10,10 @@ const cart = () => {
 
   const { id } = useParams(); // URL se product id
   const dispatch = useDispatch();
-  const {product}=useProduct()
- 
+  const {products}=useProduct()
+  
 
-  const addproduct = product.find((p) => p._id === id);
+  const addproduct = products.find((p) => p._id === id);
 // const [mainImage,setMainImage]=useState(product.image[0)
   if (!addproduct) return <p>Product not found</p>;
 
@@ -26,7 +26,7 @@ const cart = () => {
       {/* {product.image.map((img,index)=>(
         <img src={img} key={index} onClick={()=>setMainImage(img)} alt=""  className="w-24 h-24 object-cover border cursor-pointer hover:border-green-500" />
       ))} */}
-      <img src={addproduct.image} alt={product} />
+      <img src={addproduct.image} alt={products} />
       </div>
         </div>
       <div>

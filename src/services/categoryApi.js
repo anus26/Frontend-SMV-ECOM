@@ -13,3 +13,7 @@ export const getCategory=async(data)=>{
     const res=await API.get("/getall",data)
     return res.data
 }
+export const getslugCategory=async(data)=>{
+    const res=await API.get( `/get/aMobile-Mobile`,data)
+    return res.data
+}

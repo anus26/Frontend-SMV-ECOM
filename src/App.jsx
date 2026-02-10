@@ -13,6 +13,7 @@ import Admin from "./pages/Admin";
 import Seller from "./pages/Seller";
 import ProductAdd from "./pages/Seller/ProductAdd";
 import AddCategory from "./pages/Seller/AddCategory";
+import ProductCard from "./components/Customer/ProductCard";
 
 const Smvecom = () => {
 
@@ -29,10 +30,13 @@ const Smvecom = () => {
           
      
          <Route element={<ProtectedRoutes allowedRoles={["customer"]} />}>
+    
     <Route index element={<Customer />} />
-    <Route path="product" element={<Product />} />
-    <Route path="product/:id" element={<Cart />} />
+    <Route path="product/:id" element={<Cart/>} />
+
   </Route>
+      
+
 
      
           <Route element={<ProtectedRoutes allowedRoles={["Admin"]} />}>

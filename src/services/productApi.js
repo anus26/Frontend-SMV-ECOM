@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const API=axios.create({
-        baseURL:"http://localhost:4000/api/v1/product",
+        baseURL:"http://localhost:4000/api/v1/Product",
         withCredentials:true,
          headers: { "Content-Type": "multipart/form-data" },
 })
@@ -17,7 +17,12 @@ export const updataProducts=async({id,data})=>{
     const res=await API.put(`/update/${id}`,data)
     return res.data
 }
-export const deleteProducts=async({id})=>{
-    const res=await API.put(`/deleteproduct/${id}`)
-    return res.data
+export const deleteProducts = async (id) => {
+  const res = await API.delete(`/deleteproduct/${id}`); // use DELETE
+  return res.data;
+};
+
+export const getcategoryProducts=async(id)=>{
+    return await API.get(`/get/${id}`)
+ 
 }

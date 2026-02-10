@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ProductCard from "../../components/Customer/ProductCard";
 import { useDispatch } from "react-redux";
-import { productApI } from "../../redux/slices/productSlice";
+import { getcategoryProductAPI, productApI } from "../../redux/slices/productSlice";
 import useProduct from "../../redux/hooks/useProduct";
+import { useParams } from "react-router-dom";
 
 
 const Product = () => {
- 
   const dispatch=useDispatch()
+  
   const {products,loading,error}=useProduct()
 
 useEffect(()=>{
-  dispatch(productApI())
+
+    dispatch(productApI());
+ 
 },[dispatch])
 
   if (loading) return <p>Loading...</p>;

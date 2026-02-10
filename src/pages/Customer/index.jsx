@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 import Content from '../../components/customer/content'
 import Product from './Product'
+import Categorychild from './Categorychild'
 const Customer = () => {
   return (
 <>
@@ -12,6 +13,7 @@ const Customer = () => {
   </div>
      <section className="p-8">
         <Product />
+        <Categorychild/>
       </section>
         <br /><br />
 </section>

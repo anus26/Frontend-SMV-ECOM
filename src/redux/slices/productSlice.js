@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { getProducts, productAdd, updataProducts } from "../../services/productApi"
+import { deleteProducts, getcategoryProducts, getProducts, productAdd, updataProducts } from "../../services/productApi"
 const initialState={
     loading:false,
     error:null,
@@ -38,19 +38,32 @@ export const updataProductAPI=createAsyncThunk(
     }
   }
 )
+// delete
 export const deleteProductAPI=createAsyncThunk(
   "product/delete",
   async(id,{rejectWithValue})=>{
     try {
-        await deleteProductAPI({id})
+        await deleteProducts(id)
       return id
     } catch (error) {
       return rejectWithValue(error.message)
     }
   }
 )
-// delete
 
+// getcategoryproduct
+export const getcategoryProductAPI=createAsyncThunk(
+    "product/getcategory",
+    async(id,{rejectWithValue})=>{
+        try {
+            await getcategoryProducts(id)
+            return id
+        }
+        catch (error) {
+            return rejectWithValue(error.message)
+        }
+    }
+)
 const productSlice=createSlice({
     name:"product",
     initialState,
@@ -111,24 +124,36 @@ const productSlice=createSlice({
 .addCase(deleteProductAPI.pending,(state)=>{
         state.loading=true;
     state.error=null;
-
   })
 .addCase(deleteProductAPI.fulfilled, (state, action) => {
   state.loading = false;
-
   state.products = state.products.filter(
     (item) => item._id !== action.payload
   );
-
-
-
 })
-
-
    .addCase(deleteProductAPI.rejected,(state,action)=>{
     state.loading=false
     state.error=action.payload
   })
+//   getcategoryproduct
+.addCase(getcategoryProductAPI.pending,(state)=>{
+        state.loading=true;
+    state.error=null;
+  })
+  .addCase(getcategoryProductAPI.fulfilled, (state, action) => {
+  state.loading = false;
+  state.products = action.payload.product
+ 
+  
+
+
+  
+})
+.addCase(getcategoryProductAPI.rejected,(state,action)=>{
+    state.loading=false
+    state.error=action.payload
+    
+})
     }
 })
 export default productSlice.reducer
