@@ -10,4 +10,13 @@ export const  store =configureStore({
         category:categoryReducer,
         product:productReducer
     }
+
+
+})
+
+store.subscribe(()=>{
+    localStorage.setItem(
+        "cartItems",
+        JSON.stringify(store.getState().cart.items)
+    )
 })
