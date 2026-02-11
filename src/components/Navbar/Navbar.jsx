@@ -7,6 +7,8 @@ import { getthunkcategory } from '../../redux/slices/categorySlice';
 import { getslugproductApi } from '../../redux/slices/productSlice';
 import useProduct from '../../redux/hooks/useProduct';
 import Cartpage from '../../pages/Customer/Cartpage';
+import { FcElectronics } from "react-icons/fc";
+import { CiMobile1 } from "react-icons/ci";
 
 const Navbar = () => {
   const dispatch = useDispatch();

@@ -1,4 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";import { getProducts, productAdd } from "../../services/productApi";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { orderAdd } from "../../services/orderApi";
+
 
 const initialState={
     items: []   ,
@@ -11,11 +13,10 @@ const initialState={
 
 
 
+
 const cartSlice = createSlice({
   name: "cart",
-  clearCart: (state) => {
-    state.items = [];
-  },
+ 
     initialState,
   reducers: {
     addToCart: (state, action) => {
@@ -26,7 +27,8 @@ const cartSlice = createSlice({
     },
 
     removeFromCart: (state, action) => {
-      state.items = state.items.filter(item => item._id !== action.payload);
+      const product=action.payload
+      state.items = state.items.filter(item => item._id !== product._id);
     },
 
     increaseQty: (state, action) => {
@@ -44,10 +46,11 @@ const cartSlice = createSlice({
         state.items.filter(item=>item._id!==action.payload._id)
       }
     },
+    clearCart: (state) => {
+         state.items = [];
+       },
   },
-  extraReducers:(builder)=>{
-    builder
-},
+
 });
 
 export const { addToCart, removeFromCart, increaseQty, decreaseQty,clearCart } = cartSlice.actions;

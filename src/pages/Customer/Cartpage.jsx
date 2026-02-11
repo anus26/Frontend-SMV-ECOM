@@ -1,11 +1,14 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { decreaseQty, increaseQty, removeFromCart } from '../../redux/slices/cartSlice'
+import { clearCart, decreaseQty, increaseQty, removeFromCart } from '../../redux/slices/cartSlice'
 import { RiDeleteBinLine } from "react-icons/ri";
+import { orderThunk } from '../../redux/slices/orderSlice';
+import useAuth from '../../redux/hooks/useauth';
 
 const Cartpage = () => {
     const dispatch=useDispatch()
     const cartItems=useSelector((state)=>state.cart.items)
+const {user}=useAuth()
     const totalAmount=cartItems.reduce(
         (total,item)=>total+item.price*item.quantity,
         0
@@ -13,6 +16,25 @@ const Cartpage = () => {
     if (cartItems.length===0) {
         return <h1 className='p-8'>Your Cart is Empty</h1>
         
+    }
+    const handCheckout=()=>{
+        const orderData={
+            items:cartItems.map(item=>({
+            
+                productId:item._id,
+                stock:item.quantity,
+  price: Number(item.price) 
+       
+                
+            })),
+            totalAmount
+    }
+ dispatch(orderThunk(orderData))
+  .unwrap()
+  .then(() => {
+    dispatch(clearCart());
+  });
+
     }
 
   return (
@@ -56,16 +78,13 @@ const Cartpage = () => {
            </button>
             </div>
         ))}
+    
                     <div className="text-right mt-6 text-xl font-bold">
         Total: {totalAmount} Rs
       </div>
-      <button
-  onClick={() => dispatch(clearCart())}
-  className="bg-red-500 text-white px-4 py-2 mt-6"
->
-  Clear Cart
-</button>
-
+      <button onClick={handCheckout}>
+        CheckOut
+      </button>
     </section>
     </>
   )
