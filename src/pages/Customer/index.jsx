@@ -13,7 +13,7 @@ const Customer = () => {
   </div>
      <section className="p-8">
         <Product />
-        <Categorychild/>
+    
       </section>
         <br /><br />
 </section>

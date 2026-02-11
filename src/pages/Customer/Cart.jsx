@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart, decreaseQty, increaseQty } from "../../redux/slices/cartSlice";
 import useProduct from "../../redux/hooks/useProduct";
+import useCategory from "../../redux/hooks/useCategory";
 
 
 
@@ -11,6 +12,8 @@ const cart = () => {
   const { id } = useParams(); // URL se product id
   const dispatch = useDispatch();
   const {products}=useProduct()
+
+ 
   
 
   const addproduct = products.find((p) => p._id === id);

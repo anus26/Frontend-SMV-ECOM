@@ -14,6 +14,8 @@ import Seller from "./pages/Seller";
 import ProductAdd from "./pages/Seller/ProductAdd";
 import AddCategory from "./pages/Seller/AddCategory";
 import ProductCard from "./components/Customer/ProductCard";
+import Categorychild from "./pages/Customer/Categorychild";
+import Cartpage from "./pages/Customer/Cartpage";
 
 const Smvecom = () => {
 
@@ -33,6 +35,8 @@ const Smvecom = () => {
     
     <Route index element={<Customer />} />
     <Route path="product/:id" element={<Cart/>} />
+    <Route  path="/category/:slug" element={<Categorychild/>}/>
+    <Route path="/cartpage" element={< Cartpage/>}/>
 
   </Route>
       

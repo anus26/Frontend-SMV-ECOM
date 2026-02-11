@@ -64,6 +64,17 @@ export const getcategoryProductAPI=createAsyncThunk(
         }
     }
 )
+export const getslugproductApi=createAsyncThunk(
+  "product/getslug",
+  async(data,{rejectWithValue})=>{
+    try {
+      return await getcategoryProducts(data)
+    } catch (error) {
+        return rejectWithValue(error.message)
+    }
+  })
+
+
 const productSlice=createSlice({
     name:"product",
     initialState,
@@ -154,6 +165,22 @@ const productSlice=createSlice({
     state.error=action.payload
     
 })
+// slug
+.addCase(getslugproductApi.pending,(state)=>{
+        state.loading=true;
+        state.error=null
+    })
+    .addCase(getslugproductApi.fulfilled,(state,action)=>{
+        state.loading=false
+        state.categories=action.payload.products
+        console.log("category",action.payload);
+        
+    })
+    
+    .addCase(getslugproductApi.rejected,(state,action)=>{
+     state.loading=false
+     state.error=action.payload
+ })
     }
 })
 export default productSlice.reducer

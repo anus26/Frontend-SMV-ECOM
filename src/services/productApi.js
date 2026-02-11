@@ -22,7 +22,7 @@ export const deleteProducts = async (id) => {
   return res.data;
 };
 
-export const getcategoryProducts=async(id)=>{
-    return await API.get(`/get/${id}`)
- 
+export const getcategoryProducts=async()=>{
+    return await API.get(`/get/aMobile`,data)
+    
 }
