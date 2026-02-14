@@ -22,12 +22,13 @@ const {user}=useAuth()
             items:cartItems.map(item=>({
             
                 productId:item._id,
-                stock:item.quantity,
-  price: Number(item.price) 
+                    quantity: Number(item.quantity)
+
+
        
                 
             })),
-            totalAmount
+        totalAmount
     }
  dispatch(orderThunk(orderData))
   .unwrap()
