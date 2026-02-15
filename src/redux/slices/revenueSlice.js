@@ -3,8 +3,10 @@ import { revenuedaily, revenueget, revenuemonthly } from "../../services/revenue
 
 
 const initialState={
-    revenue:[],
+    total:{totalRevenue:0},
     loading:false,
+    daily:[],
+    monthly:[],
     error:null
 
 }
@@ -55,7 +57,7 @@ const revenueSlice=createSlice({
           })
           .addCase(revenuetotalThunk.fulfilled,(state,action)=>{
             state.loading=false
-      state.revenue = action.payload
+      state.total = action.payload
              console.log("revenue",action.payload);
              
           })
@@ -70,11 +72,25 @@ const revenueSlice=createSlice({
           })
           .addCase(revenuedailyThunk.fulfilled,(state,action)=>{
             state.loading=false
-      state.revenue = action.payload
+      state.daily = action.payload
              console.log("revenue",action.payload);
              
           })
           .addCase(revenuedailyThunk.rejected,(state,action)=>{
+            state.loading=false
+            state.error=action.payload
+          })
+        //   monthly
+              .addCase(revenuemonthlyThunk.pending,(state)=>{
+            state.loading=true;
+            state.error=null;
+          })
+          .addCase(revenuemonthlyThunk.fulfilled,(state,action)=>{
+            state.loading=false
+      state.monthly = action.payload
+             
+          })
+          .addCase(revenuemonthlyThunk.rejected,(state,action)=>{
             state.loading=false
             state.error=action.payload
           })

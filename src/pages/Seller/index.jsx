@@ -3,10 +3,21 @@ import { useDispatch } from "react-redux";
 import useProduct from "../../redux/hooks/useProduct";
 import { deleteProductAPI, productApI, updataProductAPI } from "../../redux/slices/productSlice";
 import Revenue from "../../components/Seller/Revenue";
+import DailyRevenue from "../../components/Seller/DailyRevneue";
+import MonthlyRevenueChart from "../../components/Seller/MonthlyRevenueChart";
 
 const Seller = () => {
   const dispatch = useDispatch();
   const { products, loading, error } = useProduct();
+  const [currentpage, setCurrentPage]=useState(1)
+  const itemsPerPage=10
+  const totalPages=Math.ceil(products.length/itemsPerPage)
+  const indexOfLastItem=currentpage*itemsPerPage
+  const indexOfFirstItem=indexOfLastItem-itemsPerPage
+  const currentItems=products.slice(indexOfFirstItem,indexOfLastItem)
+const handlePageChange=(pageNumber)=>{
+  setCurrentPage(pageNumber)
+}
 
 
 
@@ -66,7 +77,10 @@ const Seller = () => {
   const handleDelete=(_id)=>{
    
   dispatch(deleteProductAPI(_id))
-   
+   .then(()=>{
+    dispatch(productApI())
+    setShowModal(false)
+   })
   }
 
   if (loading) return <p className="text-center">Loading...</p>;
@@ -76,9 +90,16 @@ const Seller = () => {
     <>
 
       {/* TABLE */}
-      <section className="p-6">
+     <section className="p-8 bg-gray-100 min-h-screen">
+
         {/* revenue */}
         <Revenue/>
+        {/* daily */}
+       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+  <DailyRevenue />
+  <MonthlyRevenueChart />
+</div>
+
         <h1 className="text-2xl font-bold mb-4">Seller Products</h1>
 
         <table className="w-full border">
@@ -93,7 +114,7 @@ const Seller = () => {
           </thead>
 
           <tbody>
-            {products?.map((item) => (
+            {currentItems?.map((item) => (
               <tr key={item._id} className="text-center">
                 <td className="border p-2">
                   <img src={item.image} className="w-16 h-16 mx-auto" />
@@ -206,6 +227,20 @@ const Seller = () => {
           </div>
         </div>
       )}
+            <div>
+
+            {[...Array(totalPages)].map((_,index)=>(
+              
+<button key={index} onClick={()=>handlePageChange(index+1)}
+  className={`px-3 py-1 border ${
+    currentpage === index+1?"bg-blue-500 text-black":""
+  }`}
+  
+  >
+    {index+1}
+</button>
+            ))}
+          </div>
     </>
   );
 };

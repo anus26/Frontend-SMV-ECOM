@@ -5,7 +5,7 @@ import { revenuedailyThunk, revenuetotalThunk } from "../../redux/slices/revenue
 
 const Revenue = () => {
   const dispatch = useDispatch();
-  const { loading, error, revenue } = useRevenue();
+  const { loading, error, total} = useRevenue();
 
   useEffect(() => {
     dispatch(revenuetotalThunk());
@@ -21,19 +21,12 @@ const Revenue = () => {
         {error && <p className="text-red-500">{error}</p>}
 
         <div className="text-3xl font-bold text-green-600">
-           {revenue?.totalRevenue || 0}
+           {total?.totalRevenue || 0}
         </div>
       </div>
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-[350px] text-center">
-        <h2 className="text-2xl font-bold mb-6">Revenue Dashboard</h2>
-
-        {loading && <p>Loading...</p>}
-        {error && <p className="text-red-500">{error}</p>}
-
-        <div className="text-3xl font-bold text-green-600">
-          ₹ {revenue?.totalRevenue || 0}
-        </div>
-      </div>
+    
+   
+   
     </section>
   );
 };
