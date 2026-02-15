@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { approve, blockUser, getUsers, getStats } from "../../services/adminApi";
+import { approveseller, blockseller, getuser, stats } from "../../services/adminApi";
 
 const initialState = {
   users: [],
@@ -14,7 +14,7 @@ export const getUsersThunk = createAsyncThunk(
   "admin/getUsers",
   async (_, { rejectWithValue }) => {
     try {
-      return await getUsers();
+      return await getuser();
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Get users failed");
     }
@@ -27,7 +27,7 @@ export const approveSellerThunk = createAsyncThunk(
   "admin/approveSeller",
   async (id, { rejectWithValue }) => {
     try {
-      return await approve(id);
+      return await approveseller(id);
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Approve failed");
     }
@@ -39,8 +39,9 @@ export const approveSellerThunk = createAsyncThunk(
 export const blockUserThunk = createAsyncThunk(
   "admin/blockUser",
   async (id, { rejectWithValue }) => {
+        console.log("API CALL ID:", id);
     try {
-      return await blockUser(id);
+      return await blockseller(id);
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Block failed");
     }
@@ -53,7 +54,7 @@ export const getStatsThunk = createAsyncThunk(
   "admin/getStats",
   async (_, { rejectWithValue }) => {
     try {
-      return await getStats();
+      return await stats();
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Stats failed");
     }
@@ -76,6 +77,8 @@ const adminSlice = createSlice({
       .addCase(getUsersThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.users = action.payload;
+        console.log("user",action.payload);
+        
       })
       .addCase(getUsersThunk.rejected, (state, action) => {
         state.loading = false;

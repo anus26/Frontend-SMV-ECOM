@@ -1,21 +1,31 @@
-import axios from "axios";
+import axios from "axios"
 
-export const getUsers = async () => {
-  const res = await axios.get("/api/admin/users");
-  return res.data;
-};
+const API=axios.create({
+     baseURL:"http://localhost:4000/api/v1/admin",
+     withCredentials:true
+    })
 
-export const approve = async (id) => {
-  const res = await axios.put(`/api/admin/approve/${id}`);
-  return res.data;
-};
-
-export const blockUser = async (id) => {
-  const res = await axios.put(`/api/admin/block/${id}`);
-  return res.data;
-};
-
-export const getStats = async () => {
-  const res = await axios.get("/api/admin/stats");
-  return res.data;
-};
+export const getuser=async(data)=>{
+    const res=await API.get("/user",data)
+    return res.data
+    
+    
+} 
+export const approveseller=async(id)=>{
+    const res=await API.put(`/approve/${id}`)
+    return res.data
+    
+    
+} 
+export const blockseller=async(id)=>{
+    const res=await API.put(`/block/${id}`)
+    return res.data
+    
+    
+} 
+export const stats=async(data)=>{
+    const res=await API.get("/stats",data)
+    return res.data
+    
+    
+} 
