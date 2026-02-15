@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { CiSearch, CiShoppingCart } from "react-icons/ci";
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useCategory from '../../redux/hooks/useCategory';
 import { getthunkcategory } from '../../redux/slices/categorySlice';
 import { getslugproductApi } from '../../redux/slices/productSlice';
 import useProduct from '../../redux/hooks/useProduct';
-import Cartpage from '../../pages/Customer/Cartpage';
-import { FcElectronics } from "react-icons/fc";
-import { CiMobile1 } from "react-icons/ci";
+import useAuth from '../../redux/hooks/useauth';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -16,6 +14,8 @@ const Navbar = () => {
 const {products=[]}=useProduct()
   const cartItems = useSelector((state) => state.cart.items);
   const { categories = [] } = useCategory();
+  const {user}=useAuth()
+
 
   const [hoverParent, setHoverParent] = useState(null);
 
@@ -24,7 +24,9 @@ const {products=[]}=useProduct()
   const getChildCategory = (parentId) =>
     categories.filter(cat => cat.parentCategory === parentId);
 
- 
+  useEffect(() => {
+    dispatch(getslugproductApi());
+  }, [dispatch]);
   useEffect(()=>{
     dispatch(getthunkcategory())
   },[dispatch])
@@ -33,16 +35,20 @@ const {products=[]}=useProduct()
     <section>
       <div className="bg-dark rounded shadow-md relative">
         <div className="flex justify-between p-4 items-center">
+        
 
-          <h1 className="text-2xl font-semibold">SMV-ECOM</h1>
+          <Link className="text-2xl font-semibold"  onClick={()=>navigate("/")}>SMV-ECOM</Link>
+        
 
-          {/* Search */}
-          <div className="relative w-[30%]">
+{user?.role==="customer"&&(
+   <div className="flex items-center gap-6 w-full">
+  {/* Search */}
+  <div className="relative w-[30%]">
             <input
               type="text"
               placeholder="Search products..."
               className="w-full rounded-full px-5 pr-12 py-2"
-            />
+              />
             <CiSearch className="absolute right-4 top-2 text-xl" />
           </div>
 
@@ -77,14 +83,44 @@ const {products=[]}=useProduct()
             ))}
           </div>
 
-          {/* Cart */}
-          <div className="flex items-center" onClick={()=>navigate("/cartpage")}>
+{/* Cart */}
+<div className="flex items-center">
             <CiShoppingCart className="text-2xl" />
-         ({cartItems.length})  
+            ({cartItems.length})
           </div>
 
-        </div>
-      </div>
+</div>
+)}
+{user?.role === "seller" && (
+          <div className="flex items-center gap-4 ml-6">
+           <Link
+              to="/seller"
+              className="px-3 py-1 rounded bg-green-500 hover:bg-green-600 transition"
+            >
+ Seller
+            </Link>
+            <Link
+              to="/productadd"
+              className="px-3 py-1 rounded bg-green-500 hover:bg-green-600 transition"
+            >
+              Product Add
+            </Link>
+            <Link
+              to="/addcategory"
+              className="px-3 py-1 rounded bg-blue-500 hover:bg-blue-600 transition"
+            >
+              Add Category
+            </Link>
+            <Link
+              to="/getorder"
+              className="px-3 py-1 rounded bg-purple-500 hover:bg-purple-600 transition"
+            >
+              Orders
+            </Link>
+          </div>
+        )}
+</div>
+</div>
     </section>
   );
 };

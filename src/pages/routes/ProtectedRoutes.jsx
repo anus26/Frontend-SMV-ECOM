@@ -10,9 +10,10 @@ const ProtectedRoutes = ({allowedRoles}) => {
     if (!user) {
         return <Navigate to="/signin" replace />;
     }
-    if (allowedRoles&&!allowedRoles.includes(user.role)) {
-        return <Navigate to="/" replace />;
-    }
+  if (allowedRoles && !allowedRoles.map(r => r.toLowerCase()).includes(user.role.toLowerCase())) {
+    return <Navigate to="/" replace />;
+}
+
     console.log(user.role);
     console.log("USER:", user);
 console.log("ROLE CHECK:", user.role, allowedRoles);

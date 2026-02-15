@@ -245,5 +245,5 @@ const handlePageChange=(pageNumber)=>{
   );
 };
 
-export default Seller;
+export default Seller
 
