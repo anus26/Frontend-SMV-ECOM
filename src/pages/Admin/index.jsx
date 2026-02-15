@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { approveSellerThunk, getUsersThunk } from "../../redux/slices/adminSlice";
+import { approveSellerThunk, blockUserThunk, getStatsThunk, getUsersThunk } from "../../redux/slices/adminSlice";
 import useAdmin from "../../redux/hooks/useAdmin";
-import { getUser } from "../../redux/slices/authSlice";
-
+import stats from "../../components/Admin/Stats";
+import Stats from "../../components/Admin/Stats";
 const Admin = () => {
   const dispatch = useDispatch();
   const { users, loading, error } = useAdmin();
@@ -11,14 +11,34 @@ const Admin = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
  const handleApproved=(id)=>{
+
     console.log("Clicked ID:", id);
   dispatch(approveSellerThunk(id))
-  dispatch(getUsersThunk())
+  .unwrap()
+  .then(()=>{
+
+    dispatch(getUsersThunk())
+  })
+      .catch((err) => {
+      console.log(err);
+    });
  }
+const handleBlock = (id) => {
+  dispatch(blockUserThunk(id))
+    .unwrap()
+    .then(() => {
+      dispatch(getUsersThunk());
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 
 
   useEffect(() => {
     dispatch(getUsersThunk());
+
   }, [dispatch]);
 
   // Pagination Logic
@@ -32,11 +52,15 @@ const Admin = () => {
     setCurrentPage(pageNumber);
   };
 
+
   if (loading) return <p className="text-center mt-10">Loading...</p>;
   if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
 
   return (
     <section className="p-8 bg-gray-100 min-h-screen">
+      <div>
+<Stats/>
+      </div>
       <h1 className="text-2xl font-bold mb-6">Admin - Users</h1>
 
       {/* USERS TABLE */}
@@ -64,11 +88,13 @@ const Admin = () => {
       disabled={user.isApproved}
       className={`px-3 py-1 rounded ${
         user.isApproved
-          ? "bg-green-500 text-white cursor-not-allowed"
-          : "bg-yellow-500 text-white"
+          ? "bg-green-500 text-black cursor-not-allowed"
+          : "bg-yellow-500 text-black"
       }`}
     >
-      {user.isApproved ? "Approved" : "Approve"}
+      {user.isApproved ? "Approved" : "Approve"
+      
+      }
     </button>
   ) : (
     "-"
@@ -76,7 +102,12 @@ const Admin = () => {
 </td>
 
                 <td className="p-3 border">
-                  {user.isBlocked ? "🚫" : "Active"}
+               
+                  <button onClick={()=>handleBlock(user._id)}>
+    {user.isBlocked ? "Unblock" : "Block"}
+
+                  </button>
+                  
                 </td>
               </tr>
             ))}
@@ -100,6 +131,7 @@ const Admin = () => {
           </button>
         ))}
       </div>
+
     </section>
   );
 };

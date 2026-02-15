@@ -105,6 +105,8 @@ const adminSlice = createSlice({
       // ================= GET STATS =================
       .addCase(getStatsThunk.fulfilled, (state, action) => {
         state.stats = action.payload;
+        console.log("stats",action.payload);
+        
       });
   },
 });
