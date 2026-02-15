@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import useProduct from "../../redux/hooks/useProduct";
 import { deleteProductAPI, productApI, updataProductAPI } from "../../redux/slices/productSlice";
+import Revenue from "../../components/Seller/Revenue";
 
 const Seller = () => {
   const dispatch = useDispatch();
   const { products, loading, error } = useProduct();
+
+
 
   const [showModal, setShowModal] = useState(false);
   // const [updateImage, setUpdateImage] = useState(null);
@@ -71,8 +74,11 @@ const Seller = () => {
 
   return (
     <>
+
       {/* TABLE */}
       <section className="p-6">
+        {/* revenue */}
+        <Revenue/>
         <h1 className="text-2xl font-bold mb-4">Seller Products</h1>
 
         <table className="w-full border">

@@ -4,13 +4,15 @@ import cartReducer from "./slices/cartSlice";
 import categoryReducer from "./slices/categorySlice";
 import productReducer from "./slices/productSlice";
 import orderReducer from "./slices/orderSlice";
+import revenueReducer from "./slices/revenueSlice"
 export const  store =configureStore({
     reducer:{
         cart:cartReducer,
         auth:authReducer,
         category:categoryReducer,
         product:productReducer,
-        order:orderReducer
+        order:orderReducer,
+        revenue:revenueReducer
     }
 
 
