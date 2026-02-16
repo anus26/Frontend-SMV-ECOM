@@ -10,9 +10,10 @@ export const productApI=createAsyncThunk(
   "product/get",
   async(data,{rejectWithValue})=>{
     try {
-      return await getProducts(data)
+      const res=await getProducts(data)
+      return res
     } catch (error) {
-      return rejectWithValue(error.message)
+      return rejectWithValue(error.messages)
     }
   }
 )
@@ -43,7 +44,7 @@ export const deleteProductAPI=createAsyncThunk(
   "product/delete",
   async(id,{rejectWithValue})=>{
     try {
-        await deleteProducts(id)
+       await deleteProducts(id)
       return id
     } catch (error) {
       return rejectWithValue(error.message)
@@ -56,23 +57,27 @@ export const getcategoryProductAPI=createAsyncThunk(
     "product/getcategory",
     async(id,{rejectWithValue})=>{
         try {
-            await getcategoryProducts(id)
-            return id
+         const res=   await getcategoryProducts(id)
+            return res
         }
         catch (error) {
             return rejectWithValue(error.message)
         }
     }
 )
-export const getslugproductApi=createAsyncThunk(
+// redux/slices/productSlice.js
+export const getslugproductApi = createAsyncThunk(
   "product/getslug",
-  async(data,{rejectWithValue})=>{
+  async ({ parentslug, childslug }, { rejectWithValue }) => {
     try {
-      return await getcategoryProducts(data)
+      const data = await getcategoryProducts(parentslug, childslug);
+      return data; // { products, parentCategory, message }
     } catch (error) {
-        return rejectWithValue(error.message)
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
-  })
+  }
+);
+
 
 
 const productSlice=createSlice({
@@ -153,12 +158,8 @@ const productSlice=createSlice({
   })
   .addCase(getcategoryProductAPI.fulfilled, (state, action) => {
   state.loading = false;
-  state.products = action.payload.product
+  state.products = action.payload
  
-  
-
-
-  
 })
 .addCase(getcategoryProductAPI.rejected,(state,action)=>{
     state.loading=false
@@ -172,7 +173,7 @@ const productSlice=createSlice({
     })
     .addCase(getslugproductApi.fulfilled,(state,action)=>{
         state.loading=false
-        state.categories=action.payload.products
+        state.products=action.payload.products
         console.log("category",action.payload);
         
     })

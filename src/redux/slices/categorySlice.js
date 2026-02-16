@@ -89,7 +89,7 @@ const categorySlice=createSlice({
     })
     .addCase(childCategory.fulfilled,(state,action)=>{
         state.loading=false
-        state.categories=action.payload.products
+        state.categories=action.payload.categories
         console.log("category",action.payload);
         
     })

@@ -31,15 +31,17 @@ const Signup = () => {
 //     navigate("/signin"); 
 //   }
 // }, [user, navigate]);
-//  useEffect(() => {
-//   if (user) {
-//     if (user.role === "seller") {
-//       navigate("/seller");
-//     } else if (user.role === "customer") {
-//       navigate("/");
-//     }
-//   }
-// }, [user, navigate]);
+ useEffect(() => {
+  if (user) {
+    if (user.role === "seller") {
+      navigate("/seller");
+    } else if (user.role === "customer") {
+      navigate("/");
+    }else if (user.role==="Admin"){
+      navigate("/")
+    }
+  }
+}, [user, navigate]);
 
     
   return (

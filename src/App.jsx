@@ -33,7 +33,7 @@ const Smvecom = () => {
         <Route element={<Layouts />}>
           
           <Route element={<ProtectedRoutes allowedRoles={["Admin"]} />}>
-            <Route index element={<Admin />} />
+            <Route path="admin" element={<Admin />} />
           </Route>
      
           <Route element={<ProtectedRoutes allowedRoles={["seller"]} />}>

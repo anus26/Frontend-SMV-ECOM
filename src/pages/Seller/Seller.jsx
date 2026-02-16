@@ -22,7 +22,6 @@ const handlePageChange=(pageNumber)=>{
 
 
   const [showModal, setShowModal] = useState(false);
-  // const [updateImage, setUpdateImage] = useState(null);
 
   const [selectedProduct, setSelectedProduct] = useState({
   _id:"",
@@ -89,12 +88,12 @@ const handlePageChange=(pageNumber)=>{
   return (
     <>
 
-      {/* TABLE */}
+
      <section className="p-8 bg-gray-100 min-h-screen">
 
-        {/* revenue */}
+   
         <Revenue/>
-        {/* daily */}
+
        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
   <DailyRevenue />
   <MonthlyRevenueChart />
@@ -137,7 +136,6 @@ const handlePageChange=(pageNumber)=>{
         </table>
       </section>
 
-      {/* UPDATE MODAL */}
       {showModal && (
         <div className="fixed inset-0 bg-black/40 flex justify-center items-center">
           <div className="bg-white p-5 w-[400px] rounded">

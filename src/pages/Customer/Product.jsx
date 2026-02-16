@@ -20,11 +20,19 @@ useEffect(()=>{
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   return (
-    <div className="flex w-[80%]   gap-5 p-8 bord">
-       {products?.map((item) => (
-        <ProductCard key={item._id } item={item} />
-      ))}
-    </div>
+   <div className="
+  grid 
+  grid-cols-2 
+  sm:grid-cols-3 
+  md:grid-cols-4 
+  lg:grid-cols-6 
+  gap-4
+">
+  {products.map((item) => (
+    <ProductCard key={item._id} item={item} />
+  ))}
+</div>
+
   );
 };
 

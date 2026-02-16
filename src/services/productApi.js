@@ -22,7 +22,14 @@ export const deleteProducts = async (id) => {
   return res.data;
 };
 
-export const getcategoryProducts=async()=>{
-    return await API.get(`/get/aMobile`,data)
+// export const getcategoryProducts=async()=>{
+//     return await API.get(`/get/aMobile`,data)
     
-}
+// }
+export const getcategoryProducts = async (parentslug, childslug) => {
+  let url = `/get/${parentslug}`;
+  if (childslug) url += `/${childslug}`;
+
+  const res = await API.get(url);
+  return res.data; // { message, products, parentCategory }
+};
