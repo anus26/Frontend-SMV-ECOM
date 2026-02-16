@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { approveSellerThunk, blockUserThunk, getStatsThunk, getUsersThunk } from "../../redux/slices/adminSlice";
 import useAdmin from "../../redux/hooks/useAdmin";
+import Stats from "../../components/Admin/stats";
 // import Stats from "../../components/Admin/Stats";
 const Admin = () => {
   const dispatch = useDispatch();
@@ -58,7 +59,8 @@ const handleBlock = (id) => {
   return (
     <section className="p-8 bg-gray-100 min-h-screen">
       <div>
-{/* <Stats/> */}
+<Stats/>
+{/* <stats/> */}
       </div>
       <h1 className="text-2xl font-bold mb-6">Admin - Users</h1>
 
@@ -130,6 +132,7 @@ const handleBlock = (id) => {
           </button>
         ))}
       </div>
+     
 
     </section>
   );

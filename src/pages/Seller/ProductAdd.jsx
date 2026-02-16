@@ -64,58 +64,105 @@ const ProductAdd = () => {
   const parentCategory = categories.filter((cat) => cat.parentCategory === null);
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded">
-      <h2 className="text-xl font-bold mb-4">Add Product</h2>
 
-      <form onSubmit={handleSubmit}>
+  <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8 mt-10 border border-gray2">
+
+    <h2 className="text-2xl font-bold text-greenDark mb-6">
+      Add New Product
+    </h2>
+
+    <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-6">
+
+      {/* Title */}
+      <div className="md:col-span-2">
+        <label className="text-sm text-text mb-1 block">Product Title</label>
         <input
           type="text"
-          placeholder="Product Title"
           name="title"
           value={form.title}
           onChange={handlechange}
-          className="w-full border p-2 mb-2"
+          placeholder="Enter product title"
+          className="w-full border border-gray2 bg-gray3 p-3 rounded-lg
+          focus:outline-none focus:ring-2 focus:ring-green1
+          focus:border-green
+          hover:shadow-md hover:shadow-green1/40
+          transition-all duration-300"
         />
+      </div>
 
+      {/* Description */}
+      <div className="md:col-span-2">
+        <label className="text-sm text-text mb-1 block">Description</label>
         <textarea
-          placeholder="Product Description"
           name="description"
           value={form.description}
           onChange={handlechange}
-          className="w-full border p-2 mb-2"
+          rows="4"
+          placeholder="Enter product description"
+          className="w-full border border-gray2 bg-gray3 p-3 rounded-lg
+          focus:outline-none focus:ring-2 focus:ring-green1
+          focus:border-green
+          hover:shadow-md hover:shadow-green1/40
+          transition-all duration-300"
         />
+      </div>
 
+      {/* Price */}
+      <div>
+        <label className="text-sm text-text mb-1 block">Price</label>
         <input
           type="number"
-          placeholder="Price"
           name="price"
           value={form.price}
           onChange={handlechange}
-          className="w-full border p-2 mb-2"
+          className="w-full border border-gray2 bg-gray3 p-3 rounded-lg
+          focus:outline-none focus:ring-2 focus:ring-green1
+          focus:border-green
+          hover:shadow-md hover:shadow-green1/40
+          transition-all duration-300"
         />
+      </div>
 
+      {/* Stock */}
+      <div>
+        <label className="text-sm text-text mb-1 block">Stock</label>
         <input
           type="number"
-          placeholder="Stock"
           name="stock"
           value={form.stock}
           onChange={handlechange}
-          className="w-full border p-2 mb-2"
+          className="w-full border border-gray2 bg-gray3 p-3 rounded-lg
+          focus:outline-none focus:ring-2 focus:ring-green1
+          focus:border-green
+          hover:shadow-md hover:shadow-green1/40
+          transition-all duration-300"
         />
+      </div>
 
+      {/* Image Upload */}
+      <div className="md:col-span-2">
+        <label className="text-sm text-text mb-1 block">Upload Image</label>
         <input
           type="file"
           name="image"
           onChange={handlechange}
-          className="w-full border p-2 mb-2"
+          className="w-full border border-dashed border-green p-3 rounded-lg
+          bg-greenSoft
+          hover:bg-green1/20
+          transition-all duration-300"
         />
+      </div>
 
-        {/* Parent Category */}
+      {/* Parent Category */}
+      <div>
+        <label className="text-sm text-text mb-1 block">Parent Category</label>
         <select
           name="parentCategory"
           value={form.parentCategory}
           onChange={handlechange}
-          className="w-full border p-2 mb-4"
+          className="w-full border border-gray2 bg-gray3 p-3 rounded-lg
+          focus:outline-none focus:ring-2 focus:ring-green1
+          focus:border-green"
         >
           <option value="">Select Parent Category</option>
           {parentCategory.map((cat) => (
@@ -124,14 +171,19 @@ const ProductAdd = () => {
             </option>
           ))}
         </select>
+      </div>
 
-        {/* Child Category */}
+      {/* Child Category */}
+      <div>
+        <label className="text-sm text-text mb-1 block">Child Category</label>
         <select
           name="category"
           value={form.category}
           onChange={handlechange}
-          className="w-full border p-2 mb-4"
           disabled={!form.parentCategory}
+          className="w-full border border-gray2 bg-gray3 p-3 rounded-lg
+          focus:outline-none focus:ring-2 focus:ring-green1
+          focus:border-green disabled:bg-gray1"
         >
           <option value="">Select Child Category</option>
           {childCategory.map((cat) => (
@@ -140,15 +192,25 @@ const ProductAdd = () => {
             </option>
           ))}
         </select>
+      </div>
 
+      {/* Submit Button */}
+      <div className="md:col-span-2 mt-4">
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="w-full bg-green text-white py-3 rounded-lg
+          hover:bg-greenDark
+          shadow-md hover:shadow-lg
+          transition-all duration-300 font-semibold"
         >
           Add Product
         </button>
-      </form>
-    </div>
+      </div>
+
+    </form>
+  </div>
+
+
   );
 };
 

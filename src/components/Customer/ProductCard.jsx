@@ -4,7 +4,7 @@ import { FaShoppingCart, FaEye } from "react-icons/fa";
 
 const ProductCard = ({ item }) => {
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 group overflow-hidden">
+    <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 group overflow-hidden w-60">
 
       <Link to={`/product/${item._id}`}>
 

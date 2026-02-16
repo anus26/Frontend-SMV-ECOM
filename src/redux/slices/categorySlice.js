@@ -11,8 +11,8 @@ export const thunkcategory=createAsyncThunk(
     "category/add",
     async(data,{rejectWithValue})=>{
         try {
-            return await addCategory(data)
-
+            const res= await addCategory(data)
+              return res  
         }catch(error){
                return rejectWithValue(error.response?.data?.message || "category failed");
         }

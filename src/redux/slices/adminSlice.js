@@ -107,6 +107,7 @@ const adminSlice = createSlice({
         state.stats = action.payload;
         console.log("stats",action.payload);
         
+        
       });
   },
 });

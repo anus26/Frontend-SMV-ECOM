@@ -4,22 +4,38 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Breadcrumb from "../../components/BreadCrumb";
 import useProduct from "../../redux/hooks/useProduct";
+import useCategory from "../../redux/hooks/useCategory";
 import { getslugproductApi } from "../../redux/slices/productSlice";
 import { FaShoppingCart } from "react-icons/fa";
 
 const Categorychild = () => {
-  const { slug } = useParams();
+  const { slug } = useParams(); // child slug
   const dispatch = useDispatch();
-  const [breadcrumb, setBreadCrumb] = useState([]);
   const { products = [] } = useProduct();
+  const { categories = [] } = useCategory();
+  const [breadcrumb, setBreadcrumb] = useState([]);
 
-useEffect(() => {
-  if (slug) {
-    dispatch(getslugproductApi({ parentslug: "aMobile", childslug: slug }));
-    setBreadCrumb([{ name: slug.replace("-", " "), slug }]);
-  }
-}, [dispatch, slug]);
+  useEffect(() => {
+    if (!slug || categories.length === 0) return;
 
+    // Find the child category by slug
+    const child = categories.find((c) => c.slug === slug);
+    if (!child) return;
+
+    // Find parent category
+    const parent = child.parentCategory
+      ? categories.find((c) => c._id === child.parentCategory)
+      : null;
+
+    // Set breadcrumb
+    const crumbs = [];
+    if (parent) crumbs.push({ name: parent.name, slug: parent.slug, type: "category" });
+    crumbs.push({ name: child.name, slug: child.slug, type: "category" });
+    setBreadcrumb(crumbs);
+
+    // Fetch products for this category
+    dispatch(getslugproductApi({ parentslug: parent?.slug || "", childslug: child.slug }));
+  }, [slug, categories, dispatch]);
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-6">

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addToCart, decreaseQty, increaseQty } from "../../redux/slices/cartSlice";
 import useProduct from "../../redux/hooks/useProduct";
 import useCategory from "../../redux/hooks/useCategory";
+import Product from "./Product";
 
 
 
@@ -21,11 +22,13 @@ const cart = () => {
   if (!addproduct) return <p>Product not found</p>;
 
   return (
-    <div className="p-8 flex gap-8   border  bg-white shadow-md  rounded-md  w-[50%] justify-center   m-8">
-        <div>
+    <>
+    
+    <div className="p-8 flex gap-8   border  bg-white shadow-md  rounded-md  w-[50%] justify-center text-center items-center  m-8">
+        <div >
 
       {/* <img src={mainImage} alt={product.title} className="w-96 h-96 object-cover" /> */}
-      <div className="flex gap-4 mt-4">
+      <div className="flex gap-4 mt-4 border ">
       {/* {product.image.map((img,index)=>(
         <img src={img} key={index} onClick={()=>setMainImage(img)} alt=""  className="w-24 h-24 object-cover border cursor-pointer hover:border-green-500" />
       ))} */}
@@ -39,18 +42,20 @@ const cart = () => {
 
         <button
           onClick={() => dispatch(addToCart(addproduct))}
-          className="px-4 py-2 bg-greenDark text-white rounded hover:bg-green1"
+          className="px-4 py-2 bg-greenDark text-white rounded-md hover:bg-green1  "
         >
           Add to Cart
         </button>
-        <button onClick={()=>dispatch(increaseQty(addproduct))}>
-          +
-        </button>
-        <button onClick={()=>dispatch(decreaseQty(addproduct))}>
-          -
-        </button>
+        
+   
+      </div>
+      <div>
+
       </div>
     </div>
+    <Product/>
+    </>
+   
   );
 };
 

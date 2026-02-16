@@ -130,6 +130,17 @@ const {products=[]}=useProduct()
             </Link>
           </div>
         )}
+        {/* admin */}
+        {user?.role==="Admin"&&(
+                  <Link
+              to="/admin"
+              className="px-3 py-1 rounded bg-green-500 hover:bg-green-600 transition"
+            >
+ Admin
+            </Link>
+    
+
+        )}
 </div>
 </div>
     </section>
