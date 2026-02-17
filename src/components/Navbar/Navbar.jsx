@@ -15,7 +15,14 @@ const Navbar = () => {
 const {products=[]}=useProduct()
   const cartItems = useSelector((state) => state.cart.items);
   const { categories = [] } = useCategory();
+  const [searchInput,setSearchInput]=useState('')
   const {user}=useAuth()
+  const filterData=products.filter(item=>{
+    return item.title.toLowerCase().includes(searchInput.toLowerCase())
+  })
+  const handleSearch=(e)=>{
+  setSearchInput(e.target.value)
+  }
 
 
   const [hoverParent, setHoverParent] = useState(null);
@@ -53,8 +60,30 @@ const {products=[]}=useProduct()
         type="text"
         placeholder="Search products..."
         className="w-full rounded-full px-5 pr-12 py-2 border"
+        value={searchInput}
+        onChange={handleSearch}
+
       />
-      <CiSearch className="absolute right-4 top-2.5 text-xl text-gray-500" />
+  <CiSearch className="absolute right-4 top-2.5 text-xl text-gray-500" />
+{searchInput&&(
+ <div className="absolute w-full bg-white shadow-lg rounded mt-2 max-h-60 overflow-y-auto z-50">
+  {filterData.length > 0?(
+    filterData.slice(0,5).map((item)=>(
+      <Link key={item._id}
+       to={`/product/${item._id}`}
+                   className="block px-4 py-2 hover:bg-green-100"
+ onClick={() => setSearchInput("")}>
+ {item.title}
+      </Link>
+    ))
+         ) : (
+        <div className="px-4 py-2 text-gray-500">
+          No product found
+        </div>
+      )}
+        </div>
+   
+  )}
     </div>
 
     {/* Parent + Child Categories */}
@@ -131,16 +160,26 @@ const {products=[]}=useProduct()
           </div>
         )}
         {/* admin */}
-        {user?.role==="Admin"&&(
-                  <Link
-              to="/admin"
-              className="px-3 py-1 rounded bg-green-500 hover:bg-green-600 transition"
-            >
- Admin
-            </Link>
-    
+{user?.role === "Admin" && (
+  <div className="flex items-center gap-4">
 
-        )}
+    <Link
+      to="/admin"
+      className="px-4 py-1.5 rounded bg-green-500 text-white hover:bg-green-600 transition font-medium"
+    >
+      Dashboard
+    </Link>
+
+    <Link
+      to="/admin/products"
+      className="px-4 py-1.5 rounded bg-blue-500 text-white hover:bg-blue-600 transition font-medium"
+    >
+      Products
+    </Link>
+
+  </div>
+)}
+
 </div>
 </div>
     </section>

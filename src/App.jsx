@@ -17,6 +17,7 @@ import Categorychild from "./pages/Customer/Categorychild";
 import Cartpage from "./pages/Customer/Cartpage";
 import Order from "./pages/Seller/order"
 import Seller from "./pages/Seller/Seller";
+import ProductGet from "./pages/Admin/ProductGet";
 
 const Smvecom = () => {
 
@@ -34,6 +35,7 @@ const Smvecom = () => {
           
           <Route element={<ProtectedRoutes allowedRoles={["Admin"]} />}>
             <Route path="admin" element={<Admin />} />
+            <Route  path="productget" element={<ProductGet/>}/>
           </Route>
      
           <Route element={<ProtectedRoutes allowedRoles={["seller"]} />}>
