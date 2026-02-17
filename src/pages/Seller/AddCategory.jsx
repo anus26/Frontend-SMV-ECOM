@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import useCategory from "../../redux/hooks/useCategory";
 import { getthunkcategory, thunkcategory } from "../../redux/slices/categorySlice";
+import toast from "react-hot-toast";
 
 const AddCategory = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const AddCategory = () => {
       name: "",
       parentCategory: ""
     });
+     toast.success("successfully Add")  
   };
 
   return (

@@ -6,6 +6,7 @@ import useCategory from "../../redux/hooks/useCategory";
 import { getthunkcategory } from "../../redux/slices/categorySlice";
 import useProduct from "../../redux/hooks/useProduct";
 import { addProductAPI } from "../../redux/slices/productSlice";
+import toast from "react-hot-toast";
 
 const ProductAdd = () => {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ const ProductAdd = () => {
     e.preventDefault();
     console.log("Submitting product:", form);
     dispatch(addProductAPI(form));
+     toast.success("successfully Add")  
   };
 
   // Filter parent categories

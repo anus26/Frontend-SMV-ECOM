@@ -88,6 +88,8 @@ const revenueSlice=createSlice({
           .addCase(revenuemonthlyThunk.fulfilled,(state,action)=>{
             state.loading=false
       state.monthly = action.payload
+      console.log(action.payload);
+      
              
           })
           .addCase(revenuemonthlyThunk.rejected,(state,action)=>{

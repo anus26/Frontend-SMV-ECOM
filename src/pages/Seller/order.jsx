@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { orderdeleteThunk, ordergetThunk, orderupdataThunk } from "../../redux/slices/orderSlice";
 import useorder from "../../redux/hooks/useorder";
+import toast from "react-hot-toast";
 
 const Order = () => {
   const dispatch = useDispatch();
@@ -34,7 +35,8 @@ const Order = () => {
             status: selected.status
         }))
         dispatch(ordergetThunk())
-        closeModal();   // ✅ THIS IS IMPORTANT
+        closeModal();
+        toast.success("successfully updata")   // ✅ THIS IS IMPORTANT
     };
 const handleDelete = async (_id) => {
   try {
@@ -46,6 +48,7 @@ const handleDelete = async (_id) => {
 
     // 3️⃣ Close modal if open
     closeModal();
+     toast.success("successfully Delete")  
   } catch (error) {
     console.error("Delete failed:", error);
   }

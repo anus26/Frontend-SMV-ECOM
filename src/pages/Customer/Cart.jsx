@@ -5,6 +5,7 @@ import { addToCart, decreaseQty, increaseQty } from "../../redux/slices/cartSlic
 import useProduct from "../../redux/hooks/useProduct";
 import useCategory from "../../redux/hooks/useCategory";
 import Product from "./Product";
+import toast from "react-hot-toast";
 
 
 
@@ -17,7 +18,8 @@ const cart = () => {
  
   
 
-  const addproduct = products.find((p) => p._id === id);
+  const addproduct = products.find((p) => p._id === id  )
+  // toast.success("Add to Cart successfully");
 // const [mainImage,setMainImage]=useState(product.image[0)
   if (!addproduct) return <p>Product not found</p>;
 

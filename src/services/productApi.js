@@ -19,7 +19,7 @@ export const updataProducts=async({id,data})=>{
 }
 export const deleteProducts = async (id) => {
   const res = await API.delete(`/deleteproduct/${id}`); // use DELETE
-  return res.data;
+  return res;
 };
 
 // export const getcategoryProducts=async()=>{

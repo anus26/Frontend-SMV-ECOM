@@ -56,86 +56,116 @@ const handleBlock = (id) => {
   if (loading) return <p className="text-center mt-10">Loading...</p>;
   if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
 
-  return (
-    <section className="p-8 bg-gray-100 min-h-screen">
-      <div>
-<Stats/>
-{/* <stats/> */}
-      </div>
-      <h1 className="text-2xl font-bold mb-6">Admin - Users</h1>
+return (
+  <section className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 p-6">
 
-      {/* USERS TABLE */}
-      <div className="bg-white shadow rounded-lg overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-gray-200">
-            <tr>
-              <th className="p-3 border">Name</th>
-              <th className="p-3 border">Email</th>
-              <th className="p-3 border">Role</th>
-              <th className="p-3 border">Approved</th>
-              <th className="p-3 border">Blocked</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentUsers?.map((user) => (
-              <tr key={user._id} className="text-center hover:bg-gray-50">
-                <td className="p-3 border">{user.name}</td>
-                <td className="p-3 border">{user.email}</td>
-                <td className="p-3 border capitalize">{user.role}</td>
-              <td className="p-3 border">
-  {user.role === "seller" ? (
-    <button
-      onClick={() => handleApproved(user._id)}
-      disabled={user.isApproved}
-      className={`px-3 py-1 rounded ${
-        user.isApproved
-          ? "bg-green-500 text-black cursor-not-allowed"
-          : "bg-yellow-500 text-black"
-      }`}
-    >
-      {user.isApproved ? "Approved" : "Approve"
-      
-      }
-    </button>
-  ) : (
-    "-"
-  )}
-</td>
 
-                <td className="p-3 border">
-               
-                  <button onClick={()=>handleBlock(user._id)}>
-    {user.isBlocked ? "Unblock" : "Block"}
+    {/* Header */}
+    <div className="flex justify-between items-center mb-6">
+      <h1 className="text-3xl font-bold text-gray-800">
+        Admin Dashboard
+      </h1>
+    {/* Stats Section */}
+   
+    </div>
+    <div className="mb-8">
+      <Stats />
+    </div>
 
+    {/* Users Table Card */}
+    <div className="bg-white rounded-2xl shadow-lg overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
+          <tr>
+            <th className="p-4">Name</th>
+            <th className="p-4">Email</th>
+            <th className="p-4">Role</th>
+            <th className="p-4">Approval</th>
+            <th className="p-4">Block</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {currentUsers?.map((user) => (
+            <tr
+              key={user._id}
+              className="text-center border-t hover:bg-gray-50 transition"
+            >
+              <td className="p-4 font-medium">{user.name}</td>
+              <td className="p-4 text-gray-600">{user.email}</td>
+
+              {/* Role Badge */}
+              <td className="p-4">
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    user.role === "admin"
+                      ? "bg-purple-100 text-purple-600"
+                      : user.role === "seller"
+                      ? "bg-blue-100 text-blue-600"
+                      : "bg-gray-100 text-gray-600"
+                  }`}
+                >
+                  {user.role}
+                </span>
+              </td>
+
+              {/* Approve Button */}
+              <td className="p-4">
+                {user.role === "seller" ? (
+                  <button
+                    onClick={() => handleApproved(user._id)}
+                    disabled={user.isApproved}
+                    className={`px-4 py-1 rounded-lg text-sm font-medium transition ${
+                      user.isApproved
+                        ? "bg-green-500 text-white cursor-not-allowed"
+                        : "bg-yellow-500 hover:bg-yellow-600 text-white"
+                    }`}
+                  >
+                    {user.isApproved ? "Approved" : "Approve"}
                   </button>
-                  
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                ) : (
+                  "-"
+                )}
+              </td>
 
-      {/* PAGINATION */}
-      <div className="flex justify-center mt-6 space-x-2">
-        {[...Array(totalPages)].map((_, index) => (
-          <button
-            key={index}
-            onClick={() => handlePageChange(index + 1)}
-            className={`px-3 py-1 border rounded ${
-              currentPage === index + 1
-                ? "bg-blue-500 text-white"
-                : "bg-white"
-            }`}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
-     
+              {/* Block Button */}
+              <td className="p-4">
+                <button
+                  onClick={() => handleBlock(user._id)}
+                  className={`px-4 py-1 rounded-lg text-sm font-medium transition ${
+                    user.isBlocked
+                      ? "bg-green-500 hover:bg-green-600 text-white"
+                      : "bg-red-500 hover:bg-red-600 text-white"
+                  }`}
+                >
+                  {user.isBlocked ? "Unblock" : "Block"}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
 
-    </section>
-  );
+    {/* Pagination */}
+    <div className="flex justify-center mt-8 space-x-2">
+      {[...Array(totalPages)].map((_, index) => (
+        <button
+          key={index}
+          onClick={() => handlePageChange(index + 1)}
+          className={`px-4 py-2 rounded-lg font-medium transition ${
+            currentPage === index + 1
+              ? "bg-indigo-600 text-white shadow-md"
+              : "bg-white border hover:bg-gray-100"
+          }`}
+        >
+          {index + 1}
+        </button>
+      ))}
+    </div>
+  </section>
+);
+
 };
 
 export default Admin;

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { SignupApi, SigninApi, getMe } from "../../services/authApi";
+import { deleteProducts } from "../../services/productApi";
 
 const initialState = {
   user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
@@ -44,6 +45,17 @@ export const getUser=createAsyncThunk(
         }
     }
 )
+export const logoutApiThunk = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      return await logout();
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Logout failed");
+    }
+  }
+);
+
 
 const authSlice = createSlice({
   name: "auth",
@@ -104,6 +116,11 @@ const authSlice = createSlice({
       .addCase(getUser.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
+    })
+    // lougout
+     .addCase(logoutApiThunk.fulfilled, (state) => {
+      state.user = null;
+      localStorage.removeItem("user");
     });
 },
 })

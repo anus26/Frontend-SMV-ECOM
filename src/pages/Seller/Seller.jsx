@@ -9,15 +9,16 @@ import {
 import Revenue from "../../components/Seller/Revenue";
 import DailyRevenue from "../../components/Seller/DailyRevneue";
 import MonthlyRevenueChart from "../../components/Seller/MonthlyRevenueChart";
+import toast from "react-hot-toast";
 
 const Seller = () => {
   const dispatch = useDispatch();
   const { products = [], loading, error } = useProduct();
 
-  const [currentpage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const totalPages = Math.ceil(products.length / itemsPerPage);
-  const indexOfLastItem = currentpage * itemsPerPage;
+  const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = Array.isArray(products)
     ? products.slice(indexOfFirstItem, indexOfLastItem)
@@ -62,15 +63,18 @@ const Seller = () => {
     if (selectedProduct.image instanceof File) {
       formData.append("image", selectedProduct.image);
     }
-    dispatch(updataProductAPI({ id: selectedProduct._id, data: formData })).then(
-      () => dispatch(productApI())
-    );
+    dispatch(updataProductAPI({ id: selectedProduct._id, data: formData })).then(() => {
+      dispatch(productApI());
+      toast.success("Product updated successfully!");
+      closeModal();
+    });
   };
 
   const handleDelete = (_id) => {
     dispatch(deleteProductAPI(_id)).then(() => {
       dispatch(productApI());
-      setShowModal(false);
+      toast.success("Product deleted successfully!");
+      closeModal();
     });
   };
 
@@ -82,32 +86,29 @@ const Seller = () => {
     );
 
   return (
-    <section className="p-8 bg-gray-50 min-h-screen">
+    <section className="p-4 md:p-8 bg-gray-50 min-h-screen">
       {/* Revenue Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-1 gap-2 mb-8">
-
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
         <MonthlyRevenueChart />
         <DailyRevenue />
       </div>
-      <div >
-        <Revenue />
-      </div>
+      <Revenue />
 
       {/* Products Section */}
-      <div className="bg-white p-6 rounded-lg shadow">
+      <div className="bg-white p-4 md:p-6 rounded-lg shadow">
         <h1 className="text-2xl font-bold mb-4 text-gray-800">
           Seller Products
         </h1>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-left">
+          <table className="min-w-full border-collapse text-left">
             <thead className="bg-greenSoft">
               <tr>
-                <th className="border p-3">Image</th>
-                <th className="border p-3">Title</th>
-                <th className="border p-3">Price</th>
-                <th className="border p-3">Stock</th>
-                <th className="border p-3">Description</th>
-                <th className="border p-3 text-center">Actions</th>
+                <th className="border p-2 md:p-3">Image</th>
+                <th className="border p-2 md:p-3">Title</th>
+                <th className="border p-2 md:p-3">Price</th>
+                <th className="border p-2 md:p-3">Stock</th>
+                <th className="border p-2 md:p-3">Description</th>
+                <th className="border p-2 md:p-3 text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -116,25 +117,27 @@ const Seller = () => {
                   key={item._id}
                   className="hover:bg-greenSoft/40 transition-colors"
                 >
-                  <td className="border p-3">
+                  <td className="border p-1 md:p-3">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-16 h-16 rounded object-cover"
+                      className="w-12 md:w-16 h-12 md:h-16 rounded object-cover"
                     />
                   </td>
-                  <td className="border p-3 font-medium text-gray-700">
+                  <td className="border p-1 md:p-3 font-medium text-gray-700">
                     {item.title}
                   </td>
-                  <td className="border p-3 text-greenDark font-semibold">
+                  <td className="border p-1 md:p-3 text-greenDark font-semibold">
                     Rs {item.price}
                   </td>
-                  <td className="border p-3">{item.stock}</td>
-                  <td className="border p-3">{item.description}</td>
-                  <td className="border p-3 text-center">
+                  <td className="border p-1 md:p-3">{item.stock}</td>
+                  <td className="border p-1 md:p-3 text-sm md:text-base">
+                    {item.description}
+                  </td>
+                  <td className="border p-1 md:p-3 text-center flex flex-col md:flex-row gap-1 justify-center">
                     <button
                       onClick={() => openUpdateModal(item)}
-                      className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
+                      className="bg-blue-500 text-white px-2 md:px-3 py-1 rounded hover:bg-blue-600 transition"
                     >
                       Update
                     </button>
@@ -146,13 +149,13 @@ const Seller = () => {
         </div>
 
         {/* Pagination */}
-        <div className="mt-4 flex justify-center gap-2">
+        <div className="mt-4 flex flex-wrap justify-center gap-2">
           {[...Array(totalPages)].map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentPage(index + 1)}
               className={`px-3 py-1 rounded border ${
-                currentpage === index + 1
+                currentPage === index + 1
                   ? "bg-greenDark text-white"
                   : "bg-white text-gray-700 hover:bg-green1/30"
               } transition`}
@@ -165,8 +168,8 @@ const Seller = () => {
 
       {/* Update Modal */}
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white w-96 p-6 rounded-lg shadow-lg">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 p-4">
+          <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg overflow-y-auto max-h-[90vh]">
             <h2 className="text-xl font-bold mb-4">Update Product</h2>
             <form onSubmit={handleUpdate} className="space-y-3">
               <input
@@ -214,7 +217,7 @@ const Seller = () => {
                 onChange={handleChange}
                 name="image"
               />
-              <div className="flex justify-end gap-2 mt-2">
+              <div className="flex flex-col md:flex-row justify-end gap-2 mt-2">
                 <button
                   type="button"
                   onClick={closeModal}

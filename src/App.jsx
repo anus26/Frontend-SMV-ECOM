@@ -18,6 +18,7 @@ import Cartpage from "./pages/Customer/Cartpage";
 import Order from "./pages/Seller/order"
 import Seller from "./pages/Seller/Seller";
 import ProductGet from "./pages/Admin/ProductGet";
+import { Toaster } from "react-hot-toast";
 
 const Smvecom = () => {
 
@@ -61,6 +62,7 @@ const Smvecom = () => {
 
         </Route>
       </Routes>
+      <Toaster />
     </BrowserRouter>
   );
 };

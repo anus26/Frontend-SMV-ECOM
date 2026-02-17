@@ -10,6 +10,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { FaPlus, FaMinus, FaShoppingBag } from "react-icons/fa";
 import { orderThunk } from "../../redux/slices/orderSlice";
 import useAuth from "../../redux/hooks/useauth";
+import toast from "react-hot-toast";
 
 const Cartpage = () => {
   const dispatch = useDispatch();
@@ -40,12 +41,13 @@ const Cartpage = () => {
       })),
       totalAmount,
     };
-
+    
     dispatch(orderThunk(orderData))
-      .unwrap()
-      .then(() => {
-        dispatch(clearCart());
-      });
+    .unwrap()
+    .then(() => {
+      dispatch(clearCart());
+    });
+    toast.success("Successfully Order")
   };
 
   return (
