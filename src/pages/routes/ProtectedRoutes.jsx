@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router";
-import useAuth from "../../redux/hooks/useauth";
+import useAuth from "../../redux/hooks/useAuth";
 
 const ProtectedRoutes = ({allowedRoles}) => {
     const { user, loading } = useAuth();

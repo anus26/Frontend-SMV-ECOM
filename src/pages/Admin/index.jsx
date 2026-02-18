@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { approveSellerThunk, blockUserThunk, getStatsThunk, getUsersThunk } from "../../redux/slices/adminSlice";
 import useAdmin from "../../redux/hooks/useAdmin";
 import Stats from "../../components/Admin/Stats.jsx";
-// import Stats from "../../components/Admin/Stats";
 const Admin = () => {
   const dispatch = useDispatch();
   const { users, loading, error } = useAdmin();
