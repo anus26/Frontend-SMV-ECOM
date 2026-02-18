@@ -7,6 +7,7 @@ import { getthunkcategory } from "../../redux/slices/categorySlice";
 import { getslugproductApi } from "../../redux/slices/productSlice";
 import useProduct from "../../redux/hooks/useProduct";
 import useAuth from "../../redux/hooks/useauth";
+import { IoIosLogOut } from "react-icons/io";
 import { logoutApiThunk } from "../../redux/slices/authSlice";
 
 const Navbar = () => {
@@ -25,9 +26,11 @@ const Navbar = () => {
   const menuRef = useRef(null);
 
   // Filter products for search
-  const filterData = products.filter((item) =>
-    item.title.toLowerCase().includes(searchInput.toLowerCase())
-  );
+const filterData = Array.isArray(products)
+  ? products.filter((item) =>
+      item.title.toLowerCase().includes(searchInput.toLowerCase())
+    )
+  : [];
 
   // Parent/child categories
   const parentCategory = categories.filter((cat) => !cat.parentCategory);
@@ -59,15 +62,16 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-green1 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-green1 shadow-md sticky top-0 z-50 ">
+      <div className="max-w-7xl  px-4 sm:px-6 lg:px-8   ">
         <div className="flex justify-between h-16 items-center">
 
           {/* Logo */}
           <Link
             to="/"
-            className="text-2xl font-bold text-green-600 hover:text-green-700"
+            className="text-2xl font-bold text-blue  flex items-center "
           >
+            <img src="./image/online-shopping.png" alt="image" className="w-8"/>
             SMV-ECOM
           </Link>
 
@@ -158,13 +162,13 @@ const Navbar = () => {
               <div className="flex gap-4">
                 <Link
                   to="/seller"
-                  className="px-3 py-1 rounded bg-green-500 hover:bg-green-600"
+                  className="px-3 py-1 rounded  "
                 >
                   Seller
                 </Link>
                 <Link
                   to="/productadd"
-                  className="px-3 py-1 rounded bg-green-500 hover:bg-green-600"
+                  className="px-3 py-1 rounded "
                 >
                   Product Add
                 </Link>
@@ -176,7 +180,7 @@ const Navbar = () => {
                 </Link>
                 <Link
                   to="/getorder"
-                  className="px-3 py-1 rounded bg-purple-500 hover:bg-purple-600"
+                  className="px-3 py-1 rounded bg-blue hover:bg-hover hover:rounded-2xl text-white"
                 >
                   Orders
                 </Link>
@@ -188,13 +192,13 @@ const Navbar = () => {
               <div className="flex gap-4">
                 <Link
                   to="/admin"
-                  className="px-4 py-1.5 rounded bg-green-500 hover:bg-green-600"
+                  className="px-4 py-1.5 rounded bg-green hover:bg-green1"
                 >
                   Admin Dashboard
                 </Link>
                 <Link
                   to="/productget"
-                  className="px-4 py-1.5 rounded bg-blue-500 hover:bg-blue-600"
+                  className="px-4 py-1.5 rounded bg-blue hover:bg-hover"
                 >
                   Products
                 </Link>
@@ -205,14 +209,14 @@ const Navbar = () => {
             {!user && (
               <div className="flex gap-4 ml-4">
                 <Link
-                  to="/login"
-                  className="px-4 py-1.5 rounded bg-green-500 hover:bg-green-600 text-white"
+                  to="/signin"
+                  className="px-4 py-1.5 rounded bg-green hover:bg-green1 text-white"
                 >
                   Login
                 </Link>
                 <Link
                   to="/signup"
-                  className="px-4 py-1.5 rounded bg-blue-500 hover:bg-blue-600 text-white"
+                  className="px-4 py-1.5 rounded bg-blue hover:bg-hover text-white"
                 >
                   Signup
                 </Link>
@@ -220,12 +224,15 @@ const Navbar = () => {
             )}
 
             {/* Logout button for logged in users */}
+           
             {user && (
+            
               <button
                 onClick={handleLogout}
-                className="px-4 py-1.5 rounded bg-red-500 hover:bg-red-600 text-white"
+                className="px-4 py-1.5 rounded bg-red1 hover:bg-red2 text-white hover:rounded-2xl hover:text-black text-center flex items-center gap-2  "
               >
                 Logout
+                <span><IoIosLogOut /> </span>
               </button>
             )}
           </div>
@@ -279,7 +286,7 @@ const Navbar = () => {
           {/* Seller Links */}
           {user?.role === "seller" && (
             <div className="flex flex-col gap-2">
-              <Link to="/seller" className="px-4 py-2 bg-green-500 rounded">
+              <Link to="/seller" className="px-4 py-2 bg-green1 rounded">
                 Seller
               </Link>
               <Link to="/productadd" className="px-4 py-2 bg-green-500 rounded">
@@ -288,7 +295,7 @@ const Navbar = () => {
               <Link to="/addcategory" className="px-4 py-2 bg-blue-500 rounded">
                 Add Category
               </Link>
-              <Link to="/getorder" className="px-4 py-2 bg-purple-500 rounded">
+              <Link to="/getorder" className="px-4 py-2 bg-blue rounded text-white text-center hover:rounded-2xl ">
                 Orders
               </Link>
             </div>
@@ -299,13 +306,13 @@ const Navbar = () => {
             <div className="flex flex-col gap-2">
               <Link
                 to="/admin"
-                className="px-4 py-2 bg-green-500 rounded text-white"
+                className="px-4 py-2 bg-green1 rounded text-black"
               >
                 Admin Dashboard
               </Link>
               <Link
                 to="/productget"
-                className="px-4 py-2 bg-blue-500 rounded text-white"
+                className="px-4 py-2 bg-blue rounded text-black"
               >
                 Products
               </Link>
@@ -317,13 +324,13 @@ const Navbar = () => {
             <div className="flex flex-col gap-2">
               <Link
                 to="/login"
-                className="px-4 py-2 rounded bg-green-500 text-white text-center"
+                className="px-4 py-2 rounded bg-green1 text-black text-center"
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="px-4 py-2 rounded bg-blue-500 text-white text-center"
+                className="px-4 py-2 rounded bg-blue text-black text-center"
               >
                 Signup
               </Link>
@@ -334,8 +341,9 @@ const Navbar = () => {
           {user && (
             <button
               onClick={handleLogout}
-              className="w-full mt-2 px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white"
+              className="w-full mt-2 px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white flex justify-center items-center"
             >
+              <span><IoIosLogOut className=""/></span>
               Logout
             </button>
           )}

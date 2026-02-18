@@ -117,8 +117,8 @@ return (
                     disabled={user.isApproved}
                     className={`px-4 py-1 rounded-lg text-sm font-medium transition ${
                       user.isApproved
-                        ? "bg-green-500 text-white cursor-not-allowed"
-                        : "bg-yellow-500 hover:bg-yellow-600 text-white"
+                        ? "bg-green-500 text-black cursor-not-allowed"
+                        : "bg-yellow-500 hover:bg-yellow-600 text-black"
                     }`}
                   >
                     {user.isApproved ? "Approved" : "Approve"}
@@ -134,8 +134,8 @@ return (
                   onClick={() => handleBlock(user._id)}
                   className={`px-4 py-1 rounded-lg text-sm font-medium transition ${
                     user.isBlocked
-                      ? "bg-green-500 hover:bg-green-600 text-white"
-                      : "bg-red-500 hover:bg-red-600 text-white"
+                      ? "bg-green-500 hover:bg-green-600 text-black"
+                      : "bg-red-500 hover:bg-red-600 text-green"
                   }`}
                 >
                   {user.isBlocked ? "Unblock" : "Block"}

@@ -19,6 +19,7 @@ import Order from "./pages/Seller/order"
 import Seller from "./pages/Seller/Seller";
 import ProductGet from "./pages/Admin/ProductGet";
 import { Toaster } from "react-hot-toast";
+import Footer from "./pages/Footer";
 
 const Smvecom = () => {
 
@@ -62,6 +63,7 @@ const Smvecom = () => {
 
         </Route>
       </Routes>
+      <Footer/>
       <Toaster />
     </BrowserRouter>
   );

@@ -60,6 +60,14 @@ const ProductAdd = () => {
     console.log("Submitting product:", form);
     dispatch(addProductAPI(form));
      toast.success("successfully Add")  
+         setForm({
+      title: "",
+      price: "",
+      stock: "",
+      description: "",
+      image: null
+    });
+
   };
 
   // Filter parent categories

@@ -84,14 +84,12 @@ const orderSlice = createSlice({
         state.error = null;
       })
   
-   .addCase(ordergetThunk.fulfilled, (state, action) => {
-  state.loading = false;
-  state.orders = Array.isArray(action.payload.allorders)
-    ? action.payload.allorders
-    : [];
-  console.log("allorders", state.orders);
-})
-
+      .addCase(ordergetThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.orders = action.payload.allorders;
+        console.log("allorders", action.payload);
+        
+      })
       .addCase(ordergetThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;

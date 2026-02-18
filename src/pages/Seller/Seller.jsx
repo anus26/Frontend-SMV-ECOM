@@ -17,7 +17,7 @@ const Seller = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const totalPages = Math.ceil((products?.length || 0) / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = Array.isArray(products)
@@ -100,7 +100,7 @@ const Seller = () => {
           Seller Products
         </h1>
         <div className="overflow-x-auto">
-          <table className="min-w-full border-collapse text-left">
+          <table className="w-full border-collapse text-left">
             <thead className="bg-greenSoft">
               <tr>
                 <th className="border p-2 md:p-3">Image</th>
@@ -137,7 +137,7 @@ const Seller = () => {
                   <td className="border p-1 md:p-3 text-center flex flex-col md:flex-row gap-1 justify-center">
                     <button
                       onClick={() => openUpdateModal(item)}
-                      className="bg-blue-500 text-white px-2 md:px-3 py-1 rounded hover:bg-blue-600 transition"
+                      className="bg-blue-500 text-black px-2 md:px-3 py-1 rounded hover:bg-blue-600 transition"
                     >
                       Update
                     </button>
@@ -150,19 +150,20 @@ const Seller = () => {
 
         {/* Pagination */}
         <div className="mt-4 flex flex-wrap justify-center gap-2">
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentPage(index + 1)}
-              className={`px-3 py-1 rounded border ${
-                currentPage === index + 1
-                  ? "bg-greenDark text-white"
-                  : "bg-white text-gray-700 hover:bg-green1/30"
-              } transition`}
-            >
-              {index + 1}
-            </button>
-          ))}
+        {[...Array(totalPages)].map((_, index) => (
+  <button
+    key={index}
+    onClick={() => setCurrentPage(index + 1)}
+    className={`px-3 py-1 rounded border ${
+      currentPage === index + 1
+        ? "bg-greenDark text-black"
+        : "bg-white text-gray-700 hover:bg-green1/30"
+    } transition`}
+  >
+    {index + 1}
+  </button>
+))}
+
         </div>
       </div>
 
@@ -228,13 +229,13 @@ const Seller = () => {
                 <button
                   type="button"
                   onClick={() => handleDelete(selectedProduct._id)}
-                  className="bg-red-500 px-4 py-1 text-white rounded hover:bg-red-600 transition"
+                  className="bg-red-500 px-4 py-1 text-black rounded hover:bg-red-600 transition"
                 >
                   Delete
                 </button>
                 <button
                   type="submit"
-                  className="bg-greenDark px-4 py-1 text-white rounded hover:bg-green1 transition"
+                  className="bg-greenDark px-4 py-1 text-black rounded hover:bg-green1 transition"
                 >
                   Update
                 </button>

@@ -52,7 +52,7 @@ const MonthlyRevenueChart = () => {
   return (
     <section className="flex justify-center mt-10">
 
-      <div className="bg-white p-6 rounded-2xl shadow-lg w-[400px]">
+      <div className="bg-white p-6 rounded-2xl shadow-lg lg:w-[400px] sm:w-[300px]">
         <h2 className="text-xl font-bold mb-4">Monthly Revenue</h2>
         {loading ? <p>Loading...</p> : <Pie data={data} />}
       </div>
