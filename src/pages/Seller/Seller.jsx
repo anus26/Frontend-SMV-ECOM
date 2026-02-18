@@ -7,7 +7,7 @@ import {
   updataProductAPI,
 } from "../../redux/slices/productSlice";
 import Revenue from "../../components/Seller/Revenue.jsx";
-import DailyRevenue from "../../components/Seller/DailyRevneue.sx";
+import DailyRevenue from "../../components/Seller/DailyRevneue.jsx";
 import MonthlyRevenueChart from "../../components/Seller/MonthlyRevenueChart.jsx";
 import toast from "react-hot-toast";
 
