@@ -9,7 +9,7 @@ import {
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaPlus, FaMinus, FaShoppingBag } from "react-icons/fa";
 import { orderThunk } from "../../redux/slices/orderSlice";
-import useAuth from "../../redux/hooks/useauth";
+import useAuth from "../../redux/hooks/useAuth";
 import toast from "react-hot-toast";
 
 const Cartpage = () => {
