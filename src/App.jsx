@@ -3,7 +3,7 @@ import Layouts from "./components/Layouts";
 import ProtectedRoutes from "./pages/routes/ProtectedRoutes";
 
 import Signin from "./pages/Signin.jsx";
-import Signup from "./pages/signup.jsx";
+import Signup from "./pages/Signup.jsx";
 
 import Customer from "./pages/Customer";
 import Cart from "./pages/Customer/Cart";
