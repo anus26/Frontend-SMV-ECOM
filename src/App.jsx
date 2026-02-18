@@ -2,17 +2,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layouts from "./components/Layouts";
 import ProtectedRoutes from "./pages/routes/ProtectedRoutes";
 
-import Signin from "./pages/Signin";
-import Signup from "./pages/signup";
+import Signin from "./pages/Signin.jsx";
+import Signup from "./pages/signup.jsx";
 
 import Customer from "./pages/Customer";
-import Product from "./pages/Customer/Product";
 import Cart from "./pages/Customer/Cart";
 
 import Admin from "./pages/Admin";
 import ProductAdd from "./pages/Seller/ProductAdd";
 import AddCategory from "./pages/Seller/AddCategory";
-import ProductCard from "./components/Customer/ProductCard";
 import Categorychild from "./pages/Customer/Categorychild";
 import Cartpage from "./pages/Customer/Cartpage";
 import Order from "./pages/Seller/order"
