@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signupUser } from "../redux/slices/authSlice";
-import useAuth from "../redux/hooks/useauth.jsx";
+import useAuth from "../redux/hooks/useauth";
 
 const Signup = () => {
   const dispatch=useDispatch()
