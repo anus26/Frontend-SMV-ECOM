@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import Content from '../../components/customer/content.jsx'
 import Product from './Product.jsx'
+import Content from '../../components/customer/Content.jsx'
 
 const Customer = () => {
  
