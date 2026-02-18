@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { approveSellerThunk, blockUserThunk, getStatsThunk, getUsersThunk } from "../../redux/slices/adminSlice";
 import useAdmin from "../../redux/hooks/useAdmin";
-import Stats from "../../components/Admin/stats";
+import Stats from "../../components/Admin/stats.jsx";
 // import Stats from "../../components/Admin/Stats";
 const Admin = () => {
   const dispatch = useDispatch();

@@ -6,9 +6,9 @@ import {
   productApI,
   updataProductAPI,
 } from "../../redux/slices/productSlice";
-import Revenue from "../../components/Seller/Revenue";
-import DailyRevenue from "../../components/Seller/DailyRevneue";
-import MonthlyRevenueChart from "../../components/Seller/MonthlyRevenueChart";
+import Revenue from "../../components/Seller/Revenue.jsx";
+import DailyRevenue from "../../components/Seller/DailyRevneue.sx";
+import MonthlyRevenueChart from "../../components/Seller/MonthlyRevenueChart.jsx";
 import toast from "react-hot-toast";
 
 const Seller = () => {

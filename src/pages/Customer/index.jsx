@@ -1,11 +1,7 @@
 import React, { useEffect } from 'react'
-import Navbar from '../../components/Navbar/Navbar'
-import Content from '../../components/customer/content'
-import Product from './Product'
-import Categorychild from './Categorychild'
-import { useDispatch, useSelector } from 'react-redux'
-import useProduct from '../../redux/hooks/useProduct'
-import { productApI } from '../../redux/slices/productSlice'
+import Content from '../../components/customer/content.jsx'
+import Product from './Product.jsx'
+
 const Customer = () => {
  
   return (
