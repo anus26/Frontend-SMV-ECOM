@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const API=axios.create({
-        baseURL:"http://localhost:4000/api/v1/Product",
+        baseURL:"https://civic-marti-anusraza123bm-c88fd7a4.koyeb.app/api/v1/Product",
         withCredentials:true,
          headers: { "Content-Type": "multipart/form-data" },
 })
