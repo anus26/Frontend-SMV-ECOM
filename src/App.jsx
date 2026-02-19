@@ -26,9 +26,9 @@ const Smvecom = () => {
     <BrowserRouter>
 
       <Routes>
-        
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        
 
      
         <Route element={<Layouts />}>
@@ -61,7 +61,7 @@ const Smvecom = () => {
 
         </Route>
       </Routes>
-      <Footer/>
+  
       <Toaster />
     </BrowserRouter>
   );

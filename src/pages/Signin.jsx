@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signinUser } from "../redux/slices/authSlice";
 import useAuth from "../redux/hooks/useAuth";
-
+import { ColorRing } from "react-loader-spinner";
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa";
+import { IoHandLeftSharp } from "react-icons/io5";
 const Signin = () => {
   const dispatch=useDispatch()
   const {user,loading,error}=useAuth()
@@ -11,12 +14,22 @@ const Signin = () => {
     email:"",
         password:""
   })
+  const [show ,setShow]=useState(false)
+
   const navigate=useNavigate()
   const handleChange=(e)=>{
     setFormData({
       ...formData,
       [e.target.name]:e.target.value
     })
+    loading(true)
+    setTimeout(()=>{
+      loading(false)
+    },2000)
+
+  }
+  const handleshow=()=>{
+    setShow(prev=>!prev)
   }
   const handleSubmit=(e)=>{
     e.preventDefault()
@@ -56,16 +69,26 @@ const Signin = () => {
             />
           </div>
 
-          <div>
+          <div className="relative">
             <label className="block text-sm font-medium mb-1">Password</label>
             <input
-              type="password"
+              type={show? "text":"password"}
               placeholder="********"
               value={formData.password}
               name="password"
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-greenDark"
+              className="w-full px-4 py-2 border  rounded-lg  focus:outline-none focus:ring-2 focus:ring-greenDark"
             />
+            <span onClick={handleshow}  className="absolute right-3 top-9 ">
+
+            {show?(
+              <>
+              <FaRegEye />
+              </>
+            ):(
+<FaRegEyeSlash />
+            )}
+            </span>
           </div>
 
           <div className="flex justify-between items-center text-sm">
@@ -80,16 +103,33 @@ const Signin = () => {
 
           <button
             type="submit"
-            className="w-full py-2 bg-greenDark text-white rounded-lg font-semibold hover:bg-greenDark transition"
+            className="w-full py-2 bg-greenDark text-white rounded-lg font-semibold hover:bg-greenDark transition flex justify-center"
           >
-           Sign In
+   {loading?(
+    <>
+    <ColorRing
+visible={true}
+height="30"
+width="30"
+
+ariaLabel="color-ring-loading"
+wrapperStyle={{}}
+wrapperClass="color-ring-wrapper"
+colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+/>
+    </>
+    ):(
+      "SignIn"
+    
+
+   )}
         
           </button>
             {loading && <p className="text-center text-sm text-gray">Loading...</p>}
         </form>
         {error && <p className="text-center text-sm text-red-500 mt-4">{error}</p>}
 
-        <p className="text-center text-sm text-gray mt-6">
+        <p className="text-center text-sm text-blackk mt-6">
           Don’t have an account?
           <span className="text-greenDark cursor-pointer ml-1 hover:underline">
            <Link to='/signup'>Sign up</Link> 

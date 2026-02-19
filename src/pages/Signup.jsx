@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signupUser } from "../redux/slices/authSlice";
 import useAuth from "../redux/hooks/useAuth";
+import { ColorRing } from "react-loader-spinner";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 
 const Signup = () => {
   const dispatch=useDispatch()
@@ -14,11 +16,16 @@ const Signup = () => {
     password: "",
     role: "customer",
   });
+  const [show,setShow]=useState(false)
     const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    loading(true)
+    setTimeout(()=>{
+      loading(false)
+    },2000)
   };
 
     const handleSubmit=(e)=>{
@@ -46,7 +53,7 @@ const Signup = () => {
     
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-color w-full max-w-md p-8 rounded-2xl shadow-lg">
+      <div className="bg-color1 w-full max-w-md p-8 rounded-2xl shadow-lg">
         
         <h1 className="text-3xl font-bold text-center mb-2">
           Create Account 
@@ -88,12 +95,12 @@ const Signup = () => {
             />
           </div>
 
-          <div>
+          <div className="relative">
             <label className="block text-sm font-medium mb-1">
               Password
             </label>
             <input
-              type="password"
+              type={show?"text":"password"}
               placeholder="********"
               onChange={handleChange}
               value={formData.password}
@@ -101,6 +108,17 @@ const Signup = () => {
               className="w-full px-4 py-2 border rounded-lg
               focus:outline-none focus:ring-2 focus:ring-greenDark"
             />
+            <span onClick={()=>setShow(!show)} className="absolute right-3 top-9">
+              {show?(
+                <>
+                          
+                              <FaRegEye />
+                              </>
+                            ):(
+                <FaRegEyeSlash />
+              
+              )}
+            </span>
           </div>
 
         {/* Role */}
@@ -131,18 +149,35 @@ const Signup = () => {
 
           <button
             type="submit"
-            className="w-full py-2 bg-greenDark text-white rounded-lg
+            className="w-full py-2 bg-greenDark flex justify-center text-white rounded-lg
             font-semibold hover:bg-greenDark transition"
           
           >
-            Sign Up
+             {loading?(
+    <>
+    <ColorRing
+visible={true}
+height="30"
+width="30"
+
+ariaLabel="color-ring-loading"
+wrapperStyle={{}}
+wrapperClass="color-ring-wrapper"
+colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+/>
+    </>
+    ):(
+      "Sign Up"
+    
+
+   )}
           </button>
         {loading ? "Creating..." : "Sign Up"}
         </form>
   {error && (
           <p className="text-red1 text-sm mt-3 text-center">{error}</p>
         )}
-        <p className="text-center text-sm text-gray mt-6">
+        <p className="text-center text-sm text-black mt-6">
           Already have an account?
           <span className="text-greenDark cursor-pointer ml-1 hover:underline">
           <Link to="/signin">Sign in</Link>  

@@ -86,7 +86,7 @@ const filterData = Array.isArray(products)
                   <input
                     type="text"
                     placeholder="Search products..."
-                    className="w-full rounded-full px-5 pr-12 py-2 border focus:ring-2 focus:ring-green-500 focus:outline-none"
+                    className="w-full rounded-full px-5 pr-12 py-2 border focus:ring-2 focus:ring-green focus:outline-none"
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                   />
