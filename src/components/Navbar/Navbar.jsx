@@ -6,7 +6,7 @@ import useCategory from "../../redux/hooks/useCategory";
 import { getthunkcategory } from "../../redux/slices/categorySlice";
 import { getslugproductApi } from "../../redux/slices/productSlice";
 import useProduct from "../../redux/hooks/useProduct";
-import useAuth from "../../redux/hooks/useauth";
+import useAuth from "../../redux/hooks/useAuth";
 import { IoIosLogOut } from "react-icons/io";
 import { logoutApiThunk } from "../../redux/slices/authSlice";
 
