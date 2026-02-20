@@ -7,18 +7,19 @@ import { getthunkcategory } from "../../redux/slices/categorySlice";
 import useProduct from "../../redux/hooks/useProduct";
 import { addProductAPI } from "../../redux/slices/productSlice";
 import toast from "react-hot-toast";
+import { ColorRing, MutatingDots } from "react-loader-spinner";
 
 const ProductAdd = () => {
   const dispatch = useDispatch();
   const { categories } = useCategory();
-  const { products } = useProduct();
+  const { products,loading } = useProduct();
 
   const [form, setForm] = useState({
     title: "",
     description: "",
     price: 0,
     stock: 0,
-    image: null,
+    images: [],
     parentCategory: "",
     category: "",
   });
@@ -48,35 +49,71 @@ const ProductAdd = () => {
   // Handle input change
   const handlechange = (e) => {
     const { name, value, files } = e.target;
-    if (name === "image") {
-      setForm({ ...form, [name]: files[0] });
+    if (name === "images") {
+      setForm({ ...form, images: [...files] });
     } else {
       setForm({ ...form, [name]: value });
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitting product:", form);
-    dispatch(addProductAPI(form));
-     toast.success("successfully Add")  
-         setForm({
-      title: "",
-      price: "",
-      stock: "",
-      description: "",
-      image: null
-    });
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-  };
+  const formData = new FormData();
 
+  formData.append("title", form.title);
+  formData.append("description", form.description);
+  formData.append("price", form.price);
+  formData.append("stock", form.stock);
+  formData.append("category", form.category);
+
+  // multiple images
+  form.images.forEach((img) => {
+    formData.append("images", img);
+  });
+
+  dispatch(addProductAPI(formData));
+
+  toast.success("Successfully Added");
+
+  setForm({
+    title: "",
+    description: "",
+    price: 0,
+    stock: 0,
+    images: [],
+    parentCategory: "",
+    category: "",
+  });
+  setTimeout(() => {
+    console.log("Submitted");
+    
+  }, 2000);
+};
   // Filter parent categories
   const parentCategory = categories.filter((cat) => cat.parentCategory === null);
 
   return (
+<>
+{loading?(
+  <>
+  <MutatingDots
+visible={true}
+height="100"
+width="100"
+color="#4fa94d"
+secondaryColor="#4fa94d"
+radius="12.5"
+ariaLabel="mutating-dots-loading"
+wrapperStyle={{}}
+wrapperClass=""
+/>
+  </>
 
+):(
+""
+)}
   <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8 mt-10 border border-gray2">
-
     <h2 className="text-2xl font-bold text-greenDark mb-6">
       Add New Product
     </h2>
@@ -154,8 +191,9 @@ const ProductAdd = () => {
         <label className="text-sm text-text mb-1 block">Upload Image</label>
         <input
           type="file"
-          name="image"
+          name="images"
           onChange={handlechange}
+          multiple
           className="w-full border border-dashed border-green p-3 rounded-lg
           bg-greenSoft
           hover:bg-green1/20
@@ -211,8 +249,27 @@ const ProductAdd = () => {
           className="w-full bg-green text-white py-3 rounded-lg
           hover:bg-greenDark
           shadow-md hover:shadow-lg
-          transition-all duration-300 font-semibold"
-        >
+          transition-all duration-300 font-semibold flex justify-center"
+          >
+
+          {loading?(
+
+            <>
+              <ColorRing
+visible={true}
+height="30"
+width="30"
+
+ariaLabel="color-ring-loading"
+wrapperStyle={{}}
+wrapperClass="color-ring-wrapper"
+colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+/>
+            </>
+          ):(
+"Add Product"
+          )
+          }
           Add Product
         </button>
       </div>
@@ -221,6 +278,7 @@ const ProductAdd = () => {
   </div>
 
 
+</>
   );
 };
 

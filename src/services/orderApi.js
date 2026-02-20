@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API=axios.create({
-        baseURL:"https://civic-marti-anusraza123bm-c88fd7a4.koyeb.app/api/v1/order",
+        baseURL:"http://localhost:4000/api/v1/order",
         withCredentials:true,
       
 })

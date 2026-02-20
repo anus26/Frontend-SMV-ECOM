@@ -10,11 +10,27 @@ const ProductCard = ({ item }) => {
 
         {/* Image Section */}
         <div className="relative overflow-hidden">
-          <img
-            src={item.image}
-            alt={item.title}
-            className="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-300"
-          />
+     {item.images && item.images.length > 0 && (
+  <div className="relative w-20 h-36 md:w-20 object-cover md:h-20 group overflow-hidden rounded-lg">
+    
+    {/* First Image (Default) */}
+    <img
+      src={item.images[0]}
+      alt="product"
+      className="absolute w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+    />
+
+    {/* Second Image (On Hover) */}
+    {item.images[1] && (
+      <img
+        src={item.images[1]}
+        alt="product-hover"
+        className="absolute w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      />
+    )}
+    
+  </div>
+)}
 
           {/* Hover Icons */}
           <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-4 transition duration-300">

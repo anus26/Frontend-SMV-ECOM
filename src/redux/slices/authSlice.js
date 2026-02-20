@@ -4,6 +4,7 @@ import { deleteProducts } from "../../services/productApi";
 
 const initialState = {
   user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
+  // jwt:localStorage.getItem("jwt"),
   loading: false,
   error: null,
 };
@@ -14,6 +15,7 @@ export const signupUser = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       return await SignupApi(data);
+      
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Signup failed");
     }
@@ -78,6 +80,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload.safeUser;
         localStorage.setItem("user",JSON.stringify(action.payload.safeUser))
+        localStorage.setItem("jwt",action.payload.jwt)
         console.log("signup action",action.payload.safeUser);
         
       })
@@ -94,6 +97,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload.safeUser;
             localStorage.setItem("user",JSON.stringify(action.payload.safeUser))
+               localStorage.setItem("jwt", action.payload.jwt);
         console.log("signup action",action.payload);
       })
       .addCase(signinUser.rejected, (state, action) => {

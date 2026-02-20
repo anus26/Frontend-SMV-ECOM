@@ -12,10 +12,10 @@ const Layouts = () => {
   
     
  <Navbar/>
-  <Footer/>
 <div className=''>
 
 <Outlet />
+  <Footer/>
 
 </div>
 </div>

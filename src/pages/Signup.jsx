@@ -30,6 +30,8 @@ const Signup = () => {
       dispatch(signupUser(formData))
   
     }
+    // login ke baad
+
 //     useEffect(() => {
 //   if (user) {
 //     navigate("/signin"); 
