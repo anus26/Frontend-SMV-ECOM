@@ -22,10 +22,7 @@ const Signup = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    loading(true)
-    setTimeout(()=>{
-      loading(false)
-    },2000)
+  
   };
 
     const handleSubmit=(e)=>{
@@ -38,6 +35,10 @@ const Signup = () => {
 //     navigate("/signin"); 
 //   }
 // }, [user, navigate]);
+
+  setTimeout(() => {
+    console.log("Form Submitted");
+  }, 2000);
  useEffect(() => {
   if (user) {
     if (user.role === "seller") {

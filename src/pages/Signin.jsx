@@ -22,10 +22,7 @@ const Signin = () => {
       ...formData,
       [e.target.name]:e.target.value
     })
-    loading(true)
-    setTimeout(()=>{
-      loading(false)
-    },2000)
+   
 
   }
   const handleshow=()=>{
@@ -35,6 +32,10 @@ const Signin = () => {
     e.preventDefault()
     dispatch(signinUser(formData))
   }
+
+  setTimeout(() => {
+    console.log("Form Submitted");
+  }, 2000);
    useEffect(() => {
     if (user) {
       if (user.role === "seller") {
