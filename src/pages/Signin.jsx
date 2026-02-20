@@ -53,7 +53,7 @@ const Signin = () => {
         
         <h1 className="text-3xl font-bold text-center mb-2">Welcome Back 👋</h1>
         <p className="text-gray4 text-center mb-6">
-          Sign in to continue to SMV-ECOM
+          Sign in to continue to <span className="text-green font-semibold">SMV-ECOM</span>
         </p>
 
         <form className="space-y-4" onSubmit={handleSubmit}>

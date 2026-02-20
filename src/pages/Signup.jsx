@@ -58,14 +58,14 @@ const Signup = () => {
         <h1 className="text-3xl font-bold text-center mb-2">
           Create Account 
         </h1>
-        <p className="text-gray4 text-center mb-6">
-          Join SMV-ECOM and start shopping
+        <p className="text-gray4 text-center mb-6 flex justify-center items-center">
+          Join  <img src="./image/door.png" alt="img"  className="w-[10%] "/>   <span className="font-semibold  text-green">SMV-ECOM</span> and start shopping
         </p>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           
           <div>
-            <label className="block text-sm font-medium mb-1">
+            <label className="block text-sm font-medium mb-1 ">
                Name
             </label>
             <input
@@ -81,7 +81,7 @@ const Signup = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">
+            <label className="block text-sm font-medium mb-1 ">
               Email
             </label>
             <input
@@ -127,7 +127,7 @@ const Signup = () => {
   name="role"
   value={formData.role}
   onChange={handleChange}
-  className="w-full px-4 py-2 border rounded-lg"
+  className="w-full px-4 py-2 border rounded-lg focus:oultine-none focus:ring-2 focus:ring-greenDark"
 >
   <option value="customer">customer</option>
   <option value="seller">seller</option>
@@ -172,7 +172,6 @@ colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
 
    )}
           </button>
-        {loading ? "Creating..." : "Sign Up"}
         </form>
   {error && (
           <p className="text-red1 text-sm mt-3 text-center">{error}</p>
