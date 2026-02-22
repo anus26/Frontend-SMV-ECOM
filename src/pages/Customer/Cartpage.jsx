@@ -11,11 +11,14 @@ import { FaPlus, FaMinus, FaShoppingBag } from "react-icons/fa";
 import { orderThunk } from "../../redux/slices/orderSlice";
 import useAuth from "../../redux/hooks/useAuth";
 import toast from "react-hot-toast";
+import { CardCvcElement, CardElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
 const Cartpage = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
   const { user } = useAuth();
+  const stripe = useStripe();
+  const elements = useElements();
 
   const totalAmount = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -33,7 +36,15 @@ const Cartpage = () => {
     );
   }
 
-  const handCheckout = () => {
+  const handCheckout = async () => {
+    if (!stripe || !elements) return;
+
+    const card = elements.getElement(CardElement);
+    if (!card) {
+      toast.error("Card details not entered");
+      return;
+    }
+
     const orderData = {
       items: cartItems.map((item) => ({
         productId: item._id,
@@ -41,31 +52,49 @@ const Cartpage = () => {
       })),
       totalAmount,
     };
-    
-    dispatch(orderThunk(orderData))
-    .unwrap()
-    .then(() => {
-      dispatch(clearCart());
-    });
-    toast.success("Successfully Order")
+
+    try {
+      // 1️⃣ Create order & get client secret
+      const payload = await dispatch(orderThunk(orderData)).unwrap();
+      const clientSecret = payload.ClinetSecret;
+
+      // 2️⃣ Confirm payment
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
+        clientSecret,
+        {
+          payment_method: {
+            card,
+            billing_details: {
+              name: user.name,
+              email: user.email,
+            },
+          },
+        }
+      );
+
+      if (error) {
+        toast.error(error.message);
+      } else if (paymentIntent.status === "succeeded") {
+        toast.success("Payment Successful & Order Placed!");
+        dispatch(clearCart());
+      }
+    } catch (err) {
+      toast.error(err.message || "Order failed");
+    }
   };
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-8">
-
       <h2 className="text-2xl font-bold mb-6">Shopping Cart</h2>
 
       <div className="grid lg:grid-cols-3 gap-6">
-
         {/* Cart Items */}
         <div className="lg:col-span-2 space-y-4">
-
           {cartItems.map((item) => (
             <div
               key={item._id}
               className="flex flex-col sm:flex-row items-center justify-between bg-white shadow-md rounded-xl p-4 gap-4"
             >
-
               {/* Left Section */}
               <div className="flex items-center gap-4 w-full sm:w-auto">
                 <img
@@ -75,9 +104,7 @@ const Cartpage = () => {
                 />
                 <div>
                   <h3 className="font-semibold text-lg">{item.title}</h3>
-                  <p className="text-green-600 font-bold">
-                    {item.price} Rs
-                  </p>
+                  <p className="text-green-600 font-bold">{item.price} Rs</p>
                 </div>
               </div>
 
@@ -89,9 +116,7 @@ const Cartpage = () => {
                 >
                   <FaMinus />
                 </button>
-
                 <span className="font-semibold">{item.quantity}</span>
-
                 <button
                   onClick={() => dispatch(increaseQty(item))}
                   className="p-1 hover:bg-gray-200 rounded"
@@ -101,9 +126,7 @@ const Cartpage = () => {
               </div>
 
               {/* Price */}
-              <div className="font-bold text-lg">
-                {item.price * item.quantity} Rs
-              </div>
+              <div className="font-bold text-lg">{item.price * item.quantity} Rs</div>
 
               {/* Delete */}
               <button
@@ -114,35 +137,34 @@ const Cartpage = () => {
               </button>
             </div>
           ))}
-
         </div>
 
         {/* Summary Box */}
-        <div className="bg-white shadow-lg rounded-xl p-6 h-fit">
+      <div className="bg-white shadow-lg rounded-xl p-6 h-fit">
+  <h3 className="text-xl font-semibold mb-4">Payment</h3>
 
-          <h3 className="text-xl font-semibold mb-4">
-            Order Summary
-          </h3>
+  <div className="my-4 p-3 border rounded-lg">
+    <CardElement options={{ hidePostalCode: true }} />
 
-          <div className="flex justify-between mb-2">
-            <span>Total Items:</span>
-            <span>{cartItems.length}</span>
-          </div>
+  </div>
 
-          <div className="flex justify-between text-lg font-bold border-t pt-4 mt-4">
-            <span>Total:</span>
-            <span>{totalAmount} Rs</span>
-          </div>
+  <div className="flex justify-between mb-2">
+    <span>Total Items:</span>
+    <span>{cartItems.length}</span>
+  </div>
 
-          <button
-            onClick={handCheckout}
-            className="w-full mt-6 bg-green-600 hover:bg-green-700 text-black py-3 rounded-lg font-semibold transition"
-          >
-            Proceed to Checkout
-          </button>
+  <div className="flex justify-between text-lg font-bold border-t pt-4 mt-4">
+    <span>Total:</span>
+    <span>{totalAmount} Rs</span>
+  </div>
 
-        </div>
-
+  <button
+    onClick={handCheckout}
+    className="w-full mt-6 bg-green-600 hover:bg-green-700 text-black py-3 rounded-lg font-semibold transition"
+  >
+    Pay Now
+  </button>
+</div>
       </div>
     </section>
   );

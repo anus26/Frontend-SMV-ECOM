@@ -5,6 +5,7 @@ const   initialState= {
     loading: false,
     error: null,
     orders: [],
+     clientSecret: null, 
   }
 export const orderThunk = createAsyncThunk(
   "order/create",
@@ -71,6 +72,7 @@ const orderSlice = createSlice({
       .addCase(orderThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.orders = action.payload.order;
+        state.clinetSecret=action.payload.ClinetSecret
         console.log("order", action.payload);
         
       })
