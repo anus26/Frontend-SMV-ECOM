@@ -71,8 +71,8 @@ const orderSlice = createSlice({
       })
       .addCase(orderThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.orders = action.payload.order;
-        state.clinetSecret=action.payload.ClinetSecret
+      state.orders = [action.payload.order];
+state.clientSecret = action.payload.ClinetSecret;
         console.log("order", action.payload);
         
       })

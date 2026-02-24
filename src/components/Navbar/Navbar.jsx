@@ -53,7 +53,7 @@ const filterData = Array.isArray(products)
       document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleLogout = async () => {
+  const handleLogout = async() => {
     await dispatch(logoutApiThunk());
     navigate("/signin");
   };
@@ -63,6 +63,11 @@ const filterData = Array.isArray(products)
       <div className="max-w-7xl  px-4 sm:px-6 lg:px-8   ">
         <div className="flex justify-between h-16 items-center">
 
+
+          <div className="hidden md:flex items-center gap-10 justify-between flex-1 ml-6">
+
+            {user?.role === "customer" && (
+              <>
           <Link
             to="/"
             className="text-2xl font-bold text-blue  flex items-center "
@@ -70,28 +75,23 @@ const filterData = Array.isArray(products)
             <img src="./image/online-shopping.png" alt="image" className="w-8"/>
             SMV-ECOM
           </Link>
-
-          <div className="hidden md:flex items-center gap-10 justify-between flex-1 ml-6">
-
-            {user?.role === "customer" && (
-              <>
-                <div className="relative w-1/3">
+                <div className="relative flex ">
                   <input
                     type="text"
                     placeholder="Search products..."
-                    className="w-full rounded-full px-5 pr-12 py-2  focus:ring-2 focus:ring-green focus:outline-none "
+                    className="w-full rounded-full  px-2 pr-14 py-2  focus:ring-2 focus:ring-green focus:outline-none "
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                   />
-                  <CiSearch className="absolute right-4 top-2.5 text-xl text-gray-400" />
+                  <CiSearch className="absolute right-4 top-2.5 text-xl text-gray-400 hover:rounded hover:bg-gray2" />
                   {searchInput && (
-                    <div className="absolute w-full bg-white shadow-lg rounded mt-2 max-h-60 overflow-y-auto z-50">
+                    <div className="absolute w-full bg-white shadow-lg rounded mt-10 max-h-60 overflow-y-auto z-50">
                       {filterData.length > 0 ? (
                         filterData.slice(0, 5).map((item) => (
                           <Link
                             key={item._id}
                             to={`/product/${item._id}`}
-                            className="block px-4 py-2 hover:bg-green-100"
+                            className="block px-4 py-2 hover:bg-green"
                             onClick={() => setSearchInput("")}
                           >
                             {item.title}
@@ -150,6 +150,13 @@ const filterData = Array.isArray(products)
 
             {user?.role === "seller" && (
               <div className="flex gap-4">
+                   <Link
+          
+            className="text-2xl font-bold text-blue  flex items-center "
+          >
+            <img src="./image/online-shopping.png" alt="image" className="w-8"/>
+            SMV-ECOM
+          </Link>
                 <Link
                   to="/seller"
                   className="px-3 py-1 rounded  "
@@ -179,6 +186,13 @@ const filterData = Array.isArray(products)
 
             {user?.role === "Admin" && (
               <div className="flex gap-4">
+                 <Link
+        
+            className="text-2xl font-bold text-blue  flex items-center "
+          >
+            <img src="./image/online-shopping.png" alt="image" className="w-8"/>
+            SMV-ECOM
+          </Link>
                 <Link
                   to="/admin"
                   className="px-4 py-1.5 rounded bg-green hover:bg-green1"

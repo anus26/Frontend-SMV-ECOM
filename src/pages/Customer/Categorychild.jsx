@@ -59,12 +59,24 @@ const Categorychild = () => {
               key={product._id}
               className="bg-white shadow-md rounded-xl p-4 hover:shadow-xl transition duration-300 flex flex-col"
             >
-              <div className="h-40 flex items-center justify-center">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="h-full object-cover rounded-md"
-                />
+              <div className=" flex items-center justify-center h-48 overflow-hidden">
+                {product.images&&product.images.length>0&&(
+                  <div className="w-full h-full relative group">
+                    <img
+                      src={product.images[0]}
+                      alt={product.title}
+                      className="absolute w-full h-full object-cover transition-all duration-500 group-hover:opacity-0 group-hover:scale-105"
+                    />
+                   {product.images[1] && (
+            <img
+              src={product.images[1]}
+              alt="product-hover"
+              className="absolute w-full h-full object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-105"
+            />
+          )}
+
+                  </div>
+                )}
               </div>
 
               <h2 className="mt-3 font-semibold text-sm line-clamp-2">

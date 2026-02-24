@@ -27,10 +27,10 @@ const Order = () => {
         setSelected({ ...selected, [name]: value });
     };
     
-    const handleUpdate = async (e) => {
+    const handleUpdate = async(e) => {
         e.preventDefault();
         
-        await dispatch(orderupdataThunk({
+         dispatch(orderupdataThunk({
             id: selected._id,
             status: selected.status
         }))
@@ -115,10 +115,9 @@ const handleDelete = async (_id) => {
             className="border p-2 w-full mb-4"
           >
             <option value="pending">Pending</option>
-            <option value="confirmed">Confirmed</option>
-            <option value="shipped">Shipped</option>
-            <option value="delivered">Delivered</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="paid">paid</option>
+            <option value="cancaled">cancaled</option>
+          
           </select>
 
           <div className="flex justify-between">

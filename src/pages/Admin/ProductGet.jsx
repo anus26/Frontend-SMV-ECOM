@@ -55,11 +55,14 @@ const ProductGet = () => {
           className="text-center hover:bg-gray-50 transition"
         >
           <td className="p-3 border">
+            {product.images && product.images.length > 0 &&(
+
             <img
-              src={product.image}
+              src={product.images[0]}
               alt={product.title}
               className="w-14 h-14 mx-auto object-cover rounded"
             />
+            )}
           </td>
 
           <td className="p-3 border whitespace-nowrap">
