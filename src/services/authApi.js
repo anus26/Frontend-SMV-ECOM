@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const API=axios.create({
-     baseURL:"http://localhost:4000/api/v1/user",
+     baseURL:"https://civic-marti-anusraza123bm-c88fd7a4.koyeb.app/api/v1/user",
      withCredentials:true
     })
 export const SignupApi=async(data)=>{
