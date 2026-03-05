@@ -4,7 +4,9 @@ import { FaShoppingCart, FaEye } from "react-icons/fa";
 
 const ProductCard = ({ item }) => {
   return (
-  <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 group overflow-hidden w-60">
+
+  <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 group overflow-hidden md:w-60 sm:30">
+
 
   <Link to={`/product/${item._id}`}>
 
@@ -12,7 +14,7 @@ const ProductCard = ({ item }) => {
     <div className="relative h-48 overflow-hidden">
 
       {item.images && item.images.length > 0 && (
-        <div className="relative w-full h-full group">
+        <div className="relative w-full h-full  group">
 
         
           <img
@@ -26,7 +28,7 @@ const ProductCard = ({ item }) => {
             <img
               src={item.images[1]}
               alt="product-hover"
-              className="absolute w-[80%] h-full object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-105"
+              className="absolute w-full h-full object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-105"
             />
           )}
 

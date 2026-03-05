@@ -32,7 +32,8 @@ export default {
         blue: "#3788d8",
       },
         screens:{
-      sm:"150px",
+      xs:"150px",    
+      sm:"480px",
       md:"768px",
       lg:"1024px",
       xl:"1280px",

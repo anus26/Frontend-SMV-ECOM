@@ -14,6 +14,7 @@ const Customer = () => {
     <Content/>
   </div>
     <div className='m-10'>
+    
         <Product />
 
     </div>

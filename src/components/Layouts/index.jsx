@@ -12,13 +12,13 @@ const Layouts = () => {
   
     
  <Navbar/>
-<div className=''>
+<div className='w-full'>
 
 <Outlet />
-  <Footer/>
 
 </div>
 </div>
+<Footer/>
 </>
   )
 }

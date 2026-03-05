@@ -17,7 +17,7 @@ const Content = () => {
  <section>
     <div>
      <div className="flex justify-center w-full mt-6">
-  <div className="relative w-[90%] h-[500px] rounded-2xl overflow-hidden shadow-lg">
+  <div className="relative w-[90%]  h-[500px] rounded-2xl overflow-hidden shadow-lg ">
 
     <img
       src={images[index]}
@@ -28,7 +28,7 @@ const Content = () => {
     <div className="absolute inset-0 bg-color2/30"></div>
 
     <div className="absolute inset-0 flex flex-col items-center justify-center text-light text-center px-4">
-      <h1 className="text-4xl md:text-5xl font-bold mb-3">
+      <h1 className="text-4xl md:text-5xl sm:text-3xl font-bold mb-3">
         Welcome to SMV-ECOM
       </h1>
       <p className="text-lg mb-6 max-w-xl">

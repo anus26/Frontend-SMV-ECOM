@@ -42,7 +42,7 @@ const Categorychild = () => {
 
       {/* Breadcrumb */}
       <div className="mb-6">
-        <Breadcrumb items={breadcrumb} />
+        {/* <Breadcrumb items={breadcrumb} /> */}
       </div>
 
       {/* If No Products */}
@@ -88,7 +88,7 @@ const Categorychild = () => {
               </p>
 
               <div className="mt-auto pt-3 flex justify-end">
-                <FaShoppingCart className="text-gray-500 hover:text-green-600 text-lg" />
+                <FaShoppingCart className="text-gray-500 hover:text-green text-lg" />
               </div>
             </Link>
           ))}

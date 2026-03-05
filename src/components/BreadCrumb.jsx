@@ -11,7 +11,7 @@ const Breadcrumb = ({ items }) => {
 
       {items.map((item, index) => {
         // Decide URL: product or category
-        const url = item.type === "category" ? `/category/${item.slug}` : `/product/${item.slug}`;
+        const url = item.type === "category" ? `/category/${item.slug}` : `/products/${item.slug}`;
 
         return (
           <span key={index} className="flex items-center">

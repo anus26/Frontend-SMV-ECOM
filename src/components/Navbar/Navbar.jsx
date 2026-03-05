@@ -7,9 +7,10 @@ import { getthunkcategory } from "../../redux/slices/categorySlice";
 import { getslugproductApi } from "../../redux/slices/productSlice";
 import useProduct from "../../redux/hooks/useProduct";
 import useAuth from "../../redux/hooks/useAuth";
-import { IoIosLogOut } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp, IoIosLogOut } from "react-icons/io";
 import { logoutApiThunk } from "../../redux/slices/authSlice";
-
+import { TiDelete } from "react-icons/ti";
+import { FaArrowAltCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,17 +19,19 @@ const Navbar = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const { categories = [] } = useCategory();
   const { user } = useAuth();
-
+  const [deleteitems,setDeleteItems]=useState(null)
   const [searchInput, setSearchInput] = useState("");
   const [hoverParent, setHoverParent] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const menuRef = useRef(null);
+  const [showinput,setShowInput]=useState(false)
+  const [inputvalue,setInputValue]=useState('')
+  const [openParent, setOpenParent] = useState(null);
+  // const menuRef = useRef(null);
 
   // Filter products for search
 const filterData = Array.isArray(products)
   ? products.filter((item) =>
-      item.title.toLowerCase().includes(searchInput.toLowerCase())
+      item?.title?.toLowerCase()?.includes(searchInput?.toLowerCase())
     )
   : [];
 
@@ -42,88 +45,98 @@ const filterData = Array.isArray(products)
     dispatch(getthunkcategory());
   }, [dispatch]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setMobileMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (menuRef.current && !menuRef.current.contains(event.target)) {
+  //       setMobileMenuOpen(false);
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () =>
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  // }, []);
 
-  const handleLogout = async() => {
+  const handleLogout =async() => {
     await dispatch(logoutApiThunk());
     navigate("/signin");
   };
-
+const toggleInput=()=>{
+setShowInput(true)
+}
   return (
-    <nav className="bg-green1 shadow-md sticky top-0 z-50 ">
-      <div className="max-w-7xl  px-4 sm:px-6 lg:px-8   ">
-        <div className="flex justify-between h-16 items-center">
+    <nav className="bg-green1 shadow-md sticky top-0 z-50 h-16">
+      <div className="  px-4 xs:px-6 lg:px-8   flex justify-between items-center h-16   ">
+  {
+    user?.role==="customer"&&(
 
-
-          <div className="hidden md:flex items-center gap-10 justify-between flex-1 ml-6">
-
-            {user?.role === "customer" && (
-              <>
           <Link
             to="/"
-            className="text-2xl font-bold text-blue  flex items-center "
+            className="text-2xl font-bold text-blue flex items-center w-[50%] "
           >
             <img src="./image/online-shopping.png" alt="image" className="w-8"/>
             SMV-ECOM
           </Link>
-                <div className="relative flex ">
-                  <input
-                    type="text"
-                    placeholder="Search products..."
-                    className="w-full rounded-full  px-2 pr-14 py-2  focus:ring-2 focus:ring-green focus:outline-none "
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                  />
-                  <CiSearch className="absolute right-4 top-2.5 text-xl text-gray-400 hover:rounded hover:bg-gray2" />
-                  {searchInput && (
-                    <div className="absolute w-full bg-white shadow-lg rounded mt-10 max-h-60 overflow-y-auto z-50">
-                      {filterData.length > 0 ? (
-                        filterData.slice(0, 5).map((item) => (
-                          <Link
-                            key={item._id}
-                            to={`/product/${item._id}`}
-                            className="block px-4 py-2 hover:bg-green"
-                            onClick={() => setSearchInput("")}
-                          >
-                            {item.title}
-                          </Link>
-                        ))
-                      ) : (
-                        <div className="px-4 py-2 text-gray-500">
-                          No product found
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
+    )
+  }
+  {
+    user?.role==="seller"&&(
 
-                <div className="flex gap-6 relative">
+          <Link
+            to="/seller"
+            className="text-2xl font-bold text-blue flex items-center w-[50%] "
+          >
+            <img src="./image/online-shopping.png" alt="image" className="w-8"/>
+            SMV-ECOM
+          </Link>
+    )
+  }
+    {
+    user?.role==="Admin"&&(
+
+          <Link
+            to="/Admin"
+            className="text-2xl font-bold text-blue flex items-center w-[50%] "
+          >
+            <img src="./image/online-shopping.png" alt="image" className="w-8"/>
+            SMV-ECOM
+          </Link>
+    )
+  }
+        <div className="    ">
+
+
+    
+
+           <div className="flex  justify-between  ">
+
+            {user?.role === "customer" && (
+              <div className="flex justify-between    gap-10  ">
+              
+    
+
+    
+          
+
+                <div className=" gap-6 relative  mt-2  xl:flex xs:hidden">
                   {parentCategory.map((parent) => (
                     <div
                       key={parent._id}
-                      className="relative cursor-pointer group "
-                      onMouseEnter={() => setHoverParent(parent._id)}
-                      onMouseLeave={() => setHoverParent(null)}
+                      className="relative    inline-block cursor-pointer group font-semibold"
+                      onMouseEnter={() =>  setHoverParent(parent._id)}
+                      onMouseLeave={() =>  setHoverParent(null)}
                     >
                       <span className="font-medium">{parent.name}</span>
+                                        <span className="absolute left-1/2 -translate-x-1/2 bottom-0  h-[2px] w-0 bg-green group-hover:w-full duration-300 transition-all"></span>
+                      
                       {hoverParent === parent._id && (
-                        <div className="absolute top-full left-0 bg-white  shadow-md rounded w-40 z-50">
+                        <div className="absolute  left-0 bg-white  shadow-md rounded w-40 z-50">
                           {getChildCategory(parent._id).map((child) => (
                             <div
                               key={child._id}
-                              className="px-4 py-2 hover:bg-gray1 cursor-pointer"
-                              onClick={() =>
+                              className="px-4 py-2 hover:bg-gray1 cursor-pointer "
+                              onClick={() =>{setSearchInput()
                                 navigate(`/category/${child.slug}`)
-                              }
+                              }}
                             >
                               {child.name}
                             </div>
@@ -133,78 +146,124 @@ const filterData = Array.isArray(products)
                     </div>
                   ))}
                 </div>
+                <div className="flex items-center   :justify-end">
+                  <div>
 
-                <Link
+                     <Link
                   to="/cartpage"
-                  className="relative text-2xl text-gray hover:text-green"
-                >
-                  <CiShoppingCart />
+                  className=" text-2xl  "
+                  >
+                  <CiShoppingCart className="hover:bg-gray rounded-full flex items-center" />
                   {cartItems.length > 0 && (
-                    <span className="absolute -top-2 -right-3  text-white hover:rounded-md bg-hover text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                    <span className="absolute -top-2 -right-3  text-white  hover:bg-gray text-xs w-5 h-5 flex items-center justify-center rounded-full">
                       {cartItems.length}
                     </span>
                   )}
                 </Link>
-              </>
+                  </div>
+
+
+  <button
+    onClick={()=>setShowInput(true)}
+    className="p-2 hover:bg-gray rounded-full  transition "
+  >
+    <CiSearch className="text-xl text-gray-600"     />
+  </button>
+
+{showinput && (
+  <div className="fixed inset-0 bg-black/40 flex justify-center items-start pt-24 z-50">
+    <div className="bg-white w-[90%] sm:w-[400px] rounded-xl shadow-xl p-6 relative">
+
+      <button
+        onClick={() => setShowInput(false)}
+        className="absolute right-4 top-4 text-gray-500 text-xl"
+      >
+        ✕
+      </button>
+
+      <div className="relative mt-6">
+        <input
+          autoFocus
+          type="text"
+          placeholder="Search products..."
+          className="w-full rounded-full border px-4 py-2 focus:ring-2 focus:ring-green"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+
+        {searchInput && (
+          <div className="absolute top-12 left-0 w-full bg-white shadow-lg rounded-xl max-h-60 overflow-y-auto">
+            {filterData.length > 0 ? (
+              filterData.slice(0, 5).map((item) => (
+                <Link
+                  key={item._id}
+                  to={`/product/${item._id}`}
+                  className="block px-4 py-2 hover:bg-gray-100 "
+                  onClick={() => {
+                    setSearchInput("");
+                    setShowInput(false);
+                  }}
+                >
+                  {item.title}
+                  
+                </Link>
+              ))
+            ) : (
+              <div className="px-4 py-2 text-gray-500">
+                No product found
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+    </div>
+  </div>
+)}
+</div>
+                  </div>
+         
+     
             )}
 
             {user?.role === "seller" && (
-              <div className="flex gap-4">
-                   <Link
-          
-            className="text-2xl font-bold text-blue  flex items-center "
-          >
-            <img src="./image/online-shopping.png" alt="image" className="w-8"/>
-            SMV-ECOM
-          </Link>
-                <Link
-                  to="/seller"
-                  className="px-3 py-1 rounded  "
-                >
-                  Seller
-                </Link>
+              <div className="flex gap-4 xl:block xs:hidden">
+
                 <Link
                   to="/productadd"
-                  className="px-3 py-1 rounded "
+                  className="px-3 py-1 rounded relative inline-block cursor-pointer group font-semibold"
                 >
-                  Product Add
+                Product Add
+                <span className="absolute left-1/2 -translate-x-1/2 bottom-0  h-[2px] w-0 bg-green group-hover:w-full duration-300 transition-all"></span>
                 </Link>
                 <Link
                   to="/addcategory"
-                  className="px-3 py-1 rounded bg-blue-500 hover:bg-blue-600"
+                  className="px-3 py-1 rounded relative inline-block cursor-pointer group font-semibold"
                 >
                   Add Category
+                  <span className="absolute left-1/2 -translate-x-1/2 bottom-0  h-[2px] w-0 bg-green group-hover:w-full duration-300 transition-all"></span>
                 </Link>
                 <Link
                   to="/getorder"
-                  className="px-3 py-1 rounded bg-blue hover:bg-hover hover:rounded-2xl text-white"
+                  className="px-3 py-1 rounded  relative inline-block cursor-pointer group font-semibold"
                 >
                   Orders
+                  <span className="absolute left-1/2 -translate-x-1/2 bottom-0  h-[2px] w-0 bg-green group-hover:w-full duration-300 transition-all"></span>
                 </Link>
               </div>
             )}
 
             {user?.role === "Admin" && (
-              <div className="flex gap-4">
-                 <Link
-        
-            className="text-2xl font-bold text-blue  flex items-center "
-          >
-            <img src="./image/online-shopping.png" alt="image" className="w-8"/>
-            SMV-ECOM
-          </Link>
-                <Link
-                  to="/admin"
-                  className="px-4 py-1.5 rounded bg-green hover:bg-green1"
-                >
-                  Admin Dashboard
-                </Link>
+              <div className="flex gap-4 xl:block xs:hidden">
+
                 <Link
                   to="/productget"
-                  className="px-4 py-1.5 rounded bg-blue hover:bg-hover"
+                  className="px-4 py-1.5 rounded relative inline-block cursor-pointer group font-semibold"
                 >
                   Products
+                  <span className="absolute left-1/2 -translate-x-1/2 bottom-0  h-[2px] w-0 bg-green group-hover:w-full duration-300 transition-all"></span>
                 </Link>
+
               </div>
             )}
 
@@ -228,33 +287,44 @@ const filterData = Array.isArray(products)
            
             {user && (
             
-              <button
-                onClick={handleLogout}
-                className="px-4 py-1.5 rounded bg-red1 hover:bg-red2 text-white hover:rounded-2xl hover:text-black text-center flex items-center gap-2  "
-              >
-                Logout
-                <span><IoIosLogOut /> </span>
-              </button>
+        <div className="relative group  xl:block ">
+  <div className="cursor-pointer font-medium">
+    {user.name}
+  </div>
+
+  <div className="absolute hidden group-hover:block right-0   bg-white shadow-md rounded-md">
+    <button
+      onClick={handleLogout}
+      className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500"
+    >
+      Logout
+    </button>
+  </div>
+</div>
             )}
           </div>
 
-          <div className="md:hidden">
+        </div>
+          <div className="xl:hidden sm:block ">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-3xl text-gray-700"
+              className="text-3xl text-black flex"
             >
-              <CiMenuBurger />
+             {mobileMenuOpen?<TiDelete/>:<CiMenuBurger />}
             </button>
           </div>
-        </div>
       </div>
 
       {mobileMenuOpen && (
         <div
-          ref={menuRef}
-          className="md:hidden bg-white shadow-md p-4 space-y-4 animate-slide-down"
-        >
+    
+          className="sm:block xl:hidden bg-white fixed top-16 right-0 drawer-toggle drawer-left menu  h-full w-80 p-4 shadow-md   " 
+        >  
           {user?.role === "customer" && (
+            <div  className="w-full grid grid-flow-row">
+
+
+{/* 
             <input
               type="text"
               placeholder="Search products..."
@@ -262,23 +332,78 @@ const filterData = Array.isArray(products)
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-          )}
+         {searchInput && (
+                    <div className="absolute w-[40%] bg-white  shadow-lg rounded-xl    max-h-60 overflow-y-auto z-50" onClick={()=>searchInput()}>
+                      {filterData.length > 0 ? (
+                        filterData.slice(0, 5).map((item) => (
+                          <div className="flex justify-between" key={item._id}>
 
-          {user?.role === "customer" &&
-            parentCategory.map((parent) => (
-              <div key={parent._id}>
-                <div className="font-medium py-2 border-b">{parent.name}</div>
-                {getChildCategory(parent._id).map((child) => (
-                  <div
-                    key={child._id}
-                    className="pl-4 py-1 text-sm cursor-pointer hover:text-green-500"
-                    onClick={() => navigate(`/category/${child.slug}`)}
-                  >
-                    {child.name}
-                  </div>
-                ))}
-              </div>
-            ))}
+                          <Link
+                      
+                          to={`/product/${item._id}`}
+                          className=" px-4 py-2 hover:bg-gray2  text-black"
+                           onClick={() => {
+    setSearchInput("");
+    setMobileMenuOpen(false);   // ✅ menu close
+  }}
+                              
+                          >
+                            
+
+                            {item.title}
+                        
+                          </Link>
+
+                        </div>
+                        ))
+                      ) : (
+                        <div className="px-4 py-2 text-gray">
+                          No product found
+                        </div>
+                      )}
+                    </div>
+                  )} */}
+
+       <div className="  gap-6 flex flex-col">
+                  {parentCategory.map((parent) => (
+<div key={parent._id}>
+<div
+        className="flex justify-between items-center cursor-pointer py-2"
+        onClick={() =>
+          setOpenParent(
+            openParent === parent._id ? null : parent._id
+          )
+        }
+      >
+        <span className="font-medium">{parent.name}</span>
+
+        {openParent === parent._id ? (
+        <IoIosArrowUp />
+        ) : (
+       <IoIosArrowDown />
+        )}
+      </div>
+
+                      {openParent === parent._id && (
+                        <div className="   mt-2 flex flex-col  ">
+                          {getChildCategory(parent._id).map((child) => (
+                            <div
+                              key={child._id}
+                              className="px-4 py-2 hover:bg-gray1 cursor-pointer"
+                              onClick={() =>{setMobileMenuOpen(false)
+                                navigate(`/category/${child.slug}`)
+                              }}
+                            >
+                              {child.name}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+          </div>
+        )}
 
           {user?.role === "seller" && (
             <div className="flex flex-col gap-2">
@@ -334,7 +459,7 @@ const filterData = Array.isArray(products)
           {user && (
             <button
               onClick={handleLogout}
-              className="w-full mt-2 px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white flex justify-center items-center"
+              className="w-full mt-10 px-4 py-2 rounded bg-red2 hover:bg-red1 text-black flex justify-center items-center"
             >
               <span><IoIosLogOut className=""/></span>
               Logout
