@@ -146,22 +146,21 @@ setShowInput(true)
                     </div>
                   ))}
                 </div>
-                <div className="flex items-center   :justify-end">
-                  <div>
+                <div className="flex items-center   ">
+      <div className="relative">
+  <Link
+    to="/cartpage"
+    className="text-2xl relative flex items-center"
+  >
+    <CiShoppingCart className="hover:bg-gray rounded-full font-medium" />
 
-                     <Link
-                  to="/cartpage"
-                  className=" text-2xl  "
-                  >
-                  <CiShoppingCart className="hover:bg-gray rounded-full flex items-center" />
-                  {cartItems.length > 0 && (
-                    <span className="absolute -top-2 -right-3  text-white  hover:bg-gray text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                      {cartItems.length}
-                    </span>
-                  )}
-                </Link>
-                  </div>
-
+    {cartItems.length > 0 && (
+      <span className="absolute -top-2 -right-3 bg-red1 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+        {cartItems.length}
+      </span>
+    )}
+  </Link>
+</div>
 
   <button
     onClick={()=>setShowInput(true)}

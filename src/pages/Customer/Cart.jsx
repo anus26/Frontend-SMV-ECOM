@@ -79,7 +79,7 @@ const Cart = () => {
 
             <button
               onClick={handleAddToCart}
-              className="px-6 py-3 bg-green-600 text-white rounded-xl shadow-md 
+              className="px-6 py-3 hover:bg-green text-black rounded-xl shadow-md 
               hover:bg-green-700 transition duration-300"
             >
               Add to Cart

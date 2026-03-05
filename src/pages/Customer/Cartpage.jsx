@@ -97,11 +97,16 @@ const Cartpage = () => {
             >
               {/* Left Section */}
               <div className="flex items-center gap-4 w-full sm:w-auto">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-24 h-24 object-cover rounded-lg"
-                />
+              {
+                item.images&& item.images.length>0&&(
+
+                  <img
+                    src={item.images[0]}
+                    alt={item.title}
+                    className="w-24 h-24 object-cover rounded-lg"
+                  />
+                )
+              }
                 <div>
                   <h3 className="font-semibold text-lg">{item.title}</h3>
                   <p className="text-green-600 font-bold">{item.price} Rs</p>

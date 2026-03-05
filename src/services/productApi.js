@@ -1,7 +1,7 @@
 import axios from "axios"
 const token = localStorage.getItem("jwt"); 
 const API=axios.create({
-        baseURL:"https://colourful-edithe-anusraza123bm-19b0b6f2.koyeb.app/api/v1/Product",
+        baseURL:"http://localhost:4000/api/v1/Product",
         withCredentials:true,
          headers: { Authorization:`Bearer ${token}` },
 })
