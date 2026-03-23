@@ -8,7 +8,6 @@ const Forgot = () => {
     const [formData,setFormData]=useState({email:""})
     const navigate=useNavigate()
     const handlechange=(e)=>{
-        e.preventDefault()
         setFormData({
             ...formData,
             [e.target.name]:e.target.value
@@ -16,10 +15,9 @@ const Forgot = () => {
     }
 
 
-    const handleSubmit=(e)=>{
+    const handleSubmit=async(e)=>{
         e.preventDefault()
-        localStorage.setItem("email",formData.email) // ✅ best
-        dispatch(forgetPasswordThunk(formData))
+      const res=await  dispatch(forgetPasswordThunk(formData)).unwrap()
  
         navigate("/verify"); // ✅ navigate after success
       
@@ -37,7 +35,7 @@ const Forgot = () => {
         <label  className="block text-sm font-medium mb-1">Email</label>
         <input onChange={handlechange} value={formData.email} name='email' type="email" placeholder='Eneter your email @'              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-greenDark"/>
         </div>
-        <button  type='submit ' className="w-full py-2 bg-greenDark text-white rounded-lg font-semibold hover:bg-greenDark transition flex justify-center">
+        <button  type='submit' className="w-full py-2 bg-greenDark text-white rounded-lg font-semibold hover:bg-greenDark transition flex justify-center">
             Send OTP</button>
     </form>
     </div>
