@@ -24,7 +24,7 @@ const Cart = () => {
 
   if (!addproduct)
     return (
-      <div className="flex justify-center items-center h-60">
+      <div className="flex justify-center items-center h-60 ">
         <p className="text-lg font-semibold text-gray-600">
           Product not found
         </p>
@@ -33,7 +33,7 @@ const Cart = () => {
 
   return (
     <>
-      <div className="max-w-6xl mx-auto p-6 bg-white shadow-xl rounded-2xl mt-8">
+      <div className="max-w-6xl mx-auto p-6 bg-white shadow-xl rounded-2xl mt-8 ">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           
           {/* Left Side - Images */}
@@ -88,7 +88,6 @@ const Cart = () => {
         </div>
       </div>
 
-      <Product />
     </>
   );
 };

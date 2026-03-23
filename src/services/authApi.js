@@ -22,3 +22,15 @@ export const logout=async()=>{
     const res=await API.post(`/logout`)
     return res.data
 }
+export const forgot=async(data)=>{
+    const res=await API.post("/forgot",data)
+    return res.data
+}
+export const verify=async(data)=>{
+    const res=await API.post("/verify",data)
+    return res.data
+}
+export const resetpassword=async(data)=>{
+    const res=await API.post("/reset",data)
+    return res.data
+}

@@ -8,17 +8,18 @@ const Layouts = () => {
 
   return (
 <>
-<div className='bg-white h-full'>
+<div className='bg-white min-h-screen flex flex-col'>
   
     
  <Navbar/>
-<div className='w-full'>
+<div className='flex flex-grow'>
 
 <Outlet />
 
-</div>
+
 </div>
 <Footer/>
+</div>
 </>
   )
 }

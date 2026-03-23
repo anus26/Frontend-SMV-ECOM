@@ -150,12 +150,12 @@ setShowInput(true)
       <div className="relative">
   <Link
     to="/cartpage"
-    className="text-2xl relative flex items-center"
+    className="text-2xl relative flex items-center hover:bg-gray p-2 rounded-full"
   >
-    <CiShoppingCart className="hover:bg-gray rounded-full font-medium" />
+    <CiShoppingCart className="hover:bg-gray rounded-full transition font-medium" />
 
     {cartItems.length > 0 && (
-      <span className="absolute -top-2 -right-3 bg-red1 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+      <span className="absolute -top-2 -right-3 bg-red1 p-2 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
         {cartItems.length}
       </span>
     )}
@@ -286,9 +286,9 @@ setShowInput(true)
            
             {user && (
             
-        <div className="relative group  xl:block ">
-  <div className="cursor-pointer font-medium">
-    {user.name}
+        <div className="relative group  xl:block  text-center flex justify-center p-2 bg-gray rounded-full">
+  <div className="cursor-pointer font-medium  p-1 w-full text-center flex justify-center">
+    {user.name?.charAt(0).toUpperCase()}
   </div>
 
   <div className="absolute hidden group-hover:block right-0   bg-white shadow-md rounded-md">

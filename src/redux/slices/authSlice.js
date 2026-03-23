@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { SignupApi, SigninApi, getMe } from "../../services/authApi";
+import { SignupApi, SigninApi, getMe, forgot, verify, resetpassword } from "../../services/authApi";
 import { deleteProducts } from "../../services/productApi";
+import { data } from "react-router";
+import { stringify } from "postcss";
 
 const initialState = {
   user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
@@ -57,6 +59,35 @@ export const logoutApiThunk = createAsyncThunk(
     }
   }
 );
+export const forgetPasswordThunk =createAsyncThunk(
+  "auth/forgot",
+async(data, {rejectWithValue})=>{
+    try {
+      return await  forgot(data)
+    } catch (error) {
+      return rejectWithValue(error.response?.data||"forgot failed")
+    }
+  })
+export const verifyPasswordThunk=createAsyncThunk(
+  "auth/verify",
+  async(data,{rejectWithValue})=>{
+    try {
+      return await verify(data)
+    } catch (error) {
+      return rejectWithValue(error.response?.data||"verify failed")
+    }
+  }
+)
+export const resetPasswordThunk=createAsyncThunk(
+  "auth/reset",
+  async(data,{rejectWithValue})=>{
+    try {
+      return await resetpassword(data)
+    } catch (error) {
+      return rejectWithValue(error.response?.data||"reset password failed")
+    }
+  })
+
 
 
 const authSlice = createSlice({
@@ -125,8 +156,52 @@ const authSlice = createSlice({
      .addCase(logoutApiThunk.fulfilled, (state) => {
       state.user = null;
       localStorage.removeItem("user");
-    });
-},
+    })
+    // forgot password
+.addCase(forgetPasswordThunk.pending, (state) => {
+  state.loading = true;
+})
+
+.addCase(forgetPasswordThunk.fulfilled, (state, action) => {
+  state.loading = false;
+  state.message = action.payload.messages;
+  state.email = action.meta.arg.email; // ✅ best
+  localStorage.setItem("email",JSON.stringify(action.meta.arg.email))
+})
+
+.addCase(forgetPasswordThunk.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+})
+// verify password
+.addCase(verifyPasswordThunk.pending,(state)=>{
+  state.loading=true
+
+})
+.addCase(verifyPasswordThunk.fulfilled,(state,action)=>{
+  state.loading=false
+  state.message=action.payload.message
+  state.otp=action.meta.arg.otp
+  localStorage.setItem("otp",JSON.stringify(action.meta.arg.otp))
+})
+.addCase(verifyPasswordThunk.rejected,(state,action)=>{
+  state.loading=false
+  state.error=action.payload
+})
+// reset password
+.addCase(resetPasswordThunk.pending,(state)=>{
+  state.loading=true
+
+})
+.addCase(resetPasswordThunk.fulfilled,(state,action)=>{
+  state.loading=false
+  state.message=action.payload.message
+})
+.addCase(resetPasswordThunk.rejected,(state,action)=>{
+  state.loading=false
+  state.error=action.payload
+})
+  },
 })
 
 export const { logout } = authSlice.actions;

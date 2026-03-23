@@ -51,7 +51,7 @@ const Categorychild = () => {
           No products found in this category
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 ">
 
           {products.map((product) => (
             <Link
@@ -59,19 +59,19 @@ const Categorychild = () => {
               key={product._id}
               className="bg-white shadow-md rounded-xl p-4 hover:shadow-xl transition duration-300 flex flex-col"
             >
-              <div className=" flex items-center justify-center h-48 overflow-hidden">
+              <div className=" flex items-center justify-center h-40 w-72 overflow-hidden">
                 {product.images&&product.images.length>0&&(
                   <div className="w-full h-full relative group">
                     <img
                       src={product.images[0]}
                       alt={product.title}
-                      className="absolute w-full h-full object-cover transition-all duration-500 group-hover:opacity-0 group-hover:scale-105"
+                      className="absolute w-40 h-full object-cover transition-all duration-500 group-hover:opacity-0 group-hover:scale-105"
                     />
                    {product.images[1] && (
             <img
               src={product.images[1]}
               alt="product-hover"
-              className="absolute w-full h-full object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-105"
+              className="absolute w-40 h-full object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-105"
             />
           )}
 

@@ -17,7 +17,9 @@ import Order from "./pages/Seller/order"
 import Seller from "./pages/Seller/Seller";
 import ProductGet from "./pages/Admin/ProductGet";
 import { Toaster } from "react-hot-toast";
-import Footer from "./pages/Footer";
+import Forgot from "./pages/Sign/Forgot.jsx";
+import Verify from "./pages/Sign/Verify.jsx";
+import Reset from "./pages/Sign/Reset.jsx";
 
 const Smvecom = () => {
 
@@ -28,7 +30,10 @@ const Smvecom = () => {
       <Routes>
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        
+              <Route path="/forgot" element={<Forgot />} />
+                  <Route path="/verify" element={<Verify />} />
+                      <Route path="/reset" element={<Reset />} />
+                  
 
      
         <Route element={<Layouts />}>

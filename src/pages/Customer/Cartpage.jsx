@@ -27,7 +27,7 @@ const Cartpage = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-[60vh]">
+      <div className="flex flex-col items-center justify-center h-[60vh] w-full">
         <FaShoppingBag className="text-6xl text-gray-400 mb-4" />
         <h1 className="text-2xl font-semibold text-gray-600">
           Your Cart is Empty
@@ -84,7 +84,7 @@ const Cartpage = () => {
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-8">
+    <section className="max-w-6xl max-h-full mx-auto px-4 py-8">
       <h2 className="text-2xl font-bold mb-6">Shopping Cart</h2>
 
       <div className="grid lg:grid-cols-3 gap-6">

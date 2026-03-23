@@ -4,7 +4,7 @@ const Breadcrumb = ({ items }) => {
   if (!items || items.length === 0) return null;
 
   return (
-    <nav className="text-sm text-gray-600 mb-4 flex flex-wrap gap-1">
+    <nav className="text-sm text-gray-600 mb-4 flex flex-wrap gap-6">
       <Link to="/" className="hover:text-greenDark">
         Home
       </Link>
