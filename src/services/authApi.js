@@ -34,3 +34,7 @@ export const resetpassword=async(data)=>{
     const res=await API.post("/reset",data)
     return res.data
 }
+export const resendotp=async(data)=>{
+    const res=await API.post("/resendotp",data)
+    return res.data
+}

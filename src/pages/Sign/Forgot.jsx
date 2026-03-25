@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { forgetPasswordThunk } from '../../redux/slices/authSlice'
 import { useNavigate } from 'react-router'
+import { ColorRing } from 'react-loader-spinner'
+import useAuth from '../../redux/hooks/useAuth'
 
 const Forgot = () => {
     const dispatch=useDispatch()
     const [formData,setFormData]=useState({email:""})
+    const {user,loading,error}=useAuth()
     const navigate=useNavigate()
     const handlechange=(e)=>{
         setFormData({
@@ -33,10 +36,28 @@ const Forgot = () => {
         <div>
 
         <label  className="block text-sm font-medium mb-1">Email</label>
-        <input onChange={handlechange} value={formData.email} name='email' type="email" placeholder='Eneter your email @'              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-greenDark"/>
+        <input onChange={handlechange} value={formData.email} name='email' type="email" placeholder='Eneter your email @'         
+             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-greenDark"/>
         </div>
         <button  type='submit' className="w-full py-2 bg-greenDark text-white rounded-lg font-semibold hover:bg-greenDark transition flex justify-center">
-            Send OTP</button>
+             {loading?(
+    <>
+    <ColorRing
+visible={true}
+height="30"
+width="30"
+
+ariaLabel="color-ring-loading"
+wrapperStyle={{}}
+wrapperClass="color-ring-wrapper"
+colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+/>
+    </>
+    ):(
+      "Send OTP"
+    
+
+   )}</button>
     </form>
     </div>
 </div>

@@ -3,7 +3,6 @@ import axios from "axios"
 const API=axios.create({
      baseURL:"https://colourful-edithe-anusraza123bm-19b0b6f2.koyeb.app/api/v1/admin",
      withCredentials:true
-     
     })
 
 export const getuser=async(data)=>{

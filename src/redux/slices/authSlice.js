@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { SignupApi, SigninApi, getMe, forgot, verify, resetpassword } from "../../services/authApi";
-import { deleteProducts } from "../../services/productApi";
-import { data } from "react-router";
-import { stringify } from "postcss";
+import { SignupApi, SigninApi, getMe, forgot, verify, resetpassword, resendotp } from "../../services/authApi";
+
 
 const initialState = {
   user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
@@ -87,7 +85,16 @@ export const resetPasswordThunk=createAsyncThunk(
       return rejectWithValue(error.response?.data||"reset password failed")
     }
   })
-
+export const resendOtpThunk=createAsyncThunk(
+  "auth/resendOtp",
+  async(data,{rejectWithValue})=>{
+    try {
+      return await resendotp(data)
+    } catch (error) {
+      return rejectWithValue(error.response?.data||"resend otp failed")
+    }
+  }
+)
 
 
 const authSlice = createSlice({
@@ -198,6 +205,19 @@ const authSlice = createSlice({
   state.message=action.payload.message
 })
 .addCase(resetPasswordThunk.rejected,(state,action)=>{
+  state.loading=false
+  state.error=action.payload
+})
+// resend otp
+.addCase(resendOtpThunk.pending,(state)=>{
+  state.loading=true
+
+})
+.addCase(resendOtpThunk.fulfilled,(state,action)=>{
+  state.loading=false
+  state.messagesotp=action.payload.messagesotp
+})
+.addCase(resendOtpThunk.rejected,(state,action)=>{
   state.loading=false
   state.error=action.payload
 })

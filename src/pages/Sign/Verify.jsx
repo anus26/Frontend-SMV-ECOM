@@ -1,13 +1,14 @@
 import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { verifyPasswordThunk } from '../../redux/slices/authSlice'
+import { resendOtpThunk, verifyPasswordThunk } from '../../redux/slices/authSlice'
 import useAuth from '../../redux/hooks/useAuth'
 import { useNavigate } from 'react-router'
+import { ColorRing } from 'react-loader-spinner'
 
 const Verify = () => {
     const dispatch=useDispatch()
     const email=useSelector((state)=>state.auth.email)
-    const {user}=useAuth()
+    const {user,loading,error}=useAuth()
     const [otp,setOtp]=useState(new Array(6).fill(""))
     const inputRef=useRef([])
     const navigate=useNavigate()
@@ -36,8 +37,14 @@ const Verify = () => {
         navigate("/reset")
         
         
-
+        
     }
+    const handleOtp=(e)=>{
+e.preventDefault()
+const email=JSON.parse(localStorage.getItem("email"))
+dispatch(resendOtpThunk({email}))
+console.log("EMAIL FROM FRONTEND:", email);
+     }
   return (
     <>
     <div className=' min-h-screen flex items-center justify-center'>
@@ -58,6 +65,26 @@ const Verify = () => {
     <button type='submit' className="w-full py-2 bg-greenDark text-white rounded-lg font-semibold hover:bg-greenDark transition flex justify-center">
         verify</button>
 </form>
+<div className='mt-4 text-center'>
+    <button onClick={handleOtp}>  {loading?(
+    <>
+    <ColorRing
+visible={true}
+height="30"
+width="30"
+
+ariaLabel="color-ring-loading"
+wrapperStyle={{}}
+wrapperClass="color-ring-wrapper"
+colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+/>
+    </>
+    ):(
+      "Resend OTP"
+    
+
+   )}</button>
+</div>
   </div>
     </div>
     </>
