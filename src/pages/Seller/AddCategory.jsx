@@ -47,7 +47,7 @@ const AddCategory = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-12 bg-white shadow-xl rounded-2xl p-8 border border-gray2">
+    <div className="xl:w-full  md:max-w-xl  h-full mx-auto mt-12 bg-white shadow-xl rounded-2xl p-8 border border-gray2">
 
       <h2 className="text-2xl font-bold text-greenDark mb-6">
         Add New Category

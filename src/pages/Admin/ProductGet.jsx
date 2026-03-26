@@ -32,7 +32,7 @@ const ProductGet = () => {
   if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
 
   return (
-    <section className="p-8 bg-gray-100 min-h-screen s">
+    <section className="p-8 bg-gray-100 w-full">
       <h1 className="text-2xl font-bold mb-6">Admin - All Products</h1>
 
      <div className="w-full overflow-x-auto">

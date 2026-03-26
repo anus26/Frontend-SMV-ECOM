@@ -56,7 +56,7 @@ const handleBlock = (id) => {
   if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
 
 return (
-  <section className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 p-6">
+  <section className="w-full bg-gradient-to-br from-gray-50 to-gray-200 p-20">
 
 
     {/* Header */}
@@ -66,13 +66,17 @@ return (
       </h1>
     {/* Stats Section */}
    
+
     </div>
-    <div className="mb-8">
+    <div className="w-full">
+
+  
+    <div className="mb-8 w-full">
       <Stats />
     </div>
 
     {/* Users Table Card */}
-    <div className="bg-white rounded-2xl shadow-lg overflow-x-auto">
+    <div className="bg-white rounded-2xl shadow-lg overflow-x-auto ">
       <table className="w-full text-sm">
         <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
           <tr>
@@ -116,8 +120,8 @@ return (
                     disabled={user.isApproved}
                     className={`px-4 py-1 rounded-lg text-sm font-medium transition ${
                       user.isApproved
-                        ? "bg-green-500 text-black cursor-not-allowed"
-                        : "bg-yellow-500 hover:bg-yellow-600 text-black"
+                      ? "bg-green-500 text-black cursor-not-allowed"
+                      : "bg-yellow-500 hover:bg-yellow-600 text-black"
                     }`}
                   >
                     {user.isApproved ? "Approved" : "Approve"}
@@ -150,8 +154,8 @@ return (
     <div className="flex justify-center mt-8 space-x-2">
       {[...Array(totalPages)].map((_, index) => (
         <button
-          key={index}
-          onClick={() => handlePageChange(index + 1)}
+        key={index}
+        onClick={() => handlePageChange(index + 1)}
           className={`px-4 py-2 rounded-lg font-medium transition ${
             currentPage === index + 1
               ? "bg-indigo-600 text-white shadow-md"
@@ -162,6 +166,8 @@ return (
         </button>
       ))}
     </div>
+          
+       </div>   
   </section>
 );
 

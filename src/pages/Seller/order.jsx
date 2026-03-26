@@ -63,10 +63,12 @@ const handleDelete = async (_id) => {
   if (error) return <h2 className="p-6 text-red-500">{error}</h2>;
 
   return (
-  <section className="p-8">
+  <section className="p-8 min-w-96  ">
     <h1 className="text-2xl font-bold mb-6">My Orders</h1>
-
     {orders?.length === 0 && <p>No orders found</p>}
+<div className="w-full">
+
+
 
     {orders?.map((order) => (
       <div
@@ -98,7 +100,7 @@ const handleDelete = async (_id) => {
         </button>
       </div>
     ))}
-
+</div>
     {/* ✅ Modal OUTSIDE map */}
     {showModal && (
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40">

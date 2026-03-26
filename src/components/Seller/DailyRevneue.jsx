@@ -44,10 +44,13 @@ const DailyRevenue = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg lg:w-[500px] sm:w[300px]">
+    <section className="flex justify-center mt-10">
+
+    <div className="bg-white p-6 rounded-2xl shadow-lg xl:w-[500px] md:w-[400px] sm:w-[300px]">
       <h2 className="text-xl font-bold mb-4">Daily Revenue</h2>
       {loading ? <p>Loading...</p> : <Line data={data} />}
     </div>
+    </section>
   );
 };
 

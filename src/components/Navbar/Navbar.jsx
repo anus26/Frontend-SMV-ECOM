@@ -405,17 +405,15 @@ setShowInput(true)
         )}
 
           {user?.role === "seller" && (
-            <div className="flex flex-col gap-2">
-              <Link to="/seller" className="px-4 py-2 bg-green1 rounded">
-                Seller
-              </Link>
-              <Link to="/productadd" className="px-4 py-2 bg-green-500 rounded">
+            <div className="flex flex-col gap-2 ">
+             
+              <Link to="/productadd" className="px-4 py-2 rounded" onClick={() => setMobileMenuOpen(false)}>
                 Product Add
               </Link>
-              <Link to="/addcategory" className="px-4 py-2 bg-blue-500 rounded">
+              <Link to="/addcategory" className="px-4 py-2  rounded" onClick={() => setMobileMenuOpen(false)}>
                 Add Category
               </Link>
-              <Link to="/getorder" className="px-4 py-2 bg-blue rounded text-white text-center hover:rounded-2xl ">
+              <Link to="/getorder" className="px-4 py-2  rounded text-black  hover:rounded-2xl " onClick={() => setMobileMenuOpen(false)}>
                 Orders
               </Link>
             </div>
@@ -423,15 +421,10 @@ setShowInput(true)
 
           {user?.role === "Admin" && (
             <div className="flex flex-col gap-2">
-              <Link
-                to="/admin"
-                className="px-4 py-2 bg-green1 rounded text-black"
-              >
-                Admin Dashboard
-              </Link>
+           
               <Link
                 to="/productget"
-                className="px-4 py-2 bg-blue rounded text-black"
+                className="px-4 py-2 rounded text-black"
               >
                 Products
               </Link>

@@ -92,7 +92,7 @@ if (file instanceof File) {
     );
 
   return (
-    <section className="p-4 md:p-8 bg-gray-50 min-h-screen">
+    <section className="p-4 md:p-8 bg-gray-50  xl:w-full md:min-h-screen overflow-hidden">
       {loading&&(
         <div className="flex justify-center">
         <MutatingDots
@@ -116,13 +116,14 @@ if (file instanceof File) {
       <Revenue />
 
       {/* Products Section */}
-      <div className="bg-white p-4 md:p-6 rounded-lg shadow">
+      <div className="bg-white p-4 md:p-6 rounded-lg shadow ">
         <h1 className="text-2xl font-bold mb-4 text-gray-800">
           Seller Products
         </h1>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-left">
-            <thead className="bg-greenSoft">
+        
+        <div className="w-full overflow-y-auto pb-2 ">
+          <table className="min-w-[900px]  w-full border-collapse text-left">
+            <thead className="bg-greenSoft sticky z-10">
               <tr>
                 <th className="border p-2 md:p-3">Image</th>
                 <th className="border p-2 md:p-3">Title</th>
@@ -138,7 +139,7 @@ if (file instanceof File) {
                   key={item._id}
                   className="hover:bg-greenSoft/40 transition-colors"
                 >
-                <td className="border p-1 md:p-3 flex gap-2">
+                <td className="border p-1 md:p-3 flex gap-2 flex-wrap">
   {item.images &&
     item.images.map((img, index) => (
       <div key={index} className="relative">
@@ -165,9 +166,9 @@ if (file instanceof File) {
                     Rs {item.price}
                   </td>
                   <td className="border p-1 md:p-3">{item.stock}</td>
-                  <td className="border p-1 md:p-3 text-sm md:text-base">
-                    {item.description}
-                  </td>
+           <td className="border p-1 md:p-3 text-sm md:text-base max-w-[200px] truncate">
+  {item.description}
+</td>
                   <td className="border p-1 md:p-3 text-center flex flex-col md:flex-row gap-1 justify-center">
                     <button
                       onClick={() => openUpdateModal(item)}
