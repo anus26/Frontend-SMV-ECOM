@@ -28,6 +28,7 @@ const Smvecom = () => {
     <BrowserRouter>
 
       <Routes>
+         <Route path="/"  element={<Customer />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
               <Route path="/forgot" element={<Forgot />} />
@@ -49,14 +50,14 @@ const Smvecom = () => {
             <Route path="addcategory" element={<AddCategory/>}/>
                     <Route path="getorder" element={<Order/>}/>
           </Route>
-         <Route element={<ProtectedRoutes allowedRoles={["customer"]} />}>
+         {/* <Route element={<ProtectedRoutes allowedRoles={["customer"]} />}> */}
+   <Route index element={<Customer />} />
     
-    <Route index element={<Customer />} />
     <Route path="product/:id" element={<Cart/>} />
     <Route  path="category/:slug" element={<Categorychild/>}/>
     <Route path="cartpage" element={< Cartpage/>}/>
 
-  </Route>
+  {/* </Route> */}
       
 
 

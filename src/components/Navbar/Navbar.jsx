@@ -9,6 +9,8 @@ import useProduct from "../../redux/hooks/useProduct";
 import useAuth from "../../redux/hooks/useAuth";
 import { IoIosArrowDown, IoIosArrowUp, IoIosLogOut } from "react-icons/io";
 import { logoutApiThunk } from "../../redux/slices/authSlice";
+import { FaCartShopping } from "react-icons/fa6";
+
 import { TiDelete } from "react-icons/ti";
 import { FaArrowAltCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
 const Navbar = () => {
@@ -64,16 +66,16 @@ const toggleInput=()=>{
 setShowInput(true)
 }
   return (
-    <nav className="bg-green1 shadow-md sticky top-0 z-50 h-16">
+    <nav className="bg-white shadow-md sticky top-0 z-50 h-16">
       <div className="  px-4 xs:px-6 lg:px-8   flex justify-between items-center h-16   ">
   {
     user?.role==="customer"&&(
 
           <Link
             to="/"
-            className="text-2xl font-bold text-blue flex items-center w-[50%] "
+            className="text-2xl font-bold text-black flex items-center w-[50%]  gap-2"
           >
-            <img src="./image/online-shopping.png" alt="image" className="w-8"/>
+     <FaCartShopping className="text-green " />
             SMV-ECOM
           </Link>
     )
@@ -83,9 +85,9 @@ setShowInput(true)
 
           <Link
             to="/seller"
-            className="text-2xl font-bold text-blue flex items-center w-[50%] "
+            className="text-2xl font-bold text-black flex items-center w-[50%] "
           >
-            <img src="./image/online-shopping.png" alt="image" className="w-8"/>
+           <FaCartShopping  className="text-green"/>
             SMV-ECOM
           </Link>
     )
@@ -95,9 +97,9 @@ setShowInput(true)
 
           <Link
             to="/Admin"
-            className="text-2xl font-bold text-blue flex items-center w-[50%] "
+            className="text-2xl font-bold text-black flex items-center w-[50%] gap-2 "
           >
-            <img src="./image/online-shopping.png" alt="image" className="w-8"/>
+      <FaCartShopping className="text-green" />
             SMV-ECOM
           </Link>
     )
@@ -121,12 +123,20 @@ setShowInput(true)
                   {parentCategory.map((parent) => (
                     <div
                       key={parent._id}
-                      className="relative    inline-block cursor-pointer group font-semibold"
+                      className="relative    inline-block  cursor-pointer group font-semibold   "
                       onMouseEnter={() =>  setHoverParent(parent._id)}
                       onMouseLeave={() =>  setHoverParent(null)}
                     >
-                      <span className="font-medium">{parent.name}</span>
-                                        <span className="absolute left-1/2 -translate-x-1/2 bottom-0  h-[2px] w-0 bg-green group-hover:w-full duration-300 transition-all"></span>
+    < div className="flex  gap-1">
+                       
+                      <span className="">{parent.name}</span>
+                      <div className="flex items-end w-6">
+
+                      {hoverParent === parent._id && <IoIosArrowDown className="ml-1" />|| <IoIosArrowUp className="ml-1" />}
+                      </div>
+                      </div>
+                                        {/* <span className="absolute left-1/2 -translate-x-1/2 bottom-0  h-[2px] w-0 bg-green group-hover:w-full duration-300 transition-all"></span> */}
+
                       
                       {hoverParent === parent._id && (
                         <div className="absolute  left-0 bg-white  shadow-md rounded w-40 z-50">
@@ -155,7 +165,7 @@ setShowInput(true)
     <CiShoppingCart className="hover:bg-gray rounded-full transition font-medium" />
 
     {cartItems.length > 0 && (
-      <span className="absolute -top-2 -right-3 bg-red1 p-2 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+      <span className="absolute  -top-1 right-0 bg-green p-2 text-white text-xs w-3 h-2 flex items-center justify-center rounded-full">
         {cartItems.length}
       </span>
     )}
@@ -286,8 +296,8 @@ setShowInput(true)
            
             {user && (
             
-        <div className="relative group  xl:block  text-center flex justify-center p-2 bg-gray rounded-full">
-  <div className="cursor-pointer font-medium  p-1 w-full text-center flex justify-center">
+        <div className="relative group  xl:block  text-center flex justify-center   bg-green rounded-full text-white   ">
+  <div className="cursor-pointer font-medium    text-center flex justify-center items-center m-4">
     {user.name?.charAt(0).toUpperCase()}
   </div>
 
