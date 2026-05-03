@@ -75,7 +75,7 @@ setShowInput(true)
             to="/"
             className="text-2xl font-bold text-black flex items-center w-[50%]  gap-2"
           >
-     <FaCartShopping className="text-green " />
+     <FaCartShopping className="text-green3 " />
             SMV-ECOM
           </Link>
     )
@@ -127,9 +127,9 @@ setShowInput(true)
                       onMouseEnter={() =>  setHoverParent(parent._id)}
                       onMouseLeave={() =>  setHoverParent(null)}
                     >
-    < div className="flex  gap-1">
+    < div className="flex  gap-2  items-center">
                        
-                      <span className="">{parent.name}</span>
+                      <span className="flex ">{parent.name}</span>
                       <div className="flex items-end w-6">
 
                       {hoverParent === parent._id && <IoIosArrowDown className="ml-1" />|| <IoIosArrowUp className="ml-1" />}
@@ -165,7 +165,7 @@ setShowInput(true)
     <CiShoppingCart className="hover:bg-gray rounded-full transition font-medium" />
 
     {cartItems.length > 0 && (
-      <span className="absolute  -top-1 right-0 bg-green p-2 text-white text-xs w-3 h-2 flex items-center justify-center rounded-full">
+      <span className="absolute  -top-1 right-0 bg-green3 p-2 text-white text-xs w-3 h-2 flex items-center justify-center rounded-full">
         {cartItems.length}
       </span>
     )}
@@ -296,8 +296,8 @@ setShowInput(true)
            
             {user && (
             
-        <div className="relative group  xl:block  text-center flex justify-center   bg-green rounded-full text-white   ">
-  <div className="cursor-pointer font-medium    text-center flex justify-center items-center m-4">
+        <div className="relative group  xl:block  text-center flex justify-center     ">
+  <div className="cursor-pointer font-medium    text-center flex justify-center items-center w-12 h-12 rounded-full  bg-green3   text-white ">
     {user.name?.charAt(0).toUpperCase()}
   </div>
 

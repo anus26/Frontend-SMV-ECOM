@@ -7,9 +7,9 @@ const Customer = () => {
  
   return (
 <>
-     <section className="">
+     <section className=" w-full">
 
-  <div className=''>
+  <div className=' flex justify-center w-full '>
 
     <Content/>
   </div>
