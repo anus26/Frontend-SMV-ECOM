@@ -6,7 +6,8 @@ const ProductCard = ({ item }) => {
   return (
 
   
-<div className="bg-white rounded-md shadow-md  hover:shadow-2xl transition-all duration-300 group border border-white hover:border-green3 overflow-hidden max-w-8xl  ">
+    <div className="bg-white rounded-md shadow-md  hover:shadow-2xl transition-all duration-300 group border border-white hover:border-green3 overflow-hidden max-w-8xl  ">
+      
 
 
   <Link to={`/product/${item._id}`} className="block">

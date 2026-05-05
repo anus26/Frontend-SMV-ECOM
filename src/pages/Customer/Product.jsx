@@ -21,9 +21,11 @@ useEffect(()=>{
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   return (
+    <>
+    <h1>Popular Products</h1>
    <div className="
-  grid 
   grid-cols-1 
+  grid 
   sm:grid-cols-2
   md:grid-cols-3
   lg:grid-cols-4
@@ -37,6 +39,7 @@ useEffect(()=>{
   ))}
 </div>
 
+    </>
   );
 };
 
