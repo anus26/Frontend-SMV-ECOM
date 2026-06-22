@@ -20,6 +20,7 @@ import { Toaster } from "react-hot-toast";
 import Forgot from "./pages/Sign/Forgot.jsx";
 import Verify from "./pages/Sign/Verify.jsx";
 import Reset from "./pages/Sign/Reset.jsx";
+import BuyNow from "./pages/Customer/BuyNow.jsx";
 
 const Smvecom = () => {
 
@@ -56,6 +57,7 @@ const Smvecom = () => {
     <Route path="product/:id" element={<Cart/>} />
     <Route  path="category/:slug" element={<Categorychild/>}/>
     <Route path="cartpage" element={< Cartpage/>}/>
+      <Route path="buynow/:id" element={<BuyNow/>} />
 
   {/* </Route> */}
       

@@ -5,7 +5,7 @@ const FeaturedCategory = () => {
 
   const categories = [
     "/image/01.jpg",
-    "/image/01.webp",
+    // "/image/01.webp",
     "/image/chicken.jpg",
     "/image/fish.jpg",
     "/image/meat.png",
@@ -37,7 +37,7 @@ const FeaturedCategory = () => {
   // Next Slide
   const nextpage = () => {
     setIndex((prev) =>
-      prev + 1 > categories.length - 7 ? 0 : prev + 1
+      prev + 1 > categories.length -7 ? 0 : prev + 1
     );
   };
 
@@ -50,18 +50,18 @@ const FeaturedCategory = () => {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-4 mt-10">
+      <div className="max-w-full mx-auto   px-4 m-10 ">
 
-        <h1 className="font-semibold text-xl mb-6">
+        <h1 className="font-semibold text-xl m-7 ">
           Featured Category
         </h1>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4 max-w-screen-2xl">
 
           {/* Left Arrow */}
           <button
             onClick={prepage}
-            className="text-2xl md:text-3xl bg-white shadow-md p-2 rounded-full hover:bg-green-500 hover:text-white transition"
+            className="text-2xl md:text-3xl bg-white shadow-md p-2 rounded-full  hover:bg-green-500 hover:text-white transition m-10"
           >
             <IoIosArrowBack />
           </button>
@@ -73,7 +73,7 @@ const FeaturedCategory = () => {
 
               <div
                 key={item}
-                className="border flex justify-center items-center h-28 sm:h-32 shadow-md border-white hover:shadow-xl hover:border-green-500 rounded-lg transition bg-white"
+                className="border flex justify-center items-center xl:h-24 sm:h-32 w-full shadow-md border-white hover:shadow-xl hover:border-green-500 xl:rounded-full  transition bg-white"
               >
 
                 <img
@@ -91,23 +91,23 @@ const FeaturedCategory = () => {
           {/* Right Arrow */}
           <button
             onClick={nextpage}
-            className="text-2xl md:text-3xl bg-white shadow-md p-2 rounded-full hover:bg-green-500 hover:text-white transition"
+            className="text-2xl md:text-3xl bg-white shadow-md p-2 rounded-full hover:bg-green-500 hover:text-white transition  m-10"
           >
             <IoIosArrowForward />
           </button>
 
         </div>
         <br />
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+<div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 m-10 gap-20">
 
   {img.map((item) => (
 
     <div
       key={item}
-      className="relative w-72 rounded-2xl overflow-hidden shadow-lg group"
+      className="relative xl:w-96 md:40 rounded-2xl overflow-hidden shadow-lg group"
     >
 
-      {/* Image */}
+   
       <div className="relative h-56 overflow-hidden">
 
         <img
@@ -116,10 +116,9 @@ const FeaturedCategory = () => {
           className="w-full h-56 object-cover group-hover:scale-105 transition duration-500"
         />
 
-        {/* Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>
 
-        {/* Text Content */}
+     
         <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-4">
 
           <h2 className="text-2xl font-bold mb-2">

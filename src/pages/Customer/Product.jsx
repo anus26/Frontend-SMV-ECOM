@@ -22,7 +22,7 @@ useEffect(()=>{
   if (error) return <p>{error}</p>;
   return (
     <>
-    <h1>Popular Products</h1>
+    <h1 className="text-xl  font-bold">Popular Products</h1>
    <div className="
   grid-cols-1 
   grid 

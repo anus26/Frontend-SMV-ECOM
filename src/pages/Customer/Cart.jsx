@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/slices/cartSlice";
 import useProduct from "../../redux/hooks/useProduct";
@@ -10,6 +10,7 @@ const Cart = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { products } = useProduct();
+  const navigate =useNavigate()
 
   const addproduct = products.find((p) => p._id === id);
 
@@ -64,7 +65,7 @@ const Cart = () => {
           </div>
 
           {/* Right Side - Details */}
-          <div>
+          <div className="">
             <h1 className="text-3xl font-bold mb-4">
               {addproduct.title}
             </h1>
@@ -76,14 +77,24 @@ const Cart = () => {
             <p className="text-2xl font-semibold text-green-600 mb-6">
               Rs {addproduct.price}
             </p>
+            <div className="flex gap-4">
+
+               <button
+          onClick={()=>navigate(`/BuyNow/${addproduct._id}`)}
+              className="px-6 py-3 hover:bg-white text-white hover:text-black rounded-xl shadow-xl 
+              bg-green transition duration-300"
+              >
+              Buy Now
+            </button>
 
             <button
               onClick={handleAddToCart}
-              className="px-6 py-3 hover:bg-green text-black rounded-xl shadow-md 
-              hover:bg-green-700 transition duration-300"
-            >
+              className="px-6 py-3 hover:bg-green text-black rounded-xl shadow-xl
+              transition duration-300"
+              >
               Add to Cart
             </button>
+              </div>
           </div>
         </div>
       </div>

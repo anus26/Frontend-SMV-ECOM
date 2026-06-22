@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Product from './Product.jsx'
 import Content from "../../components/Customer/Content.jsx";
 import FeaturedCategory from '../../components/Customer/FeaturedCategory.jsx';
+import Services from '../../components/Customer/Services.jsx';
 
 
 const Customer = () => {
@@ -22,6 +23,9 @@ const Customer = () => {
         <Product />
 
     </div>
+  <div>
+    <Services/>
+  </div>
       </section>
       
 

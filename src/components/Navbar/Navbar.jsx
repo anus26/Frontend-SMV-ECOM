@@ -76,7 +76,7 @@ setShowInput(true)
             className="text-2xl font-bold text-black flex items-center w-[50%]  gap-2"
           >
      <FaCartShopping className="text-green3 " />
-            SMV-ECOM
+            B.MART
           </Link>
     )
   }
@@ -100,7 +100,7 @@ setShowInput(true)
             className="text-2xl font-bold text-black flex items-center w-[50%] gap-2 "
           >
       <FaCartShopping className="text-green" />
-            SMV-ECOM
+            B.MART
           </Link>
     )
   }

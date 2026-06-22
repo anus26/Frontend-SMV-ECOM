@@ -6,6 +6,7 @@ import productReducer from "./slices/productSlice";
 import orderReducer from "./slices/orderSlice";
 import revenueReducer from "./slices/revenueSlice"
 import adminReducer from "./slices/adminSlice"
+import buyReducer from "./slices/buySlice";
 export const  store =configureStore({
     reducer:{
         cart:cartReducer,
@@ -14,7 +15,8 @@ export const  store =configureStore({
         product:productReducer,
         order:orderReducer,
         revenue:revenueReducer,
-        admin:adminReducer
+        admin:adminReducer,
+        buy:buyReducer,
     }
 
 
