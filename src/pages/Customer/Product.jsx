@@ -12,11 +12,11 @@ const Product = () => {
   
   const {products,loading,error}=useProduct()
 
-useEffect(()=>{
+// useEffect(()=>{
 
-    dispatch(productApI());
+//     dispatch(productApI());
  
-},[dispatch])
+// },[dispatch])
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;

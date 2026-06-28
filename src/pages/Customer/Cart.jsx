@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/slices/cartSlice";
@@ -9,25 +9,39 @@ import toast from "react-hot-toast";
 const Cart = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { products } = useProduct();
+  const { products,loading } = useProduct();
+  console.log(products, loading);
   const navigate =useNavigate()
 
   const addproduct = products.find((p) => p._id === id);
-
+  
   const [mainImage, setMainImage] = useState(
-    addproduct?.images?.[0]
+    
   );
-
+  useEffect(()=>{
+    if(addproduct){
+      setMainImage(addproduct.images[0])
+    }
+  },[addproduct])
+  
   const handleAddToCart = () => {
     dispatch(addToCart(addproduct));
     toast.success("Added to cart successfully");
   };
-
-  if (!addproduct)
+  if (loading)
     return (
-      <div className="flex justify-center items-center h-60 ">
+  <div className="flex justify-center items-center h-60 ">
         <p className="text-lg font-semibold text-gray-600">
-          Product not found
+     Loading product details...
+        </p>
+      </div>
+    );
+    
+    if (!addproduct)
+      return (
+    <div className="flex justify-center items-center h-60 ">
+        <p className="text-lg font-semibold text-gray-600">
+     Not Product Found...
         </p>
       </div>
     );
@@ -41,7 +55,7 @@ const Cart = () => {
           <div>
             <img
               src={mainImage}
-              alt={addproduct.title}
+              // alt={addproduct}
               className="w-full h-[450px] object-cover rounded-xl shadow-md"
             />
 
