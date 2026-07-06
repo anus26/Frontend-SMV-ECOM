@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import usebuy from '../../redux/hooks/usebuy';
 import { buyAddThunk } from '../../redux/slices/buySlice';
+import toast from 'react-hot-toast';
 const BuyNow = () => {
     const {id}=useParams()
     const  dispatch=useDispatch()
@@ -24,6 +25,8 @@ AddressType:""
 
 
 })
+
+
 
 const input=[
 {
@@ -51,13 +54,13 @@ label:"Address",
 name:"Address"
 },
 {
+label:"Colony/suburb/Locality/Landmark",
+name:"Colony"
+},
+{
 label:"Building/House.No/Floor/Street",
 name:"Building"
 },
-{
-label:"Colony/suburb/Locality/Landmark",
-name:"Colony"
-}
 ]
     const handleChange=(e)=>{
         setFormData({
@@ -68,6 +71,14 @@ name:"Colony"
     }
     const handlesubmit=(e)=>{
         e.preventDefault()
+        // if(formData.Province===""){
+        //     toast.apply("Please select Province")
+        // }
+
+    // if(formData.City === ""){
+    //     toastt.apply("Please select City")
+    //     return
+    // }
         dispatch(buyAddThunk(formData))
     }
   return (
@@ -84,7 +95,14 @@ name:"Colony"
 {input.map((item)=>(
     <div key={item.name} className="text-text" >
         <label htmlFor={item} >{item.label}</label>
-        <input onChange={handleChange} value={formData[item.name]}  type="text" id={item} name={item.name} className="border rounded-md p-2 w-full border-gray2 hover:border-text" />
+        <input onChange={handleChange} value={formData[item.name]}  disabled={(item.name ==="City"  && !formData.Province) 
+             || (item.name ==="Area"  && !formData.City) 
+                   || (item.name ==="Address"  && !formData.Area) 
+                      || (item.name ==="Colony"  && !formData.Address) 
+                               || (item.name ==="Building"  && !formData.Colony) 
+            }   
+              type="text" id={item} name={item.name} className="border rounded-md p-2 w-full border-gray2 hover:border-text" />
+        
     </div>
 ))}
 </div>
