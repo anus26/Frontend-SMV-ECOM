@@ -185,9 +185,27 @@ name:"Building"
     </div>
     </section>   
     {open&&(
-       <div className='drawer-toggle drawer-left p-4 bg-white fixed top=16 right-0 menu  h-full w-80  shadow-md'>
-           <h1>Invoice and Contact Info</h1>
-           <button onClick={()=>setOpen(false)}>Close</button>
+       <div className='drawer-toggle drawer-left p-4 bg-white fixed top=16 right-0 menu  h-full w-96  shadow-md'>
+           <h1 className='font-semibold text-xl'>Invoice and Contact Info</h1>
+           <div className='flex-col mt-3 '> 
+            <label htmlFor="" className='font-medium text-md'>Email</label>
+            <input type="email"  placeholder='Enter Email' className='w-80 mt-2 border p-1 rounded-md border-gray2 hover:border-text' />
+            <p className='text-text text-sm'>Enter your email to get delivery status updates</p>
+
+           </div>
+           <div className='flex justify-between mt-3'>
+            <h1>Billing Address</h1>
+            <button>Edit</button>
+           </div>
+            <div className=''>
+                <textarea name="" id="" className='w-80 rounded-md p-1 mt-3  border-gray2 border hover:border-text'></textarea>
+                <p className='text-text text-sm'>Please edit your billing address</p>
+            </div>
+            <div className='flex justify-center gap-4 mt-5'>
+           <button onClick={()=>setOpen(false)} className='bg-gray p-2 w-32 duration-300 transiton-all hover:bg-white'>Close</button>
+           <button  className='bg-green hover:bg-green1 duration-300 transition-all p-2 w-32' >Save</button>
+            </div>
+
        </div> 
     )}
    </>
