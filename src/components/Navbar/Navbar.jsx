@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { CiSearch, CiShoppingCart, CiMenuBurger } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Links, useNavigate } from "react-router-dom";
 import useCategory from "../../redux/hooks/useCategory";
 import { getthunkcategory } from "../../redux/slices/categorySlice";
 import { getslugproductApi } from "../../redux/slices/productSlice";
@@ -470,7 +470,9 @@ setShowInput(true)
         </div>
       )}
     </nav>
+
   );
+
 };
 
 export default Navbar;

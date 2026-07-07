@@ -10,6 +10,7 @@ const BuyNow = () => {
     const {id}=useParams()
     const  dispatch=useDispatch()
     const {buy,loading,error}=usebuy()
+    const [open,setOpen]=useState(false)
     const userid=buy?.userId
     const [formData,setFormData]=useState({
 FullName:"",
@@ -83,8 +84,8 @@ name:"Building"
     }
   return (
    <>
-<section>
-    <div className="bg-white rounded-sm shadow-md m-16">
+<section className='flex justify-between'>
+    <div className="bg-white rounded-sm shadow-md m-16 w-[70%]">
         <h1 className='font-semibold text-xl m-10'>Delivery Information</h1>
      
     <form onSubmit={handlesubmit}>
@@ -132,7 +133,7 @@ name:"Building"
     </div>
 
         </div>
-        <div className='flex justify-end m'>
+        <div className='flex justify-end '>
 
     <button className=' p-4 w-32 m-5 bg-green text-white rounded-lg shadow-md hover:bg-green1 transition duration-300 '>
         Save
@@ -140,7 +141,55 @@ name:"Building"
         </div>
     </form>
     </div>
+    <div className="bg-white rounded-sm shadow-md m-16 w-[30%] h-[60%]">
+        <h1 className='font-semibold text-xl m-5'>Promotion</h1>
+        <div className='flex  m-5 justify-between'>
+            <input type="text" placeholder="Enter promotion code" className='border rounded-md p-2  border-gray2 hover:border-text'/>
+            <button className=' p-2 bg-blue text-white rounded-md hover:bg-blue1 transition duration-300 '>
+                Apply
+            </button>
+        </div>
+        <div className='flex m-5 justify-between'>
+            <h1 className='font-semibold text-xl '>Invoice and Contact Info</h1>
+            <button onClick={()=>setOpen(!open)}>Edit</button>
+        </div>
+
+ <div>
+    <h1 className='m-4'>Order Summary</h1>
+    <div className='flex justify-between m-4 '>
+        <h1>items Total</h1>
+<p>Rs 153</p>
+    </div>
+        <div className='flex justify-between m-4'>
+        <h1>items Total</h1>
+<p>Rs 153</p>
+    </div>
+        <div className='flex justify-between m-4'>
+        <h1>items Total</h1>
+    <p>Rs 153</p>
+    </div>
+    
+ </div>
+ <div className='border m-4 '></div>
+ <div className="flex justify-between m-4">
+    <h1>Total</h1>
+    <p>
+        Rs 303
+    </p>
+
+ </div>
+ <h1 className='flex justify-end m-4'>VAT included, where applicable</h1>
+ <button className='  bg-green hover:bg-green1 p-2 m-2 transition-all duration-300 w-[95%] rounded-md'>
+    Proceed to Pay
+ </button>
+    </div>
     </section>   
+    {open&&(
+       <div className='drawer-toggle drawer-left p-4 bg-white fixed top=16 right-0 menu  h-full w-80  shadow-md'>
+           <h1>Invoice and Contact Info</h1>
+           <button onClick={()=>setOpen(false)}>Close</button>
+       </div> 
+    )}
    </>
   )
 }
