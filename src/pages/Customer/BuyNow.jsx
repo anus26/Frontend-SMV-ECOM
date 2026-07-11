@@ -1,10 +1,10 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { IoBagRemoveOutline } from "react-icons/io5";
 import { IoHomeOutline } from "react-icons/io5";
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import usebuy from '../../redux/hooks/usebuy';
-import { buyAddThunk } from '../../redux/slices/buySlice';
+import { buyAddThunk, buygetThunk } from '../../redux/slices/buySlice';
 import toast from 'react-hot-toast';
 const BuyNow = () => {
     const {id}=useParams()
@@ -12,6 +12,7 @@ const BuyNow = () => {
     const {buy,loading,error}=usebuy()
     const [open,setOpen]=useState(false)
     const userid=buy?.userId
+    const [data,setData]=useState(false)
     const [formData,setFormData]=useState({
 FullName:"",
 Province:"",
@@ -27,7 +28,9 @@ AddressType:""
 
 })
 
-
+useEffect(() => {
+    dispatch(buygetThunk());
+}, []);
 
 const input=[
 {
@@ -88,7 +91,10 @@ name:"Building"
     <div className="bg-white rounded-sm shadow-md m-16 w-[70%]">
         <h1 className='font-semibold text-xl m-10'>Delivery Information</h1>
      
-    <form onSubmit={handlesubmit}>
+  { buy?(
+
+      
+      <form onSubmit={handlesubmit}>
 <div className="">
 <div className="grid grid-cols-2 gap-8 m-10">
 
@@ -140,7 +146,21 @@ name:"Building"
         </button> 
         </div>
     </form>
+):(
+         <div>
+            <h2>{buy.FullName}</h2>
+            <p>{buy.Phone}</p>
+            <p>{buy.Address}</p>
+            <button>Edit</button>
+        </div>
+)
+}  
     </div>
+
+
+
+
+
     <div className="bg-white rounded-sm shadow-md m-16 w-[30%] h-[60%]">
         <h1 className='font-semibold text-xl m-5'>Promotion</h1>
         <div className='flex  m-5 justify-between'>

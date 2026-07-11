@@ -9,3 +9,7 @@ export const buyadd=async(data)=>{
     const res=await API.post("/buy",data)
     return res.data
 }
+export const getbuy=async(data)=>{
+    const res=await API.get("/getbuybyuser",data)
+    return res.data
+}

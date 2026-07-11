@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { buyadd } from "../../services/buyApi";
+import BuyNow from "../../pages/Customer/BuyNow";
+import { FaGlasses } from "react-icons/fa6";
 
 const initialState={
 buy:[],
@@ -20,6 +22,19 @@ export const buyAddThunk = createAsyncThunk(
     }
   }
 );
+export const buygetThunk=createAsyncThunk(
+    "buyer/getbuybyuser",
+    async(data,{rejectWithValue})=>{
+      try{
+        const response=await getbuy(data)
+        return response.data
+      }catch(error){
+        return rejectWithValue(
+          error.response?.data?.message||'Buy failed'
+        )
+      }
+    }
+)
 
 const buySlice=createSlice({
     name:"buyer",
@@ -41,6 +56,23 @@ const buySlice=createSlice({
             state.loading=false;
             state.error=action.payload
         })
+
+
+        // get
+        .addCase(buygetThunk.pending,(state)=>{
+          state.loading=true
+          state.error=null
+        })
+        .addCase(buygetThunk.fulfilled,(state,action)=>{
+          state.loading=false
+          state.buy=action.payload
+        })
+        .addCase(buygetThunk.rejected,(state,action)=>{
+          state.loading=false
+          state.error=action.payload
+        })
     }
+
 })
+
 export default buySlice.reducer;
