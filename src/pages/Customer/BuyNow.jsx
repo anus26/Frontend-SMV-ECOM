@@ -12,6 +12,7 @@ const BuyNow = () => {
     const {buy,loading,error}=usebuy()
     const [open,setOpen]=useState(false)
     const userid=buy?.userId
+
     const [data,setData]=useState(false)
     const [formData,setFormData]=useState({
 FullName:"",
@@ -28,9 +29,6 @@ AddressType:""
 
 })
 
-useEffect(() => {
-    dispatch(buygetThunk());
-}, []);
 
 const input=[
 {
@@ -54,19 +52,23 @@ label:"Phone",
 name:"Phone"
 },
 {
-label:"Address",
-name:"Address"
+    label:"Address",
+    name:"Address"
 },
 {
-label:"Colony/suburb/Locality/Landmark",
-name:"Colony"
+    label:"Colony/suburb/Locality/Landmark",
+    name:"Colony"
 },
 {
-label:"Building/House.No/Floor/Street",
-name:"Building"
+    label:"Building/House.No/Floor/Street",
+    name:"Building"
 },
 ]
-    const handleChange=(e)=>{
+useEffect(() => {
+    dispatch(buygetThunk());
+    console.log("buy",buy);
+}, []);
+const handleChange=(e)=>{
         setFormData({
             ...formData,
             [e.target.name]:e.target.value
@@ -91,9 +93,21 @@ name:"Building"
     <div className="bg-white rounded-sm shadow-md m-16 w-[70%]">
         <h1 className='font-semibold text-xl m-10'>Delivery Information</h1>
      
-  { buy?(
+  { buy&& !data?(
 
       
+         <div>
+            <h2>{buy?.FullName}</h2>
+            <p>{buy?.Phone}</p>
+            <p>{buy?.Address}</p>
+            <button onClick={()=>{
+                setData(true)
+                setFormData(buy) 
+            }} 
+                >Edit</button>
+        </div>
+    
+):(
       <form onSubmit={handlesubmit}>
 <div className="">
 <div className="grid grid-cols-2 gap-8 m-10">
@@ -146,13 +160,6 @@ name:"Building"
         </button> 
         </div>
     </form>
-):(
-         <div>
-            <h2>{buy.FullName}</h2>
-            <p>{buy.Phone}</p>
-            <p>{buy.Address}</p>
-            <button>Edit</button>
-        </div>
 )
 }  
     </div>
