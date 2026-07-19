@@ -312,9 +312,9 @@ const handleChange=(e)=>{
       VAT included, where applicable.
     </p>
 
-    <button className="w-full mt-6 bg-green hover:bg-green1 text-white py-3 rounded-lg font-semibold transition">
-      Proceed to Pay
-    </button>
+    <Link to={`/Buy/${product._id}`} className="w-full mt-6 bg-green hover:bg-green1 text-white py-3 rounded-lg font-semibold transition">
+     Proceed to Pay
+    </Link>
   </div>
 
 </div>
