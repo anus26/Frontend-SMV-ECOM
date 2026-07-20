@@ -22,6 +22,8 @@ import Verify from "./pages/Sign/Verify.jsx";
 import Reset from "./pages/Sign/Reset.jsx";
 import BuyNow from "./pages/Customer/BuyNow.jsx";
 import Buy from "./pages/Customer/buy.jsx";
+import UserOrder from "./pages/Customer/UserOrder.jsx";
+
 
 const Smvecom = () => {
 
@@ -60,6 +62,7 @@ const Smvecom = () => {
     <Route path="cartpage" element={< Cartpage/>}/>
       <Route path="buynow/:id" element={<BuyNow/>} />
    <Route path="Buy/:id" element={<Buy/>} />
+<Route path="userorder/:id" element={<UserOrder/>}/>
 
 
   {/* </Route> */}

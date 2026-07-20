@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { CiSearch, CiShoppingCart, CiMenuBurger } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Links, useNavigate } from "react-router-dom";
+import { Link, Links, useNavigate, useParams } from "react-router-dom";
 import useCategory from "../../redux/hooks/useCategory";
 import { getthunkcategory } from "../../redux/slices/categorySlice";
 import { getslugproductApi } from "../../redux/slices/productSlice";
@@ -13,10 +13,13 @@ import { FaCartShopping } from "react-icons/fa6";
 
 import { TiDelete } from "react-icons/ti";
 import { FaArrowAltCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
+import useorder from "../../redux/hooks/useorder";
 const Navbar = () => {
+  const {id}=useParams()
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const {order}=useorder()
+console.log(order);
   const { products = [] } = useProduct();
   const cartItems = useSelector((state) => state.cart.items);
   const { categories = [] } = useCategory();
@@ -156,6 +159,7 @@ setShowInput(true)
                     </div>
                   ))}
                 </div>
+
                 <div className="flex items-center   ">
       <div className="relative">
   <Link
@@ -171,6 +175,7 @@ setShowInput(true)
     )}
   </Link>
 </div>
+
 
   <button
     onClick={()=>setShowInput(true)}
@@ -308,7 +313,13 @@ setShowInput(true)
     >
       Logout
     </button>
+                    <div>
+  <Link  to={`/userorder/${order?._id}`}>
+  Order
+  </Link>
+</div>
   </div>
+  
 </div>
             )}
           </div>
