@@ -9,6 +9,7 @@ export const orderAdd=async(data)=>{
     const res=await API.post("/orderadd",data)
     return res.data
 }
+
 export const allorder=async(data)=>{
     const res=await API.get("/allorder",data)
     return res.data
@@ -19,4 +20,7 @@ const res=  await API.put(`/updateorder/${id}`,{status})
 }
 export const orderdelete=async(id)=>{
     return res=await API.delete(`/orderdelete/${id}`)
+}
+export const orderall=async(id)=>{
+    return res=await API.get(`/orderall/${id}`)
 }

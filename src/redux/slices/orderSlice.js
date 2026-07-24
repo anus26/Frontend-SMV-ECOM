@@ -47,7 +47,21 @@ export const orderdeleteThunk=createAsyncThunk(
     async (id,{rejectWithValue})=>{
 
         try {
-             await orderdelete(id)
+       return  await orderdelete(data)
+            
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message||"delete failed"
+            )
+        }
+    }
+)
+export const orderallThunk=createAsyncThunk(
+    "order/all",
+    async (id,{rejectWithValue})=>{
+
+        try {
+             await orderall(id)
              return id
         } catch (error) {
             return rejectWithValue(
@@ -136,6 +150,22 @@ state.clientSecret = action.payload.ClinetSecret;
        .addCase(orderdeleteThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+
+
+      // orderall
+      .addCase(orderallThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(orderallThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log("orderall", action.payload);
+        state.orders = action.payload.allorders;
+      })
+      .addCase(orderallThunk.rejected,(state,action)=>{
+        state.loading=false;
+        state.error=action.payload
       })
   },
 

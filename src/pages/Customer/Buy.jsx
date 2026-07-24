@@ -8,6 +8,7 @@ import usebuy from "../../redux/hooks/usebuy";
 import { getProducts } from "../../services/productApi";
 import { orderThunk } from "../../redux/slices/orderSlice";
 import { getslugproductApi } from "../../redux/slices/productSlice";
+import toast from "react-hot-toast";
 
 const Buy = () => {
   const {id}=useParams()
@@ -69,7 +70,8 @@ const handleSubmit = (e) => {
 
   dispatch(orderThunk(data));
   console.log("orderThunk", orderThunk);
-  
+  toast.success("Order payment is successfully done");
+  setOrderData(input)
 };
 useEffect(() => {
   dispatch(buygetThunk());
@@ -105,34 +107,8 @@ useEffect(() => {
   ))
 }
 
-          {/* <label className="flex items-center gap-3 border p-4 rounded-lg cursor-pointer">
-            <input
-              type="radio"
-              value="JazzCash"
-              onChange={(e)=>setPaymentMethod(e.target.value)}
-            />
-            <span>JazzCash</span>
-          </label>
-
-          <label className="flex items-center gap-3 border p-4 rounded-lg cursor-pointer">
-            <input
-              type="radio"
-              name="payment"
-              value="EasyPaisa"
-              onChange={(e)=>setPaymentMethod(e.target.value)}
-              />
-              <span>EasyPaisa</span>
-              </label>
-
-          <label className="flex items-center gap-3 border p-4 rounded-lg cursor-pointer">
-            <input
-              type="radio"
-              name="payment"
-              value="Bank Transfer"
-              onChange={(e)=>setPaymentMethod(e.target.value)}
-            />
-            <span>Bank Transfer</span>
-          </label> */}
+          
+  
 
         </div>
 <h1 className="text-xl font-bold">
