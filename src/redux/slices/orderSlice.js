@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { allorder, orderAdd, orderdelete, orderupdata } from "../../services/orderApi";
+import { allorder, orderAdd, ordercustomer, orderdelete, orderupdata } from "../../services/orderApi";
 
 const   initialState= {
     loading: false,
@@ -61,8 +61,8 @@ export const orderallThunk=createAsyncThunk(
     async (id,{rejectWithValue})=>{
 
         try {
-             await orderall(id)
-             return id
+          const res=   await ordercustomer(id)
+             return res
         } catch (error) {
             return rejectWithValue(
                 error.response?.data?.message||"delete failed"
@@ -160,8 +160,9 @@ state.clientSecret = action.payload.ClinetSecret;
       })
       .addCase(orderallThunk.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("orderall", action.payload);
-        state.orders = action.payload.allorders;
+        state.orders = action.payload.ordercustomer;
+        console.log("allorder", action.payload);
+
       })
       .addCase(orderallThunk.rejected,(state,action)=>{
         state.loading=false;
