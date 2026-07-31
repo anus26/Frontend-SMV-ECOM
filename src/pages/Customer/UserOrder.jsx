@@ -19,103 +19,263 @@ const UserOrder = () => {
       
     },[dispatch,])
 
-  return (
-    <>
+return (
+  <div className=" flex justify-center items-center text-center ">
+    <div className="  px-4 ">
 
-   <div className="max-w-6xl mx-auto p-4">
-  <h1 className="text-3xl font-bold mb-6">My Orders</h1>
-
-  {orders.length === 0 ? (
-    <div className="bg-white rounded-lg shadow p-8 text-center">
-      <h2 className="text-xl font-semibold">No Orders Found</h2>
-    </div>
-  ) : (
-    orders.map((order) => (
-      <div
-        key={order._id}
-        className="bg-white rounded-xl shadow-md border mb-6 overflow-hidden"
-      >
-        {/* Header */}
-        <div className="flex justify-between items-center p-4 border-b bg-gray-50">
-          <div>
-            <h2 className="font-semibold">
-              Order #{order._id.slice(-6)}
-            </h2>
-            <p className="text-sm text-gray-500">
-              Status: {order.status}
-            </p>
-          </div>
-
-          <span
-            className={`px-3 py-1 rounded-full text-sm
-              ${
-                order.status === "Delivered"
-                  ? "bg-green-100 text-green-700"
-                  : order.status === "Pending"
-                  ? "bg-yellow-100 text-yellow-700"
-                  : "bg-blue-100 text-blue-700"
-              }`}
-          >
-            {order.status}
-          </span>
-        </div>
-
-        {/* Products */}
-        <div className="p-4 space-y-4">
-          {order.items?.map((item) => (
-            <div
-              key={item.productId}
-              className="flex gap-4 border-b pb-4"
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-24 h-24 object-cover rounded-lg border"
-              />
-
-              <div className="flex-1">
-                <h3 className="font-semibold">{item.title}</h3>
-
-                <p className="text-gray-500">
-                  Quantity: {item.quantity}
-                </p>
-
-                <p className="text-green font-bold">
-                  Rs {item.price}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Footer */}
-        <div className="flex justify-between items-center p-4 bg-gray-50">
-          <div>
-            <p className="text-sm text-gray-500">
-              Shipping Address
-            </p>
-
-            <p className="font-medium">
-              {order.shippingAddress}
-            </p>
-          </div>
-
-          <div className="text-right">
-            <p className="text-sm text-gray-500">
-              Total
-            </p>
-
-            <p className="text-xl font-bold text-green">
-              Rs {order.totalAmount}
-            </p>
-          </div>
-        </div>
+      {/* Page Heading */}
+      <div className="mb-6 ">
+        <h1 className="text-2xl md:text-3xl font-bold text-black">
+          My Orders
+        </h1>
+        <p className="text-sm text-text mt-1">
+          Track and manage your orders
+        </p>
       </div>
-    ))
-  )}
-</div>
-    </>
-  )
+
+      {orders.length === 0 ? (
+        <div className="bg-white rounded-xl shadow-sm border p-10  ">
+          <h2 className="text-xl font-semibold text-gray">
+            No Orders Found
+          </h2>
+
+          <p className="text-gray mt-2">
+            You haven't placed any orders yet.
+          </p>
+        </div>
+      ) : (
+
+        <div className="space-y-5  ">
+
+          {orders.map((order) => (
+
+            <div
+              key={order._id}
+              className="bg-white rounded-xl shadow-sm border overflow-hidden " 
+            >
+
+              {/* ================= HEADER ================= */}
+
+              <div className="px-5 py-4 border-b bg-gray">
+
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+                  <div>
+                    <p className="text-xs text-gray uppercase">
+                      Order ID
+                    </p>
+
+                    <h2 className="font-semibold text-gray">
+                      #{order._id.slice(-8)}
+                    </h2>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+
+                    <span className="text-sm text-gray">
+                      Order Status
+                    </span>
+
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold
+                      ${
+                        order.status === "Delivered"
+                          ? "bg-green-100 text-green-700"
+                          : order.status === "Pending"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : order.status === "Cancelled"
+                          ? "bg-red-100 text-red-700"
+                          : "bg-blue-100 text-blue-700"
+                      }`}
+                    >
+                      {order.status}
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              {/* ================= PRODUCTS ================= */}
+
+              <div className="p-5">
+
+                <h3 className="font-semibold text-gray mb-4">
+                  Order Items
+                </h3>
+
+                <div className="space-y-4">
+
+                  {order.items?.map((item, index) => {
+
+                    const product = item.productId;
+
+                    return (
+                      <div
+                        key={item._id || index}
+                        className="flex flex-col sm:flex-row gap-4 p-3 rounded-lg border hover:shadow-sm transition"
+                      >
+
+                        {/* IMAGE */}
+
+                        <div className="w-full sm:w-28 flex justify-center">
+
+                          <img
+                            src={product?.images?.[0]}
+                            alt={product?.title}
+                            className="w-28 h-28 object-cover rounded-lg border"
+                          />
+
+                        </div>
+
+
+                        {/* PRODUCT INFO */}
+
+                        <div className="flex-1">
+
+                          <h2 className="font-semibold text-base md:text-lg">
+                            {product?.title}
+                          </h2>
+
+                          <p className="text-sm  mt-2">
+                            Quantity:{" "}
+                            <span className="text-gray-700 font-medium">
+                              {item.quantity}
+                            </span>
+                          </p>
+
+                          <p className="text-sm  mt-1">
+                            Seller:{" "}
+                            <span className="">
+                              Seller
+                            </span>
+                          </p>
+
+                        </div>
+
+
+                        {/* PRICE */}
+
+                        <div className="sm:text-right flex sm:block justify-between items-center">
+
+                          <p className="text-xs ">
+                            Item Price
+                          </p>
+
+                          <p className="text-lg font-bold text-orange-600">
+                            Rs {item.price}
+                          </p>
+
+                        </div>
+
+                      </div>
+                    );
+
+                  })}
+
+                </div>
+
+              </div>
+
+
+              {/* ================= FOOTER ================= */}
+
+              <div className="border-t px-5 py-5 ">
+
+                <div className="flex flex-col md:flex-row md:justify-between gap-6">
+
+                  {/* ADDRESS */}
+
+                  <div className="flex-1">
+
+                    <p className="text-xs uppercase  mb-2">
+                      Delivery Address
+                    </p>
+
+                    <div className="bg-white border rounded-lg p-3">
+
+                      <p className="text-sm ">
+                        {order.shippingAddress ||
+                          "Address not available"}
+                      </p>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* TOTAL */}
+
+                  <div className="md:w-56">
+
+                    <div className="flex justify-between text-sm ">
+                      <span>Items Total</span>
+                      <span>
+                        Rs {order.totalAmount}
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between text-sm  mt-2">
+                      <span>Shipping</span>
+                      <span>Rs 0</span>
+                    </div>
+
+                    <div className="border-t my-3"></div>
+
+                    <div className="flex justify-between items-center">
+
+                      <span className="font-semibold ">
+                        Total
+                      </span>
+
+                      <span className="text-xl font-bold ">
+                        Rs {order.totalAmount}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                {/* BUTTONS */}
+
+                <div className="flex flex-col sm:flex-row justify-end gap-3 mt-5">
+
+                  <button
+                    className="px-5 py-2 border rounded-lg text-sm font-medium
+                    hover:bg-white transition"
+                  >
+                    View Details
+                  </button>
+
+                  {order.status === "Delivered" && (
+                    <button
+                      className="px-5 py-2 bg-green text-white rounded-lg
+                      text-sm font-medium hover:bg-green1 transition"
+                    >
+                      Buy Again
+                    </button>
+                  )}
+
+                </div>
+
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      )}
+
+    </div>
+  </div>
+);
 }
 
 export default UserOrder
