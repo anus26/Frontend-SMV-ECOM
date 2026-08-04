@@ -22,6 +22,7 @@ const {order}=useorder()
    status: "pending",
    orderStatus: "Pending",
    items: [],
+   buyerId: "",
    totalAmount:""
  });
   const {buy}=usebuy()
@@ -59,6 +60,7 @@ const handleSubmit = (e) => {
 
   const data = {
     ...orderData,
+    buyerId: buy?.userId,
     totalAmount: product?.price,
     items: [
       {

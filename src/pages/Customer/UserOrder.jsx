@@ -20,8 +20,8 @@ const UserOrder = () => {
     },[dispatch,])
 
 return (
-  <div className=" flex justify-center items-center text-center ">
-    <div className="  px-4 ">
+  <div className=" flex justify-center items-center text-center ml-96 m-4 ">
+    <div className="max-w-5xl mx-auto px-4 py-8 ">
 
       {/* Page Heading */}
       <div className="mb-6 ">
@@ -34,12 +34,12 @@ return (
       </div>
 
       {orders.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border p-10  ">
-          <h2 className="text-xl font-semibold text-gray">
+        <div className=" rounded-xl shadow-sm border   ">
+          <h2 className="text-xl font-semibold ">
             No Orders Found
           </h2>
 
-          <p className="text-gray mt-2">
+          <p className=" mt-2">
             You haven't placed any orders yet.
           </p>
         </div>
@@ -61,7 +61,7 @@ return (
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
                   <div>
-                    <p className="text-xs text-gray uppercase">
+                    <p className="text-xs  uppercase">
                       Order ID
                     </p>
 
@@ -245,12 +245,7 @@ return (
 
                 <div className="flex flex-col sm:flex-row justify-end gap-3 mt-5">
 
-                  <button
-                    className="px-5 py-2 border rounded-lg text-sm font-medium
-                    hover:bg-white transition"
-                  >
-                    View Details
-                  </button>
+                
 
                   {order.status === "Delivered" && (
                     <button
