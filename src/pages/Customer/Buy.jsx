@@ -14,8 +14,10 @@ const Buy = () => {
   const {id}=useParams()
   const  dispatch=useDispatch()
   const {products}=useProduct()
+
 const {order}=useorder()
   const product = products.find((item) => item._id === id);
+
   const [paymentMethod, setPaymentMethod] = useState("");
   const [orderData, setOrderData] = useState({
     paymentMethod: "",
@@ -60,7 +62,7 @@ const handleSubmit = (e) => {
 
   const data = {
     ...orderData,
-    buyerId: buy?.userId,
+    buyerId: buy?._id,
     totalAmount: product?.price,
     items: [
       {
@@ -75,6 +77,11 @@ const handleSubmit = (e) => {
   toast.success("Order payment is successfully done");
   setOrderData(input)
 };
+console.log("BUY OBJECT:", buy);
+
+console.log("BUY DOCUMENT ID:", buy?._id);
+
+console.log("BUY USER ID:", buy?.userId);
 useEffect(() => {
   dispatch(buygetThunk());
   dispatch(getslugproductApi());

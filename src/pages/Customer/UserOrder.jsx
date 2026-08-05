@@ -51,28 +51,28 @@ return (
 
             <div
               key={order._id}
-              className="bg-white rounded-xl shadow-sm border overflow-hidden " 
+              className="bg-white rounded-xl  border border-gray2 shadow-md overflow-hidden " 
             >
 
               {/* ================= HEADER ================= */}
 
-              <div className="px-5 py-4 border-b bg-gray">
+              <div className="px-5 py-4 border-b border-gray2 bg-gray">
 
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
                   <div>
-                    <p className="text-xs  uppercase">
+                    <p className="text-md text-black font-bold  uppercase">
                       Order ID
                     </p>
 
-                    <h2 className="font-semibold text-gray">
+                    <h2 className="font-bold text-text">
                       #{order._id.slice(-8)}
                     </h2>
                   </div>
 
                   <div className="flex items-center gap-3">
 
-                    <span className="text-sm text-gray">
+                    <span className="text-md text-black font-semibold">
                       Order Status
                     </span>
 
@@ -80,11 +80,11 @@ return (
                       className={`px-3 py-1 rounded-full text-xs font-semibold
                       ${
                         order.status === "Delivered"
-                          ? "bg-green-100 text-green-700"
-                          : order.status === "Pending"
-                          ? "bg-yellow-100 text-yellow-700"
+                          ? "bg-green-100 text-green1"
+                          : order.status === "pending"
+                          ? "bg-hover text-white"
                           : order.status === "Cancelled"
-                          ? "bg-red-100 text-red-700"
+                          ? "bg-red-100 text-red1"
                           : "bg-blue-100 text-blue-700"
                       }`}
                     >
@@ -102,7 +102,7 @@ return (
 
               <div className="p-5">
 
-                <h3 className="font-semibold text-gray mb-4">
+                <h3 className="font-semibold  mb-4">
                   Order Items
                 </h3>
 
@@ -115,7 +115,7 @@ return (
                     return (
                       <div
                         key={item._id || index}
-                        className="flex flex-col sm:flex-row gap-4 p-3 rounded-lg border hover:shadow-sm transition"
+                        className="flex flex-col sm:flex-row gap-4 p-3 rounded-lg border border-text hover:shadow-sm transition"
                       >
 
                         {/* IMAGE */}
@@ -182,7 +182,7 @@ return (
 
               {/* ================= FOOTER ================= */}
 
-              <div className="border-t px-5 py-5 ">
+              <div className="border-t border-gray2 px-5 py-5 ">
 
                 <div className="flex flex-col md:flex-row md:justify-between gap-6">
 
@@ -194,10 +194,10 @@ return (
                       Delivery Address
                     </p>
 
-                    <div className="bg-white border rounded-lg p-3">
+                    <div className="bg-white border border-text rounded-lg p-3">
 
                       <p className="text-sm ">
-                        {order.shippingAddress ||
+                        {order?.buyerId?.AddressType ||
                           "Address not available"}
                       </p>
 
@@ -222,7 +222,7 @@ return (
                       <span>Rs 0</span>
                     </div>
 
-                    <div className="border-t my-3"></div>
+                    <div className="border-t border-gray2 my-3"></div>
 
                     <div className="flex justify-between items-center">
 
