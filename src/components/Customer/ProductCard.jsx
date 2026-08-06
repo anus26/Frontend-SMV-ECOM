@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaShoppingCart, FaEye } from "react-icons/fa";
+import { FaShoppingCart, FaEye, FaMinus, FaPlus } from "react-icons/fa";
+import { decreaseQty, increaseQty } from "../../redux/slices/cartSlice";
 
 const ProductCard = ({ item }) => {
+ 
   return (
 
   
@@ -50,7 +52,7 @@ const ProductCard = ({ item }) => {
         Rs {item.price}
       </p>
     </div>
-
+     
   </Link>
 
 </div>

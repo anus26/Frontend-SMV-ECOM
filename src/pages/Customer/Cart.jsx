@@ -1,15 +1,24 @@
 import React, { useState,useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, decreaseQty, increaseQty } from "../../redux/slices/cartSlice";
 import useProduct from "../../redux/hooks/useProduct";
 import Product from "./Product";
 import toast from "react-hot-toast";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 const Cart = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
   const { products,loading } = useProduct();
+  const cartItem = cartItems.find((item) => item._id === addproduct?._id);
+
+  const totalAmount=cartItem.reduce(
+    (total,item)=>total+item.price*item.quantity,
+    0
+  )
+
   console.log(products, loading);
   const navigate =useNavigate()
 
@@ -109,6 +118,33 @@ const Cart = () => {
               Add to Cart
             </button>
               </div>
+                       {/* Quantity Controls */}
+                         {cartItem ? (
+  <div className="flex items-center gap-3 bg-gray-100 px-3 py-1 rounded-lg">
+    <button
+      onClick={() => dispatch(decreaseQty(cartItem))}
+      className="p-1 hover:bg-gray-200 rounded"
+    >
+      <FaMinus />
+    </button>
+
+    <span className="font-semibold">{cartItem.quantity}</span>
+
+    <button
+      onClick={() => dispatch(increaseQty(cartItem))}
+      className="p-1 hover:bg-gray-200 rounded"
+    >
+      <FaPlus />
+    </button>
+  </div>
+) : (
+  <button
+    onClick={handleAddToCart}
+    className="px-6 py-3 hover:bg-green text-black rounded-xl shadow-xl transition duration-300"
+  >
+    Add to Cart
+  </button>
+)}
           </div>
         </div>
       </div>
