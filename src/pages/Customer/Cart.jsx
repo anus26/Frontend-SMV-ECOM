@@ -12,27 +12,27 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
   const { products,loading } = useProduct();
-  const cartItem = cartItems.find((item) => item._id === addproduct?._id);
-
-  const totalAmount=cartItem.reduce(
-    (total,item)=>total+item.price*item.quantity,
-    0
-  )
-
+  
+  
   console.log(products, loading);
   const navigate =useNavigate()
-
+  
   const addproduct = products.find((p) => p._id === id);
   
   const [mainImage, setMainImage] = useState(
     
   );
+  const cartItem = cartItems.find((item) => item._id === addproduct?._id);
   useEffect(()=>{
     if(addproduct){
       setMainImage(addproduct.images[0])
     }
   },[addproduct])
   
+  // const totalAmount=cartItem?.reduce(
+  //   (total,item)=>total+item.price*item.quantity,
+  //   0
+  // )
   const handleAddToCart = () => {
     dispatch(addToCart(addproduct));
     toast.success("Added to cart successfully");
@@ -110,41 +110,35 @@ const Cart = () => {
               Buy Now
             </button>
 
-            <button
+            {/* <button
               onClick={handleAddToCart}
               className="px-6 py-3 hover:bg-green text-black rounded-xl shadow-xl
               transition duration-300"
               >
               Add to Cart
-            </button>
-              </div>
-                       {/* Quantity Controls */}
-                         {cartItem ? (
+            </button> */}
+            {cartItem ? (
   <div className="flex items-center gap-3 bg-gray-100 px-3 py-1 rounded-lg">
-    <button
-      onClick={() => dispatch(decreaseQty(cartItem))}
-      className="p-1 hover:bg-gray-200 rounded"
-    >
+    <button onClick={() => dispatch(decreaseQty(cartItem))} className="px-6 py-3 hover:bg-green text-black rounded-xl shadow-xl">
       <FaMinus />
     </button>
 
-    <span className="font-semibold">{cartItem.quantity}</span>
+    <span>{cartItem.quantity}</span>
 
-    <button
-      onClick={() => dispatch(increaseQty(cartItem))}
-      className="p-1 hover:bg-gray-200 rounded"
-    >
+    <button onClick={() => dispatch(increaseQty(cartItem))}>
       <FaPlus />
     </button>
   </div>
 ) : (
-  <button
-    onClick={handleAddToCart}
-    className="px-6 py-3 hover:bg-green text-black rounded-xl shadow-xl transition duration-300"
-  >
+  <button onClick={handleAddToCart}>
     Add to Cart
   </button>
 )}
+              </div>
+                       {/* Quantity Controls */}
+                        
+
+
           </div>
         </div>
       </div>
