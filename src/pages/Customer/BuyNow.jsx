@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import { IoBagRemoveOutline } from "react-icons/io5";
 import { IoHomeOutline } from "react-icons/io5";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router';
 import usebuy from '../../redux/hooks/usebuy';
 import { buyAddThunk, buygetThunk } from '../../redux/slices/buySlice';
@@ -9,6 +9,8 @@ import toast from 'react-hot-toast';
 import ProductCard from '../../components/Customer/ProductCard';
 import Product from './Product';
 import useProduct from '../../redux/hooks/useProduct';
+import { decreaseQty, increaseQty } from '../../redux/slices/cartSlice';
+import { FaPlus, FaMinus } from "react-icons/fa";
 const BuyNow = () => {
     const {id}=useParams()
     const  dispatch=useDispatch()
@@ -34,6 +36,21 @@ AddressType:""
 
 })
 
+
+const cartItems = useSelector((state) => state.cart.items);
+
+const cartItem = cartItems.find(
+  (item) => item._id === id
+);
+const quantity = cartItem?.quantity || 1;
+
+const itemsTotal = (product?.price || 0) * quantity;
+
+const shippingFee = 150;
+
+const discount = 0;
+
+const total = itemsTotal + shippingFee - discount;
 
 const input=[
 {
@@ -159,9 +176,29 @@ const handleChange=(e)=>{
       {product?.title}
     </h2>
 
-    <p className="text-sm text-gray-500">
-      Qty: 1
-    </p>
+   <div className="flex items-center gap-3 mt-3">
+
+  <button
+    onClick={() => dispatch(decreaseQty(cartItem))}
+    disabled={!cartItem}
+    className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 disabled:opacity-50"
+  >
+    <FaMinus />
+  </button>
+
+  <span className="font-semibold text-lg">
+    {cartItem?.quantity || 1}
+  </span>
+
+  <button
+    onClick={() => dispatch(increaseQty(cartItem))}
+    disabled={!cartItem}
+    className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 disabled:opacity-50"
+  >
+    <FaPlus />
+  </button>
+
+</div>
 
     <div className="flex justify-between items-center mt-2">
       <span className="text-xl font-bold text-green">
@@ -246,24 +283,48 @@ const handleChange=(e)=>{
   <div className="bg-white rounded-xl shadow-md border border-gray p-6 h-fit lg:sticky lg:top-5">
 
   {/* Promotion */}
-  <div className="mb-6">
-    <h2 className="text-lg font-semibold mb-3">Promotion</h2>
+  <div className="mt-6">
+  <h2 className="text-lg font-semibold mb-4">
+    Order Summary
+  </h2>
 
-    <div className="flex gap-2">
-      <input
-        type="text"
-        placeholder="Enter promotion code"
-        className="flex-1 border border-gray rounded-lg px-3 py-2 focus:outline-none focus:border-green"
-      />
+  <div className="space-y-3">
 
-      <button className="bg-blue text-white px-5 rounded-lg hover:bg-blue1 transition">
-        Apply
-      </button>
+    <div className="flex justify-between text-gray-600">
+      <span>
+        Items Total ({quantity} item{quantity > 1 ? "s" : ""})
+      </span>
+
+      <span>
+        Rs {itemsTotal}
+      </span>
     </div>
+
+    <div className="flex justify-between text-gray-600">
+      <span>Shipping Fee</span>
+      <span>Rs {shippingFee}</span>
+    </div>
+
+    <div className="flex justify-between text-gray-600">
+      <span>Discount</span>
+      <span>- Rs {discount}</span>
+    </div>
+
   </div>
 
+  <hr className="my-5" />
+
+  <div className="flex justify-between text-xl font-bold">
+    <span>Total</span>
+
+    <span className="text-green">
+      Rs {total}
+    </span>
+  </div>
+</div>
+
   {/* Invoice */}
-  <div className="flex justify-between items-center border-t border-b py-4">
+  {/* <div className="flex justify-between items-center border-t border-b py-4">
     <h2 className="text-lg font-semibold">
       Invoice & Contact Info
     </h2>
@@ -274,10 +335,10 @@ const handleChange=(e)=>{
     >
       Edit
     </button>
-  </div>
+  </div> */}
 
   {/* Order Summary */}
-  <div className="mt-6">
+  {/* <div className="mt-6">
     <h2 className="text-lg font-semibold mb-4">
       Order Summary
     </h2>
@@ -312,11 +373,11 @@ const handleChange=(e)=>{
       VAT included, where applicable.
     </p>
 
+  </div> */}
+
     <Link to={`/Buy/${product._id}`} className="w-full mt-6 bg-green hover:bg-green1 text-white py-3 rounded-lg font-semibold transition">
      Proceed to Pay
     </Link>
-  </div>
-
 </div>
     </section>   
     {open&&(

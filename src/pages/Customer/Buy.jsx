@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import useorder from "../../redux/hooks/useorder";
 import useProduct from "../../redux/hooks/useProduct";
@@ -17,16 +17,20 @@ const Buy = () => {
 
 const {order}=useorder()
   const product = products.find((item) => item._id === id);
+  const cartItems = useSelector((state) => state.cart.items);
 
   const [paymentMethod, setPaymentMethod] = useState("");
-  const [orderData, setOrderData] = useState({
-    paymentMethod: "",
-   status: "pending",
-   orderStatus: "Pending",
-   items: [],
-   buyerId: "",
-   totalAmount:""
- });
+const [orderData, setOrderData] = useState({
+  paymentMethod: "",
+});
+
+const cartItem = cartItems.find(
+  (item) => item._id === id
+);
+
+const quantity = cartItem?.quantity || 1;
+
+const totalPrice = (product?.price || 0) * quantity;
   const {buy}=usebuy()
   const input=[
     {
@@ -60,22 +64,37 @@ const {order}=useorder()
 const handleSubmit = (e) => {
   e.preventDefault();
 
+  if (!orderData.paymentMethod) {
+    toast.error("Please select payment method");
+    return;
+  }
+
+  if (!buy?._id) {
+    toast.error("Buyer address not found");
+    return;
+  }
+
+  if (!product?._id) {
+    toast.error("Product not found");
+    return;
+  }
+
   const data = {
-    ...orderData,
-    buyerId: buy?._id,
-    totalAmount: product?.price,
+    paymentMethod: orderData.paymentMethod,
+
+    buyerId: buy._id,
+
     items: [
       {
-        productId: product?._id,
-        quantity: 1,
+        productId: product._id,
+        quantity: quantity, // ✅ Cart ki actual quantity
       },
     ],
   };
 
+  console.log("ORDER DATA:", data);
+
   dispatch(orderThunk(data));
-  console.log("orderThunk", orderThunk);
-  toast.success("Order payment is successfully done");
-  setOrderData(input)
 };
 console.log("BUY OBJECT:", buy);
 
@@ -120,9 +139,15 @@ useEffect(() => {
   
 
         </div>
-<h1 className="text-xl font-bold">
-  Rs {product?.price}
-</h1>
+<div className="mt-5">
+  <p className="text-gray-600">
+    Quantity: {quantity}
+  </p>
+
+  <h1 className="text-xl font-bold">
+    Rs {totalPrice}
+  </h1>
+</div>
         <button type="submit"
           className="mt-6 w-full bg-green text-black py-3 rounded-lg"
         >

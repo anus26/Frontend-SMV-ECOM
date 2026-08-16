@@ -117,20 +117,33 @@ const Cart = () => {
               >
               Add to Cart
             </button> */}
-            {cartItem ? (
+{cartItem ? (
   <div className="flex items-center gap-3 bg-gray-100 px-3 py-1 rounded-lg">
-    <button onClick={() => dispatch(decreaseQty(cartItem))} className="px-6 py-3 hover:bg-green text-black rounded-xl shadow-xl">
+
+    <button
+      onClick={() => dispatch(decreaseQty(cartItem))}
+      className="p-2 hover:bg-gray-200 rounded"
+    >
       <FaMinus />
     </button>
 
-    <span>{cartItem.quantity}</span>
+    <span className="font-semibold">
+      {cartItem.quantity}
+    </span>
 
-    <button onClick={() => dispatch(increaseQty(cartItem))}>
+    <button
+      onClick={() => dispatch(increaseQty(cartItem))}
+      className="p-2 hover:bg-gray-200 rounded"
+    >
       <FaPlus />
     </button>
+
   </div>
 ) : (
-  <button onClick={handleAddToCart}>
+  <button
+    onClick={handleAddToCart}
+    className="px-6 py-3 bg-green text-black rounded-xl shadow-xl"
+  >
     Add to Cart
   </button>
 )}
