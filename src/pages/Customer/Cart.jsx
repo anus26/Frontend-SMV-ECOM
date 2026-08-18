@@ -65,7 +65,7 @@ const Cart = () => {
             <img
               src={mainImage}
               // alt={addproduct}
-              className="w-full h-[450px] object-cover rounded-xl shadow-md"
+              className="xl:w-full xl:h-[450px] object-cover rounded-xl shadow-md lg:w-full lg:h-[450px]  md:w-full md:h-[450px]  sm:w-full sm:h-[450px] xs:w-72 xs:h-[250px] "
             />
 
             {/* Thumbnails */}
@@ -122,7 +122,7 @@ const Cart = () => {
 
     <button
       onClick={() => dispatch(decreaseQty(cartItem))}
-      className="p-2 hover:bg-gray-200 rounded"
+      className="p-2 hover:bg-gray2 rounded"
     >
       <FaMinus />
     </button>
@@ -133,7 +133,7 @@ const Cart = () => {
 
     <button
       onClick={() => dispatch(increaseQty(cartItem))}
-      className="p-2 hover:bg-gray-200 rounded"
+      className="p-2 hover:bg-gray rounded"
     >
       <FaPlus />
     </button>
@@ -142,7 +142,7 @@ const Cart = () => {
 ) : (
   <button
     onClick={handleAddToCart}
-    className="px-6 py-3 bg-green text-black rounded-xl shadow-xl"
+    className="px-6 py-3 bg-green text-white hover:bg-white hover:text-black  rounded-xl shadow-xl"
   >
     Add to Cart
   </button>
