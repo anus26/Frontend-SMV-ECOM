@@ -20,7 +20,7 @@ const ProductCard = ({ item }) => {
       <img
         src={item.images[0]}
         alt="product"
-        className="absolute xs:w-28 xs:h-28 xl:w-full   sm:w-[50%] sm:h-[50%] object-cover transition-all duration-500 group-hover:opacity-0 group-hover:scale-105"
+        className="absolute  w-full h-full   object-cover transition-all duration-500 group-hover:opacity-0 group-hover:scale-105"
       />
 
       {item.images[1] && (
