@@ -103,7 +103,7 @@ setShowInput(true)
             className="text-2xl font-bold text-black flex items-center w-[50%] gap-2 "
           >
       <FaCartShopping className="text-green" />
-            B.MART
+            SMV-ECOM
           </Link>
     )
   }
@@ -314,9 +314,14 @@ setShowInput(true)
       Logout
     </button>
                     <div>
-  <Link  to={`/userorder/${user?._id}`}>
-  Order
+{user?.role === "customer" && (
+  <Link
+    to={`/userorder/${user?._id}`}
+    className="w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
+  >
+    Order
   </Link>
+)}
 </div>
   </div>
   

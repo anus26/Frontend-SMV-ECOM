@@ -374,8 +374,8 @@ const handleChange=(e)=>{
     </p>
 
   </div> */}
-
-    <Link to={`/Buy/${product._id}`} className="w-full mt-6 bg-green hover:bg-green1 text-white py-3 rounded-lg font-semibold transition">
+<br />
+    <Link to={`/Buy/${product?._id}`} className="w-full p-2  bg-green hover:bg-green1 text-white py-3 rounded-lg font-semibold transition">
      Proceed to Pay
     </Link>
 </div>

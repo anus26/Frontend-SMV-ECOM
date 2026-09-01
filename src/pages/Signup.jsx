@@ -48,7 +48,7 @@ const Signup = () => {
     } else if (user.role === "customer") {
       navigate("/");
     }else if (user.role==="Admin"){
-      navigate("/")
+      navigate("/Admin")
     }
   }
 }, [user, navigate]);

@@ -32,7 +32,7 @@ const Smvecom = () => {
     <BrowserRouter>
 
       <Routes>
-         <Route path="/"  element={<Customer />} />
+         {/* <Route path="/"  element={<Customer />} /> */}
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
               <Route path="/forgot" element={<Forgot />} />
@@ -42,6 +42,14 @@ const Smvecom = () => {
 
      
         <Route element={<Layouts />}>
+           <Route index element={<Customer />} />
+    
+    <Route path="product/:id" element={<Cart/>} />
+    <Route  path="category/:slug" element={<Categorychild/>}/>
+    <Route path="cartpage" element={< Cartpage/>}/>
+      <Route path="buynow/:id" element={<BuyNow/>} />
+   <Route path="Buy/:id" element={<Buy/>} />
+<Route path="userorder/:id" element={<UserOrder/>}/>
           
           <Route element={<ProtectedRoutes allowedRoles={["Admin"]} />}>
             <Route path="admin" element={<Admin />} />
@@ -55,14 +63,7 @@ const Smvecom = () => {
                     <Route path="getorder" element={<Order/>}/>
           </Route>
          {/* <Route element={<ProtectedRoutes allowedRoles={["customer"]} />}> */}
-   <Route index element={<Customer />} />
-    
-    <Route path="product/:id" element={<Cart/>} />
-    <Route  path="category/:slug" element={<Categorychild/>}/>
-    <Route path="cartpage" element={< Cartpage/>}/>
-      <Route path="buynow/:id" element={<BuyNow/>} />
-   <Route path="Buy/:id" element={<Buy/>} />
-<Route path="userorder/:id" element={<UserOrder/>}/>
+
 
 
   {/* </Route> */}

@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import useorder from '../../redux/hooks/useorder'
 import useProduct from '../../redux/hooks/useProduct'
 import { orderallThunk, ordergetThunk } from '../../redux/slices/orderSlice'
+// import { RiDeleteBinLine } from 'react-icons/ri'
+// import { removeFromCart } from '../../redux/slices/cartSlice'
 
 const UserOrder = () => {
     const {id}=useParams()
@@ -11,6 +13,8 @@ const UserOrder = () => {
     const {orders}=useorder()
     const {products}=useProduct()
     const product=products.find((items)=> items.id===id)
+    // const cartItems = useSelector((state) => state.cart.items);
+    // const cartItem=cartItems.find((item)=>item._id===product?._id)
     useEffect(()=>{
       // dispatch(ordergetThunk())
       dispatch(orderallThunk(id))
@@ -105,6 +109,12 @@ return (
                 <h3 className="font-semibold  mb-4">
                   Order Items
                 </h3>
+                  {/* <button
+                                onClick={() => dispatch(removeFromCart(items))}
+                                className="text-red-500 hover:text-red-700 text-xl"
+                              >
+                                <RiDeleteBinLine />
+                              </button> */}
 
                 <div className="space-y-4">
 
