@@ -47,7 +47,8 @@ export const orderdeleteThunk=createAsyncThunk(
     async (id,{rejectWithValue})=>{
 
         try {
-       return  await orderdelete(data)
+       const res= await orderdelete(id)
+       return res
             
         } catch (error) {
             return rejectWithValue(
@@ -142,7 +143,7 @@ state.clientSecret = action.payload.ClinetSecret;
     // console.log("order delete",action.payload);
     
     state.orders=state.orders.filter((order)=>
-        order._id!==action.payload
+        order._id!==action.payload.deleteid
     
     )
 })

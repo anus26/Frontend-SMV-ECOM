@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import useorder from '../../redux/hooks/useorder'
 import useProduct from '../../redux/hooks/useProduct'
-import { orderallThunk, ordergetThunk } from '../../redux/slices/orderSlice'
+import { orderallThunk, orderdeleteThunk, ordergetThunk } from '../../redux/slices/orderSlice'
+import { RiDeleteBinLine } from 'react-icons/ri'
 // import { RiDeleteBinLine } from 'react-icons/ri'
 // import { removeFromCart } from '../../redux/slices/cartSlice'
 
@@ -79,6 +80,12 @@ return (
                     <span className="text-md text-black font-semibold">
                       Order Status
                     </span>
+        <button
+  onClick={() => dispatch(orderdeleteThunk(order._id))}
+  className="text-red-500 hover:text-red-700 text-xl"
+>
+  <RiDeleteBinLine />
+</button>
 
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold

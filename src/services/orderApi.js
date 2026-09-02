@@ -18,9 +18,10 @@ export const orderupdata=async({id,status})=>{
 const res=  await API.put(`/updateorder/${id}`,{status})
  return res.data
 }
-export const orderdelete=async(id)=>{
-    return res=await API.delete(`/orderdelete/${id}`)
-}
+export const orderdelete = async (id) => {
+  const res = await API.delete(`/orderdelete/${id}`);
+  return res.data;
+};
 export const ordercustomer=async(id)=>{
     const res=await API.get(`/order/${id}`)
 
