@@ -14,8 +14,8 @@ export const allorder=async(data)=>{
     const res=await API.get("/allorder",data)
     return res.data
 }
-export const orderupdata=async({id,status})=>{
-const res=  await API.put(`/updateorder/${id}`,{status})
+export const orderupdata=async({id,orderStatus})=>{
+const res=  await API.put(`/updateorder/${id}`,{orderStatus})
  return res.data
 }
 export const orderdelete = async (id) => {

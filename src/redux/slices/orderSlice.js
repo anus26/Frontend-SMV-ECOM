@@ -32,9 +32,9 @@ export const ordergetThunk = createAsyncThunk(
 );
 export const orderupdataThunk = createAsyncThunk(
   "order/updata",
-  async ({id,status}, { rejectWithValue }) => {
+  async ({id,orderStatus}, { rejectWithValue }) => {
     try {
-      return await orderupdata({id,status});
+      return await orderupdata({id,orderStatus});
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Order failed"

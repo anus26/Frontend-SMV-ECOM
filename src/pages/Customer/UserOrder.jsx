@@ -99,7 +99,7 @@ return (
                           : "bg-blue-100 text-blue-700"
                       }`}
                     >
-                      {order.status}
+                      {order.orderStatus}
                     </span>
 
                   </div>

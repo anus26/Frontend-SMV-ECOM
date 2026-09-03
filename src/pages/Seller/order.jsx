@@ -32,7 +32,7 @@ const Order = () => {
         
          dispatch(orderupdataThunk({
             id: selected._id,
-            status: selected.status
+            orderStatus: selected.orderStatus
         }))
         dispatch(ordergetThunk())
         closeModal();
@@ -80,7 +80,7 @@ const handleDelete = async (_id) => {
             <strong>Order ID:</strong> {order._id}
           </p>
           <p className="text-blue-600 font-semibold">
-            {order.status}
+            {order.orderStatus}
           </p>
         </div>
 
@@ -111,14 +111,16 @@ const handleDelete = async (_id) => {
           <h2 className="mb-4 font-bold">Update Status</h2>
 
           <select
-            name="status"
-            value={selected.status}
+            name="orderStatus"
+            value={selected.orderStatus}
             onChange={handleChange}
             className="border p-2 w-full mb-4"
           >
-            <option value="pending">Pending</option>
-            <option value="paid">paid</option>
-            <option value="cancaled">cancaled</option>
+            <option value="Pending">Pending</option>
+            <option value="Processing">Processing</option>
+            <option value="Delivered">Delivered</option>
+                  <option value="Shipped">Shipped</option>
+            <option value="Cancelled">Cancelled</option>
           
           </select>
 
