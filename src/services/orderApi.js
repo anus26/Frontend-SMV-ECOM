@@ -20,7 +20,7 @@ const res=  await API.put(`/updateorder/${id}`,{orderStatus})
 }
 export const orderdelete = async (id) => {
   const res = await API.delete(`/orderdelete/${id}`);
-  return res.data;
+  return res.data
 };
 export const ordercustomer=async(id)=>{
     const res=await API.get(`/order/${id}`)

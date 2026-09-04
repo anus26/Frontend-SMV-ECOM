@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import useorder from '../../redux/hooks/useorder'
 import useProduct from '../../redux/hooks/useProduct'
-import { orderallThunk, orderdeleteThunk, ordergetThunk } from '../../redux/slices/orderSlice'
+import { orderallThunk, orderdeleteThunk, ordergetThunk, orderupdataThunk } from '../../redux/slices/orderSlice'
 import { RiDeleteBinLine } from 'react-icons/ri'
 // import { RiDeleteBinLine } from 'react-icons/ri'
 // import { removeFromCart } from '../../redux/slices/cartSlice'
@@ -14,6 +14,7 @@ const UserOrder = () => {
     const {orders}=useorder()
     const {products}=useProduct()
     const product=products.find((items)=> items.id===id)
+    const {}
     // const cartItems = useSelector((state) => state.cart.items);
     // const cartItem=cartItems.find((item)=>item._id===product?._id)
     useEffect(()=>{
@@ -23,6 +24,15 @@ const UserOrder = () => {
     
       
     },[dispatch,])
+    const handleupdate=async(e)=>{
+      e.preventDefault()
+       dispatch(orderupdataThunk({
+        id:selected._id,
+        orderStatus:selected.orderStatus
+       }))
+       dispatch(ordergetThunk())
+       toast.success("Order Cancelled Successfully!")
+    }
 
 return (
   <div className=" flex justify-center items-center text-center ml-96 m-4 ">
@@ -85,6 +95,9 @@ return (
   className="text-red-500 hover:text-red-700 text-xl"
 >
   <RiDeleteBinLine />
+</button>
+<button name='orderStatus' value={} onChange={handleupdate}  >
+  <span value='Cancelled'>Cancelled</span>
 </button>
 
                     <span
