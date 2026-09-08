@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import useorder from '../../redux/hooks/useorder'
 import useProduct from '../../redux/hooks/useProduct'
 import { orderallThunk, orderdeleteThunk, ordergetThunk, orderupdataThunk } from '../../redux/slices/orderSlice'
 import { RiDeleteBinLine } from 'react-icons/ri'
+import toast from 'react-hot-toast'
 // import { RiDeleteBinLine } from 'react-icons/ri'
 // import { removeFromCart } from '../../redux/slices/cartSlice'
 
@@ -14,7 +15,7 @@ const UserOrder = () => {
     const {orders}=useorder()
     const {products}=useProduct()
     const product=products.find((items)=> items.id===id)
-    const {}
+    const [selected,setSelected]=useState({status:""})
     // const cartItems = useSelector((state) => state.cart.items);
     // const cartItem=cartItems.find((item)=>item._id===product?._id)
     useEffect(()=>{
@@ -24,15 +25,23 @@ const UserOrder = () => {
     
       
     },[dispatch,])
-    const handleupdate=async(e)=>{
-      e.preventDefault()
-       dispatch(orderupdataThunk({
-        id:selected._id,
-        orderStatus:selected.orderStatus
-       }))
-       dispatch(ordergetThunk())
-       toast.success("Order Cancelled Successfully!")
-    }
+const handleCancel = async (orderId) => {
+  try {
+    await dispatch(
+      orderupdataThunk({
+        id: orderId,
+        orderStatus: "Cancelled",
+      })
+    ).unwrap();
+
+    toast.success("Order Cancelled Successfully!");
+
+  } catch (error) {
+    console.error("Cancel Error:", error);
+
+    toast.error(error || "Order cancellation failed");
+  }
+};
 
 return (
   <div className=" flex justify-center items-center text-center ml-96 m-4 ">
@@ -96,9 +105,14 @@ return (
 >
   <RiDeleteBinLine />
 </button>
-<button name='orderStatus' value={} onChange={handleupdate}  >
-  <span value='Cancelled'>Cancelled</span>
-</button>
+{order.orderStatus === "Pending" && (
+  <button
+    onClick={() => handleCancel(order._id)}
+    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+  >
+    Cancel Order
+  </button>
+)}
 
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold
