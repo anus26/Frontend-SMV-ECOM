@@ -10,7 +10,7 @@ import { orderThunk } from "../../redux/slices/orderSlice";
 import { getslugproductApi } from "../../redux/slices/productSlice";
 import toast from "react-hot-toast";
 
-const Buy = () => {
+const Buyorder = () => {
   const {id}=useParams()
   const  dispatch=useDispatch()
   const {products}=useProduct()
@@ -161,4 +161,4 @@ useEffect(() => {
   );
 };
 
-export default Buy;
+export default Buyorder;
