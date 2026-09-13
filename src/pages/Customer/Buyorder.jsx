@@ -93,7 +93,7 @@ const handleSubmit = (e) => {
   };
 
   console.log("ORDER DATA:", data);
-
+toast.success("Order successfully")
   dispatch(orderThunk(data));
 };
 console.log("BUY OBJECT:", buy);
