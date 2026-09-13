@@ -91,7 +91,7 @@ setShowInput(true)
             className="text-2xl font-bold text-black flex items-center w-[50%] "
           >
            <FaCartShopping  className="text-green"/>
-            SMV-ECOM
+            B.MART  
           </Link>
     )
   }
@@ -103,7 +103,7 @@ setShowInput(true)
             className="text-2xl font-bold text-black flex items-center w-[50%] gap-2 "
           >
       <FaCartShopping className="text-green" />
-            SMV-ECOM
+            B.MART
           </Link>
     )
   }
@@ -456,6 +456,14 @@ setShowInput(true)
               </Link>
             </div>
           )}
+                    {user?.role === "customer" && (
+  <Link
+    to={`/userorder/${user?._id}`}
+    className="w-full flex justify-center text-center px-4 py-2 font-bold p-2 text-2xl text-black"
+  >
+    Order
+  </Link>
+)}
 
           {!user && (
             <div className="flex flex-col gap-2">
@@ -483,6 +491,7 @@ setShowInput(true)
               Logout
             </button>
           )}
+
         </div>
       )}
     </nav>

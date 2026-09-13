@@ -22,29 +22,48 @@ const Verify = () => {
         inputRef.current[index+1].focus()
       }
     
+    
     }
     const handlebackspace=(e,index)=>{
-        if(e.key==="Backespace"&&index>0){
+        if(e.key==="Backspace"){
+          if(otp[index]){
+            const newOtp=[...otp]
+            newOtp[index]=""
+            setOtp(newOtp)
+          }else if(index>0){
+
             inputRef.current[index-1].focus()
+          }
         }
     }
-    const handlesubmit=(e)=>{
+    const handlesubmit=async(e)=>{
         e.preventDefault()
         const finalotp=otp.join("")
-        dispatch(verifyPasswordThunk({email, otp:finalotp
+        try{
+          const result =await dispatch(verifyPasswordThunk({email, otp:finalotp})).unwrap();
+         localStorage.setItem("resetEmail", email)
+    localStorage.setItem("resetOtp", finalotp)
+            navigate("/reset");
+          } catch (error) {
+            console.error("Verification failed:", result.message);
+            // Handle the error, e.g., show a message to the user
+          }
+        }
+       
             
-        }))
-        navigate("/reset")
+        
+     
         
         
         
-    }
+    
     const handleOtp=(e)=>{
 e.preventDefault()
 const email=JSON.parse(localStorage.getItem("email"))
 dispatch(resendOtpThunk({email}))
 console.log("EMAIL FROM FRONTEND:", email);
      }
+    
   return (
     <>
     <div className=' min-h-screen flex items-center justify-center'>

@@ -26,11 +26,24 @@ const Reset = () => {
         [e.target.name]:e.target.value
             })
     }
-    const handlesubmit=(e)=>{
-        e.preventDefault()
-        dispatch(resetPasswordThunk({email,otp,...formData}))
-        navigate("/signin")
-    }
+ const handlesubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    await dispatch(
+      resetPasswordThunk({
+        email,
+        otp,
+        ...formData
+      })
+    ).unwrap();
+
+    navigate("/signin", { replace: true });
+
+  } catch (error) {
+    console.log("Reset Password Error:", error);
+  }
+};
 
   return (
 <>
