@@ -22,6 +22,7 @@ const BuyNow = () => {
 
     const [data,setData]=useState(false)
     const [formData,setFormData]=useState({
+   ProductId: id,
 FullName:"",
 Province:"",
 City:"",
@@ -87,9 +88,13 @@ name:"Phone"
 },
 ]
 useEffect(() => {
+  setFormData((prev)=>({
+    ...prev,
+    ProductId:id
+  }))
     dispatch(buygetThunk());
     console.log("buy",buy);
-}, []);
+}, [id]);
 const handleChange=(e)=>{
         setFormData({
             ...formData,
@@ -131,7 +136,9 @@ const handleChange=(e)=>{
         <button
             onClick={() => {
                 setData(true);
-                setFormData(buy);
+                setFormData({buy,
+                  ProductId
+                });
             }}
             className="text-green font-medium hover:underline"
         >
