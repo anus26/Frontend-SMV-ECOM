@@ -31,8 +31,8 @@ Phone:"",
 Address:"",
 Building:"",
 Colony:"",
-AddressType:""
-
+AddressType:"",
+quantity:1
 
 
 })
@@ -112,6 +112,11 @@ const handleChange=(e)=>{
     //     toastt.apply("Please select City")
     //     return
     // }
+      const buyData = {
+    ...formData,
+    ProductId: id,
+    quantity: quantity
+  };
         dispatch(buyAddThunk(formData))
     }
   return (
@@ -137,7 +142,7 @@ const handleChange=(e)=>{
             onClick={() => {
                 setData(true);
                 setFormData({buy,
-                  ProductId
+                  ProductId:id
                 });
             }}
             className="text-green font-medium hover:underline"
