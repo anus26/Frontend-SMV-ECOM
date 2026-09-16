@@ -93,7 +93,11 @@ const handleSubmit = (e) => {
   };
 
   console.log("ORDER DATA:", data);
+  setOrderData({
+    paymentMethod:"",
+  })
 toast.success("Order successfully")
+
   dispatch(orderThunk(data));
 };
 console.log("BUY OBJECT:", buy);
