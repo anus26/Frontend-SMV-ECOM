@@ -61,7 +61,7 @@ const totalPrice = (product?.price || 0) * quantity;
 
         })
   }
-const handleSubmit = (e) => {
+const handleSubmit = async(e) => {
   e.preventDefault();
 
   if (!orderData.paymentMethod) {
@@ -87,24 +87,30 @@ const handleSubmit = (e) => {
     items: [
       {
         productId: product._id,
-        quantity: quantity, // ✅ Cart ki actual quantity
+        quantity: Number(quantity), // ✅ Cart ki actual quantity
       },
     ],
   };
 
   console.log("ORDER DATA:", data);
-  setOrderData({
-    paymentMethod:"",
-  })
-toast.success("Order successfully")
-
-  dispatch(orderThunk(data));
-};
+  try{
+const reposne=await dispatch(orderThunk(data)).unwrap()
 console.log("BUY OBJECT:", buy);
 
 console.log("BUY DOCUMENT ID:", buy?._id);
 
 console.log("BUY USER ID:", buy?.userId);
+toast.success("Order successfully")
+setOrderData({
+  paymentMethod:"",
+})
+  }catch(error){
+    console.log("ORDER ERROR:", error);
+    toast.error(error?.message || "Order failed");
+  }
+
+
+};
 useEffect(() => {
   dispatch(buygetThunk());
   dispatch(getslugproductApi());
